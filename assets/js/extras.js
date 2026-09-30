@@ -1,5 +1,5 @@
-// Partners and the optional live-stream link, from data/london-26.json, so Donis's logos and a
-// stream URL drop in with one data edit and a deploy. Nothing shows until the data exists.
+// Partners and the giveaway, from data/london-26.json, so Donis's logos drop in with one data
+// edit and a deploy. Nothing shows until the data exists. (The live stream is in the scores feed.)
 (function (root) {
   // Only plain web links from our own data; anything else is ignored rather than rendered.
   const safeUrl = (u) => (typeof u === "string" && /^https:\/\/[^\s"'<>]+$/.test(u) ? u : null);
@@ -48,11 +48,5 @@
       host.hidden = false;
     });
 
-    const stream = ev.stream && safeUrl(ev.stream.url);
-    document.querySelectorAll("[data-stream]").forEach((a) => {
-      if (!stream) { a.hidden = true; return; }
-      a.href = stream;
-      a.hidden = false;
-    });
   });
 })(this);

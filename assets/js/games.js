@@ -62,6 +62,30 @@ document.addEventListener("DOMContentLoaded", () => {
     }).join("");
   }
 
+  // Live stream, switched on from the scorer page. Only rebuilt when the stream itself changes,
+  // so the 30-second score refresh never restarts a video someone is watching.
+  const streamBox = $("[data-stream-box]");
+  function renderStream() {
+    if (!streamBox || !window.FixturesModel) return;
+    const s = window.FixturesModel.streamInfo(data.stream);
+    const key = s ? `${s.kind}|${s.id || s.url}|${s.label}` : "";
+    if (streamBox.dataset.key === key) return;
+    streamBox.dataset.key = key;
+    if (!s) { streamBox.hidden = true; streamBox.innerHTML = ""; streamBox.className = "streambox"; return; }
+    const title = s.label || "Live from the cage";
+    if (s.kind === "youtube") {
+      streamBox.className = "streambox";
+      streamBox.innerHTML = `<div class="streambox__head"><span class="tag tag--live">Live</span><span class="streambox__label">${E(title)}</span></div>
+        <div class="streambox__frame"><iframe src="https://www.youtube-nocookie.com/embed/${E(s.id)}?rel=0&playsinline=1" title="${E(title)}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+        <a class="streambox__alt" href="https://www.youtube.com/watch?v=${E(s.id)}" target="_blank" rel="noopener">Not playing? Watch on YouTube &rarr;</a>`;
+    } else {
+      streamBox.className = "streambox streambox--link";
+      streamBox.innerHTML = `<span class="tag tag--live">Live</span><span class="streambox__label">${E(title)}</span>
+        <a class="btn btn--acid btn--sm" href="${E(s.url)}" target="_blank" rel="noopener">Watch on ${E(s.host)} <span class="arrow">&rarr;</span></a>`;
+    }
+    streamBox.hidden = false;
+  }
+
   function renderDiv() {
     const div = divOf(current) || data.divisions[0];
     current = div.id;
@@ -129,6 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
       el.tabs.innerHTML = data.divisions.map((d) => `<button type="button" role="tab" data-div="${E(d.id)}">${E(d.name)}</button>`).join("");
     }
     renderNow();
+    renderStream();
     renderDiv();
     if (el.updated) el.updated.textContent = data.updated ? `Updated ${data.updated} · refreshes by itself` : "Scores go up here on the day.";
   }

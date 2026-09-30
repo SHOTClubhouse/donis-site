@@ -22,6 +22,8 @@ document.addEventListener("DOMContentLoaded", () => {
     $("[data-dots]").innerHTML = ds.map((d, i) => `<i class="${i === idx % ds.length ? "on" : ""}"></i>`).join("");
     const pill = $("[data-live]");
     pill.hidden = !live.length;
+    const sp = $("[data-stream-pill]");
+    if (sp) sp.hidden = !(window.FixturesModel && window.FixturesModel.streamInfo(data.stream));
 
     const champ = window.DonisStandings.champion(div, rows);
     $("[data-champ]").innerHTML = champ ? `<span class="mono">${E(div.name)} champions</span><b class="display">${E(label(div, champ.ref).text)}</b>` : "";

@@ -4,6 +4,23 @@
   const STATES = ["scheduled", "live", "ft"];
   const FIELDS = ["time", "home", "away", "homeScore", "awayScore", "state", "stage"];
   const isScore = (n) => Number.isInteger(n) && n >= 0 && n <= 99;
+  const HTTPS = /^https:\/\/[^\s"'<>]+$/;
+
+  // The live stream the Games page shows. YouTube links become an embedded player; any other
+  // https link (Veo, Facebook...) becomes a button. Off, missing or unsafe means nothing shows.
+  function streamInfo(s) {
+    if (!s || s.on !== true || typeof s.url !== "string" || !HTTPS.test(s.url)) return null;
+    let u;
+    try { u = new URL(s.url); } catch (e) { return null; }
+    const host = u.hostname.replace(/^(www|m)\./, "");
+    const label = typeof s.label === "string" ? s.label : "";
+    if (host === "youtube.com" || host === "youtu.be" || host === "youtube-nocookie.com") {
+      const id = host === "youtu.be" ? u.pathname.slice(1) : u.searchParams.get("v") || (u.pathname.match(/^\/(?:live|embed|shorts)\/([^/?#]+)/) || [])[1];
+      if (id && /^[A-Za-z0-9_-]{11}$/.test(id)) return { kind: "youtube", id, url: s.url, host: "YouTube", label };
+    }
+    const names = { "veo.co": "Veo", "app.veo.co": "Veo", "veo.com": "Veo", "live.veo.co": "Veo", "facebook.com": "Facebook", "fb.watch": "Facebook", "twitch.tv": "Twitch", "instagram.com": "Instagram", "youtube.com": "YouTube" };
+    return { kind: "link", url: s.url, host: names[host] || host, label };
+  }
 
   function validate(d) {
     const errs = [];
@@ -22,6 +39,16 @@
       });
       divs[v.id] = { ...v, ids };
     });
+    if (d.stream !== undefined && d.stream !== null) {
+      const st = d.stream;
+      if (typeof st !== "object") errs.push("stream must be an object");
+      else {
+        if (typeof st.on !== "boolean") errs.push("stream: on must be true or false");
+        if (st.url !== null && st.url !== undefined && !(typeof st.url === "string" && HTTPS.test(st.url))) errs.push("stream: link must start https:// and have no spaces or quotes");
+        if (st.on === true && !st.url) errs.push("stream: add a link before switching it on");
+        if (st.label !== undefined && (typeof st.label !== "string" || st.label.length > 80)) errs.push("stream: label must be 80 characters or fewer");
+      }
+    }
     const seen = new Set();
     d.fixtures.forEach((f) => {
       const at = `game ${f.id}`;
@@ -64,6 +91,7 @@
         if (bt && bt.name !== t.name) out.push({ op: "team", division: v.id, id: t.id, name: t.name });
       });
     });
+    if (JSON.stringify(base.stream || null) !== JSON.stringify(work.stream || null)) out.push({ op: "stream", stream: work.stream ? { ...work.stream } : null });
     return out;
   }
 
@@ -75,6 +103,7 @@
       if (c.op === "set") { const f = d.fixtures.find((x) => x.id === c.id); if (f) Object.assign(f, c.fields); }
       else if (c.op === "remove") d.fixtures = d.fixtures.filter((x) => x.id !== c.id);
       else if (c.op === "add") { if (!d.fixtures.some((x) => x.id === c.fixture.id)) d.fixtures.push({ ...c.fixture }); }
+      else if (c.op === "stream") d.stream = c.stream ? { ...c.stream } : null;
       else if (c.op === "team") {
         const v = d.divisions.find((x) => x.id === c.division);
         const t = v && (v.teams || []).find((x) => x.id === c.id);
@@ -93,6 +122,7 @@
         return `${c.id}${sc} ${STATE_LABEL[f.state] || ""}`.trim();
       }
       if (c.op === "team") return `${c.id} is ${c.name || "TBC"}`;
+      if (c.op === "stream") return `stream ${c.stream && c.stream.on ? "on" : "off"}`;
       if (c.op === "add") return `added ${c.fixture.id} ${c.fixture.time}`;
       return `removed ${c.id}`;
     });
@@ -120,7 +150,7 @@
     return new TextDecoder().decode(Uint8Array.from(bin, (c) => c.charCodeAt(0)));
   }
 
-  const api = { validate, changes, apply, summary, format, toBase64, fromBase64, STATES };
+  const api = { validate, changes, apply, summary, format, toBase64, fromBase64, streamInfo, STATES };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   else root.FixturesModel = api;
 })(this);

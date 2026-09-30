@@ -182,6 +182,39 @@ document.addEventListener("DOMContentLoaded", () => {
     edit(() => work.fixtures.push(game));
     if (!div.teams.length) { $("#add-home").value = ""; $("#add-away").value = ""; }
   });
+  // ---- Live stream ----
+  const streamUrl = $("#stream-url"), streamLabel = $("#stream-label"), streamErr = $("[data-stream-err]");
+  const cur = () => work.stream || { url: null, on: false };
+  const streamError = (m) => { streamErr.textContent = m || ""; streamErr.hidden = !m; };
+  streamUrl.addEventListener("change", () => {
+    const v = streamUrl.value.trim();
+    if (v && !M.streamInfo({ url: v, on: true })) { streamError("That link won't work. It must start https:// (copy it from the YouTube or Veo share button)."); return; }
+    streamError("");
+    edit(() => { work.stream = { ...cur(), url: v || null }; if (!v) work.stream.on = false; });
+  });
+  streamLabel.addEventListener("change", () => {
+    const v = streamLabel.value.trim();
+    edit(() => { const s = { ...cur() }; if (v) s.label = v; else delete s.label; work.stream = s; });
+  });
+  $("[data-stream-toggle]").addEventListener("click", (e) => {
+    const b = e.target.closest("button"); if (!b) return;
+    const on = b.dataset.on === "true";
+    if (on && !M.streamInfo({ ...cur(), on: true })) { streamError("Paste a working stream link first."); return; }
+    streamError("");
+    edit(() => { work.stream = { ...cur(), on }; });
+  });
+  function renderStreamPanel() {
+    const s = cur();
+    if (document.activeElement !== streamUrl) streamUrl.value = s.url || "";
+    if (document.activeElement !== streamLabel) streamLabel.value = s.label || "";
+    document.querySelectorAll("[data-stream-toggle] button").forEach((b) => b.setAttribute("aria-pressed", String((b.dataset.on === "true") === !!s.on)));
+    const info = M.streamInfo({ ...s, on: true });
+    $("[data-stream-note]").textContent = !s.url ? "No stream link yet."
+      : info && info.kind === "youtube" ? `YouTube video found. ${s.on ? "Playing on the Games page." : "Switch on to show it on the Games page."}`
+      : info ? `Shows as a "Watch on ${info.host}" button. ${s.on ? "It's on." : "Switch on to show it."}`
+      : "";
+  }
+
   el.publish.addEventListener("click", publish);
   $("[data-signout]").addEventListener("click", () => { if (!pending().length || confirm("You have unsaved changes. Sign out anyway?")) signOut(); });
   window.addEventListener("online", () => pending().length && schedule(500));
@@ -195,6 +228,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // ---- Rendering ----
   function render() {
     if (!work) return;
+    renderStreamPanel();
     if (!divOf(current)) current = work.divisions[0].id;
     const div = divOf(current);
     el.tabs.innerHTML = work.divisions.map((d) => `<button type="button" role="tab" data-div="${E(d.id)}" aria-selected="${d.id === current}" style="flex:1">${E(d.name)}</button>`).join("");

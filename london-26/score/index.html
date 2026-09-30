@@ -103,6 +103,16 @@
     <div class="seg" data-tabs role="tablist" aria-label="Division" style="width:100%"></div>
     <div data-games style="display:grid;gap:12px"></div>
 
+    <section class="sc-panel" data-stream-panel>
+      <h2>Live stream</h2>
+      <p class="sc-note">Paste the stream link, then switch it on. YouTube plays on the Games page; a Veo or other link shows as a Watch live button. It shows for everyone within about a minute.</p>
+      <div class="sc-field"><label for="stream-url">Stream link</label><input id="stream-url" type="url" inputmode="url" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="https://youtube.com/live/…"></div>
+      <div class="sc-field"><label for="stream-label">Title on the page (optional)</label><input id="stream-label" maxlength="80" autocomplete="off" placeholder="Legends game, live"></div>
+      <div class="seg" data-stream-toggle style="width:100%"><button type="button" data-on="false" style="flex:1">Off</button><button type="button" data-on="true" style="flex:1">On</button></div>
+      <p class="sc-note" data-stream-note></p>
+      <p class="sc-err" data-stream-err hidden></p>
+    </section>
+
     <section class="sc-panel" data-add>
       <h2>Add a game</h2>
       <div class="sc-field"><label for="add-stage">Stage</label>
