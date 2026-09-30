@@ -39,6 +39,15 @@
       Donis.reveal();
     }
 
+    const gv = ev.giveaway;
+    document.querySelectorAll("[data-giveaway]").forEach((host) => {
+      if (!gv || !gv.prize) { host.hidden = true; return; }
+      host.innerHTML = `<span class="mono giveaway__label">${E(gv.label || "Giveaway")}</span>
+        <b class="display giveaway__prize">${E(gv.prize)}</b>
+        <p class="giveaway__how">${E([gv.how, gv.when].filter(Boolean).join(" "))}</p>`;
+      host.hidden = false;
+    });
+
     const stream = ev.stream && safeUrl(ev.stream.url);
     document.querySelectorAll("[data-stream]").forEach((a) => {
       if (!stream) { a.hidden = true; return; }

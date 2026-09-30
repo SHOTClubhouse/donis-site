@@ -85,9 +85,9 @@
       "image": "legend-harewood"
     },
     {
-      "name": "Matt Jarvis",
-      "short": "Jarvis",
-      "handle": "matt_jarvis_official",
+      "name": "Danny Gabbidon",
+      "short": "Gabbidon",
+      "handle": null,
       "kit": "sky"
     },
     {
@@ -200,5 +200,12 @@
       "role": "Headline sponsor"
     }
   ],
-  "credentialExpiresAt": 1791158399
+  "credentialExpiresAt": 1791158399,
+  "giveaway": {
+    "label": "Legends giveaway",
+    "prize": "An authentic signed Paolo Di Canio shirt",
+    "how": "Every ticket holder goes into the draw.",
+    "when": "Winner drawn after the Legends game.",
+    "source": "Ben Smith, call 30 Sep 2026"
+  }
 }

@@ -487,3 +487,9 @@
 .partner__body h2 { margin: 0; }
 .partner__body p { margin: 0; }
 @media (max-width: 760px) { .partner { grid-template-columns: 1fr; } .partner__mark { border-right: 0; border-bottom: 1px solid var(--line); min-height: 160px; } }
+
+/* Giveaway panel (legends page, overview) */
+.giveaway { margin-top: 16px; border: 2px solid var(--acid); background: rgba(10,10,10,.55); padding: 22px 24px; display: grid; gap: 8px; }
+.giveaway__label { color: var(--acid); }
+.giveaway__prize { font-size: clamp(28px, 3.6vw, 48px); font-weight: 400; line-height: .95; }
+.giveaway__how { margin: 0; color: var(--bone); }
