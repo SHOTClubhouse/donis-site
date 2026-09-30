@@ -27,9 +27,9 @@
     const page = document.querySelector("[data-sponsors]");
     if (page) {
       page.innerHTML = sp.length ? sp.map((s) => `
-        <article class="partner rv">
-          <div class="partner__mark">${mark(s, "partner")}</div>
-          <div class="partner__body">
+        <article class="spcard rv">
+          <div class="spcard__mark">${mark(s, "spcard")}</div>
+          <div class="spcard__body">
             <span class="mono orange">${E(s.role || "Partner")}</span>
             <h2 class="${s.logo ? "display h-sm" : "sr-only"}">${E(s.name)}</h2>
             ${s.blurb ? `<p class="muted">${E(s.blurb)}</p>` : ""}
