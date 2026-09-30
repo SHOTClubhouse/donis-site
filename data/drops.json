@@ -1,0 +1,9 @@
+{
+  "_note": "Public teaser copy for each cap drop. The exclusive link itself lives server-side in DROPS_SECRET_JSON (see .env.example) so it can't be scraped from this file. All copy below is placeholder until Donis and the artists supply the real drops.",
+  "series": { "id": "london-26-caps", "edition": "London 26", "run": 200 },
+  "drops": [
+    { "id": "legend-message", "from": "West Ham legend", "kind": "message", "title": "A message from the cage", "teaser": "Recorded for cap holders only. Claim your pass to press play.", "confirmed": false },
+    { "id": "dj-first-play", "from": "The Sound", "kind": "track", "title": "First play", "teaser": "An unreleased track from one of the six on deck. Pass holders hear it first.", "confirmed": false },
+    { "id": "highlights", "from": "Donis", "kind": "video", "title": "London 26 highlights", "teaser": "The full edit lands here after the day. Your cap is your seat.", "confirmed": false }
+  ]
+}

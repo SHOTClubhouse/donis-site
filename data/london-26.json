@@ -1,0 +1,204 @@
+{
+  "_source": "Eventbrite listing 1998357098877, donis.uk and @donisclub posts, read 23 Sep 2026. Fields marked confirmed:false need Donis sign-off before launch.",
+  "id": "london-26",
+  "edition": "London 26",
+  "passPrefix": "DL26",
+  "date": "2026-10-03",
+  "doorsOpen": "2026-10-03T10:30:00+01:00",
+  "starts": "2026-10-03T11:00:00+01:00",
+  "venue": {
+    "name": "Riverside East",
+    "area": "Stratford, London",
+    "address": "5 Thornton Street, London E20 2AD",
+    "addressConfirmed": false,
+    "addressNote": "Eventbrite lists E20 2AD; Donis posters say E20 3BS. Confirm with Donis.",
+    "parking": "No free parking. Nearest car park: Westfield Stratford City, Montfichet Road, London E20 1EJ."
+  },
+  "age": {
+    "minimum": 13,
+    "summary": "13+ until 8pm. The afterparty is 18+.",
+    "note": "Liam, 23 Sep 2026: the event is 13+, matching Eventbrite. Players 16+ is our default, Donis to confirm."
+  },
+  "agenda": [
+    {
+      "start": "10:30",
+      "end": null,
+      "title": "Doors",
+      "type": "info"
+    },
+    {
+      "start": "12:00",
+      "end": "13:00",
+      "title": "2v2 Women's Showcase",
+      "type": "football"
+    },
+    {
+      "start": "13:30",
+      "end": "18:00",
+      "title": "2v2 Men's Showcase",
+      "type": "football"
+    },
+    {
+      "start": "19:00",
+      "end": "20:00",
+      "title": "2v2 Legends Showcase",
+      "type": "legends"
+    },
+    {
+      "start": "20:00",
+      "end": "23:00",
+      "title": "Afterparty (18+)",
+      "type": "music"
+    }
+  ],
+  "divisions": [
+    {
+      "id": "womens",
+      "name": "Women's 2v2",
+      "window": "12:00 to 13:00"
+    },
+    {
+      "id": "mens",
+      "name": "Men's 2v2",
+      "window": "13:30 to 18:00"
+    }
+  ],
+  "squad": {
+    "playing": 2,
+    "subs": 2,
+    "max": 4,
+    "min": 2
+  },
+  "legends": [
+    {
+      "name": "James Collins",
+      "short": "Collins",
+      "handle": "gingercollins19",
+      "kit": "claret"
+    },
+    {
+      "name": "Marlon Harewood",
+      "short": "Harewood",
+      "handle": "marlonharewoodofficial",
+      "kit": "sky",
+      "note": "West Ham cult hero",
+      "image": "legend-harewood"
+    },
+    {
+      "name": "Matt Jarvis",
+      "short": "Jarvis",
+      "handle": "matt_jarvis_official",
+      "kit": "sky"
+    },
+    {
+      "name": "Matthew Etherington",
+      "short": "Etherington",
+      "handle": null,
+      "kit": "claret"
+    }
+  ],
+  "djs": [
+    {
+      "ch": "01",
+      "name": "Korey",
+      "handle": "koreydj",
+      "image": "dj-korey"
+    },
+    {
+      "ch": "02",
+      "name": "Sam Jarvis",
+      "handle": "samjarvis17",
+      "image": "dj-sam-jarvis"
+    },
+    {
+      "ch": "03",
+      "name": "Ricci",
+      "handle": "_riccidj",
+      "image": "dj-ricci"
+    },
+    {
+      "ch": "04",
+      "name": "Lewpet",
+      "handle": "lewis.pettigrew",
+      "image": "dj-lewpet"
+    },
+    {
+      "ch": "05",
+      "name": "Liam Flint",
+      "handle": "liamaflint",
+      "image": "dj-liam-flint"
+    },
+    {
+      "ch": "06",
+      "name": "Ingers",
+      "handle": "joshua_ingleby",
+      "image": "dj-ingers"
+    }
+  ],
+  "confirmedTeams": [
+    {
+      "name": "London Ballerz",
+      "handle": "londonballerzz",
+      "divisions": [
+        "womens",
+        "mens"
+      ]
+    }
+  ],
+  "pricing": {
+    "currency": "gbp",
+    "confirmed": false,
+    "note": "Placeholder values. Eventbrite shows GBP 22.38 to GBP 109.05 including fees; the tier split is not published. Confirm with Donis.",
+    "ticket": {
+      "label": "Day ticket",
+      "pence": 2000,
+      "maxPerOrder": 10
+    },
+    "team": {
+      "label": "Team entry (squad of up to 4)",
+      "pence": 10000
+    }
+  },
+  "refunds": {
+    "policy": "No refunds.",
+    "confirmed": false,
+    "note": "Liam's instruction. The live Eventbrite listing allows refunds up to 1 day before. Align both before launch."
+  },
+  "faq": [
+    {
+      "q": "What's the max squad size?",
+      "a": "Four: two playing, two subs."
+    },
+    {
+      "q": "What do I wear?",
+      "a": "Street football means street shoes. Games are on concrete."
+    },
+    {
+      "q": "Can we bring our own kit?",
+      "a": "Yes. Build your team's kit and bring it. Reach out to Donis if you want help."
+    },
+    {
+      "q": "How old do I need to be?",
+      "a": "13+ for the day. The afterparty from 8pm is 18+."
+    },
+    {
+      "q": "Is there parking?",
+      "a": "No free parking. The nearest car park is Westfield Stratford City, Montfichet Road, E20 1EJ."
+    },
+    {
+      "q": "How do I book?",
+      "a": "Tickets and team entries are on Eventbrite. Refunds follow the Eventbrite listing's policy."
+    }
+  ],
+  "sponsors": [
+    {
+      "name": "Favela Cerveja",
+      "role": "Headline sponsor"
+    },
+    {
+      "name": "Flair Digital Agency",
+      "role": "Headline sponsor"
+    }
+  ],
+  "credentialExpiresAt": 1791158399
+}

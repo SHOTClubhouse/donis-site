@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Games · Donis London 26</title>
+<meta name="description" content="Live scores, schedule and league tables for the 2v2 cage at Donis London 26. Saturday 3 October 2026, Riverside East, Stratford.">
+<meta name="theme-color" content="#0a0a0a">
+<meta name="robots" content="noindex"><!-- TODO: VERIFY remove once Donis sign off brand use -->
+<meta property="og:title" content="The Games · Donis London 26">
+<meta property="og:description" content="Live scores and tables from the cage. Women's from 12:00, men's from 13:30, legends at 19:00.">
+<meta property="og:image" content="https://donis.shotclubhouse.com/assets/img/poster-london26.webp">
+<link rel="icon" href="/assets/brand/shot-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600&family=Libre+Caslon+Text&family=Pirata+One&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/donis.css">
+<link rel="stylesheet" href="/assets/css/pages.css">
+<script src="/assets/js/config.js"></script>
+<script src="/assets/js/site.js" defer></script>
+<script src="/assets/js/standings.js" defer></script>
+<script src="/assets/js/games.js" defer></script>
+</head>
+<body>
+<div data-nav></div>
+<div data-edition-nav></div>
+
+<main id="main">
+  <section class="subhero subhero--games grid-paper">
+    <div class="wrap">
+      <div class="subhero__top">
+        <span class="mono muted">London 26 · The cage · Riverside East</span>
+        <span class="tag" data-status>Sat 03.10.26</span>
+      </div>
+      <h1 class="display subhero__title">The Games</h1>
+      <p class="lede">2v2 on concrete. Women's from 12:00, men's from 13:30, legends at 19:00. Scores go up here as each game is played.</p>
+      <div class="nowrow" data-now aria-live="polite" hidden></div>
+    </div>
+  </section>
+
+  <section class="games-sec">
+    <div class="wrap">
+      <div class="games" data-pane>
+        <div class="games__bar">
+          <div class="seg" data-tabs role="tablist" aria-label="Division"></div>
+          <div class="seg seg--sm" data-view hidden aria-label="Show">
+            <button type="button" data-v="schedule" aria-pressed="true">Schedule</button>
+            <button type="button" data-v="table" aria-pressed="false">Table</button>
+          </div>
+        </div>
+        <p class="games__blurb muted" data-blurb></p>
+        <div class="games__grid">
+          <div class="games__col games__col--schedule">
+            <h2 class="mono games__h">Schedule</h2>
+            <div data-schedule aria-live="polite"><p class="board__empty">Loading the games…</p></div>
+          </div>
+          <div class="games__col games__col--table">
+            <h2 class="mono games__h">Table</h2>
+            <div data-table aria-live="polite"></div>
+          </div>
+        </div>
+        <p class="mono muted games__updated" data-updated></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE CAGE -->
+  <section class="sec grid-paper" id="the-cage">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <div><span class="mono acid kicker">The cage</span><h2 class="display h-lg">Two play.<br>Two wait.</h2></div>
+        <p class="lede" style="max-width:40ch">Elite street-level talent across a women's and a men's 2v2. Fast, loud and on concrete. Prizes for the winners.</p>
+      </div>
+      <div class="cage">
+        <div class="cage__video rv">
+          <video data-bg autoplay muted loop playsinline preload="none" poster="/assets/video/ballerz.jpg" aria-label="London Ballerz confirmed for Donis London 26">
+            <source src="/assets/video/ballerz.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="cage__facts">
+          <div class="stat rv"><span class="mono muted">Divisions</span><b>Women's &amp; Men's</b></div>
+          <div class="g2">
+            <div class="stat rv"><span class="mono muted">Playing</span><b class="acid">2</b></div>
+            <div class="stat rv"><span class="mono muted">Subs</span><b>2</b></div>
+          </div>
+          <div class="stat rv">
+            <span class="mono muted">Confirmed · double entry</span>
+            <b class="orange" style="font-size:clamp(36px,4vw,56px)">London Ballerz</b>
+            <p class="muted" style="margin:10px 0 0">One badge. Two squads. Women's and men's both locked in.</p>
+          </div>
+          <a class="btn btn--orange rv" href="https://www.eventbrite.co.uk/e/donis-london-2026-2v2-street-football-event-djs-west-ham-legends-match-tickets-1998357098877" target="_blank" rel="noopener" style="justify-content:center">Enter your squad <span class="arrow">&rarr;</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head"><div><span class="mono muted kicker">How it works</span><h2 class="display h-md">The rules</h2></div></div>
+      <div class="g3 rules">
+        <div class="stat"><span class="mono muted">Format</span><b>2v2</b><p class="muted">Squads of up to four: two on, two subs. Played on concrete in street shoes.</p></div>
+        <div class="stat"><span class="mono muted">Points</span><b>3 · 1 · 0</b><p class="muted">Three for a win, one for a draw. Only finished games count in the table.</p></div>
+        <div class="stat"><span class="mono muted">Tie-break</span><b>GD</b><p class="muted">Level on points goes to goal difference, then goals scored.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="nextband shotband">
+    <div class="wrap nextband__in">
+      <div><span class="mono">Built by SHOT Clubhouse</span><h2 class="display h-md">Your club deserves this</h2><p class="muted" style="margin:10px 0 0;max-width:46ch">Teams, fixtures, announcements and your whole club in one app.</p></div>
+      <div class="hero__cta">
+        <a class="btn btn--acid" href="https://shotclubhouse.com" rel="noopener">Get SHOT Clubhouse <span class="arrow">&rarr;</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="nextband">
+    <div class="wrap nextband__in">
+      <div><span class="mono muted">Want to play or watch?</span><h2 class="display h-md">Get in the cage</h2></div>
+      <div class="hero__cta">
+        <a class="btn btn--orange" href="https://www.eventbrite.co.uk/e/donis-london-2026-2v2-street-football-event-djs-west-ham-legends-match-tickets-1998357098877" target="_blank" rel="noopener">Get tickets <span class="arrow">&rarr;</span></a>
+        <a class="btn btn--ghost" href="/london-26/legends/">Next: Legends <span class="arrow">&rarr;</span></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div data-footer></div>
+</body>
+</html>

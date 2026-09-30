@@ -1,0 +1,9 @@
+{
+  "_source": "donis.uk, read 23 Sep 2026",
+  "editions": [
+    { "id": "london-26", "name": "London 26", "status": "live", "when": "03.10.26", "where": "Riverside East, Stratford", "href": "/london-26/", "colour": "orange" },
+    { "id": "bristol-26", "name": "Bristol", "status": "soon", "when": "November 2026", "where": "Bristol", "colour": "teal" },
+    { "id": "essex-26", "name": "Essex", "status": "soon", "when": "December 2026", "where": "Essex", "colour": "pink" },
+    { "id": "sand-snow-27", "name": "Sand & Snow", "status": "soon", "when": "2027", "where": "To be announced", "colour": "sky" }
+  ]
+}

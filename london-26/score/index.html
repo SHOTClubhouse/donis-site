@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Scorer · Donis London 26</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#0a0a0a">
+<link rel="icon" href="/assets/brand/shot-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/donis.css">
+<link rel="stylesheet" href="/assets/css/pages.css">
+<style>
+  body::before { display: none; }
+  .sc-top { position: sticky; top: 0; z-index: 20; background: rgba(10,10,10,.95); border-bottom: 1px solid var(--line); }
+  .sc-top__in { display: flex; align-items: center; gap: 12px; min-height: 60px; }
+  .sc-top h1 { font-family: var(--f-display); font-weight: 400; font-size: 22px; text-transform: uppercase; margin: 0; }
+  .sc-top .btn { margin-left: auto; }
+  .sc-status { font-family: var(--f-mono); font-size: 12px; letter-spacing: .06em; padding: 10px var(--gutter); border-bottom: 1px solid var(--line); }
+  .sc-status[data-tone="ok"] { color: var(--acid); }
+  .sc-status[data-tone="busy"] { color: var(--bone); }
+  .sc-status[data-tone="warn"] { color: var(--orange); background: rgba(255,68,16,.08); }
+  .sc-body { padding-top: 16px; padding-bottom: calc(40px + env(safe-area-inset-bottom)); display: grid; gap: 16px; max-width: 720px; }
+  .sc-card { border: 1px solid var(--line-strong); background: var(--panel); }
+  .sc-card--live { border-color: var(--acid); box-shadow: inset 4px 0 0 var(--acid); }
+  .sc-card--ft { opacity: .85; }
+  .sc-card__head { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+  .sc-card__head input[type=time] { background: var(--ink); color: var(--bone); border: 1px solid var(--line-strong); font: 14px var(--f-mono); min-height: 44px; padding: 0 8px; }
+  .sc-card__id { font: 11px var(--f-mono); color: var(--mute); }
+  .sc-card__stage { font: 12px var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--orange); }
+  .sc-sides { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+  .sc-sides select { background: var(--ink); color: var(--bone); border: 1px solid var(--line-strong); min-height: 44px; padding: 0 8px; font: 14px var(--f-body); width: 100%; }
+  .sc-card__head .seg { margin-left: auto; }
+  .sc-row { display: grid; grid-template-columns: minmax(0, 1fr) 56px 56px 56px; align-items: center; gap: 8px; padding: 10px 12px; }
+  .sc-row + .sc-row { border-top: 1px solid var(--line); }
+  .sc-name { font-family: var(--f-display); font-size: 22px; text-transform: uppercase; line-height: 1.05; overflow-wrap: anywhere; }
+  .sc-name.tbc { color: #6a6762; }
+  .sc-btn { min-height: 56px; background: var(--panel-2); border: 1px solid var(--line-strong); color: var(--bone); font: 28px var(--f-display); cursor: pointer; touch-action: manipulation; }
+  .sc-btn:active { background: var(--acid); color: var(--ink); }
+  .sc-btn--plus { background: var(--bone); color: var(--ink); }
+  .sc-num { font: 36px var(--f-display); text-align: center; }
+  .sc-foot { display: flex; justify-content: flex-end; padding: 0 12px 10px; }
+  .sc-link { background: none; border: 0; color: var(--mute); font: 12px var(--f-mono); text-decoration: underline; min-height: 44px; cursor: pointer; }
+  .sc-panel { border: 1px solid var(--line-strong); background: var(--panel); padding: 16px; display: grid; gap: 12px; }
+  .sc-panel h2 { font: 12px var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--mute); margin: 0; font-weight: 400; }
+  .sc-field { display: grid; gap: 6px; }
+  .sc-field label { font: 11px var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--mute); }
+  .sc-field input, .sc-field select { background: var(--ink); color: var(--bone); border: 1px solid var(--line-strong); min-height: 48px; padding: 0 12px; font: 16px var(--f-body); width: 100%; }
+  .sc-grid3 { display: grid; grid-template-columns: 110px 1fr 1fr; gap: 8px; }
+  .sc-err { color: var(--orange); font: 13px var(--f-mono); margin: 0; }
+  .sc-note { color: var(--mute); font-size: 14px; margin: 0; }
+  @media (max-width: 420px) { .sc-row { grid-template-columns: minmax(0, 1fr) 52px 48px 52px; } .sc-grid3 { grid-template-columns: 1fr 1fr; } .sc-grid3 .sc-field:first-child { grid-column: 1 / -1; } }
+</style>
+<script src="/assets/js/config.js"></script>
+<script src="/assets/js/site.js" defer></script>
+<script src="/assets/js/fixtures-model.js" defer></script>
+<script src="/assets/js/keybox.js" defer></script>
+<script src="/assets/js/score-admin.js" defer></script>
+</head>
+<body>
+<header class="sc-top">
+  <div class="wrap sc-top__in">
+    <img src="/assets/brand/donis-wordmark-white.png" alt="Donis" width="84" height="24" style="height:24px;width:auto">
+    <h1>Scorer</h1>
+    <button class="btn btn--acid btn--sm" type="button" data-publish hidden>Save now</button>
+  </div>
+</header>
+<div class="sc-status" data-status role="status" aria-live="polite">Loading…</div>
+
+<main id="main" class="wrap sc-body">
+  <section class="sc-panel" data-signin hidden>
+    <h2>Sign in to score</h2>
+    <p class="sc-note">Type the scorer passcode Liam gave you. You only need to do this once on this phone.</p>
+    <form data-signin-form class="sc-field">
+      <label for="pass">Passcode</label>
+      <input id="pass" name="pass" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="XXXX-XXXX-XXXX" required style="font:22px var(--f-mono);letter-spacing:.08em;text-transform:uppercase">
+      <button class="btn btn--orange" type="submit" style="justify-content:center;margin-top:6px">Sign in</button>
+      <p class="sc-err" data-signin-err hidden></p>
+    </form>
+  </section>
+
+  <section class="sc-panel" data-setup hidden>
+    <h2>Set up scoring (Liam, once)</h2>
+    <p class="sc-note">Paste the GitHub key you created for the <b>donis-scores</b> repo. This phone locks it behind a new passcode and saves only the locked version. Give scorers the passcode, never the key.</p>
+    <form data-setup-form class="sc-field">
+      <label for="token">GitHub key</label>
+      <input id="token" name="token" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="github_pat_…" required>
+      <button class="btn btn--orange" type="submit" style="justify-content:center;margin-top:6px">Create scorer passcode</button>
+      <p class="sc-err" data-setup-err hidden></p>
+    </form>
+    <div data-setup-done hidden style="display:grid;gap:10px">
+      <p class="sc-note">Scorer passcode. Write it down now; it is not shown again. Setting it up again makes a new one and the old one stops working.</p>
+      <output data-setup-pass style="font:34px var(--f-mono);letter-spacing:.08em;color:var(--acid);text-align:center;border:1px solid var(--acid);padding:14px"></output>
+      <p class="sc-note">Tell scorers in person or on a call. It works on the scorer page about a minute from now. This phone is already signed in.</p>
+      <a class="btn btn--ghost" href="/london-26/score/" style="justify-content:center">Start scoring</a>
+    </div>
+  </section>
+
+  <div data-app hidden style="display:grid;gap:16px">
+    <div class="seg" data-tabs role="tablist" aria-label="Division" style="width:100%"></div>
+    <div data-games style="display:grid;gap:12px"></div>
+
+    <section class="sc-panel" data-add>
+      <h2>Add a game</h2>
+      <div class="sc-field"><label for="add-stage">Stage</label>
+        <select id="add-stage">
+          <option value="">Group game (counts in the table)</option>
+          <option>Quarter-final 1</option><option>Quarter-final 2</option><option>Quarter-final 3</option><option>Quarter-final 4</option>
+          <option>Semi-final 1</option><option>Semi-final 2</option><option>3rd place</option><option>Final</option>
+        </select>
+      </div>
+      <div class="sc-grid3">
+        <div class="sc-field"><label for="add-time">Time</label><input id="add-time" type="time" value="12:00"></div>
+        <div class="sc-field"><label for="add-home">Home</label><span data-add-home></span></div>
+        <div class="sc-field"><label for="add-away">Away</label><span data-add-away></span></div>
+      </div>
+      <button class="btn btn--ghost" type="button" data-add-go style="justify-content:center">Add game</button>
+      <p class="sc-err" data-add-err hidden></p>
+    </section>
+
+    <section class="sc-panel" data-teams>
+      <h2>Team names</h2>
+      <div data-team-list style="display:grid;gap:10px"></div>
+    </section>
+
+    <p class="sc-note">Saves by itself a few seconds after each change. The public page at <a href="/london-26/games/" target="_blank" rel="noopener">/london-26/games/</a> updates about a minute later.</p>
+    <button class="sc-link" type="button" data-signout style="justify-self:start">Sign out of this phone</button>
+  </div>
+</main>
+</body>
+</html>

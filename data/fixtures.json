@@ -1,0 +1,57 @@
+{
+  "_note": "Fallback copy only. Live scores are in the SHOTClubhouse/donis-scores repo, edited at /london-26/score/ and published to shotclubhouse.github.io/donis-scores/fixtures.json. The site shows this file only if that feed cannot be reached.",
+  "date": "2026-10-03",
+  "updated": null,
+  "rev": 0,
+  "divisions": [
+    {
+      "id": "womens",
+      "name": "Women's",
+      "format": "round-robin",
+      "blurb": "12:00. Everyone plays everyone once, then 1st v 2nd in the final. Format and times are provisional.",
+      "teams": [
+        {
+          "id": "WA",
+          "name": "London Ballerz"
+        },
+        {
+          "id": "WB",
+          "name": null
+        },
+        {
+          "id": "WC",
+          "name": null
+        },
+        {
+          "id": "WD",
+          "name": null
+        }
+      ]
+    },
+    {
+      "id": "mens",
+      "name": "Men's",
+      "format": "tbc",
+      "blurb": "13:30 to 18:00.",
+      "teams": [],
+      "message": "The men's draw goes up here once entries close."
+    },
+    {
+      "id": "legends",
+      "name": "Legends",
+      "format": "exhibition",
+      "blurb": "19:00. The headline exhibition: four West Ham legends, claret against sky.",
+      "teams": []
+    }
+  ],
+  "fixtures": [
+    { "id": "W1", "division": "womens", "time": "12:00", "home": "WA", "away": "WB", "homeScore": null, "awayScore": null, "state": "scheduled" },
+    { "id": "W2", "division": "womens", "time": "12:10", "home": "WC", "away": "WD", "homeScore": null, "awayScore": null, "state": "scheduled" },
+    { "id": "W3", "division": "womens", "time": "12:20", "home": "WA", "away": "WC", "homeScore": null, "awayScore": null, "state": "scheduled" },
+    { "id": "W4", "division": "womens", "time": "12:30", "home": "WB", "away": "WD", "homeScore": null, "awayScore": null, "state": "scheduled" },
+    { "id": "W5", "division": "womens", "time": "12:40", "home": "WA", "away": "WD", "homeScore": null, "awayScore": null, "state": "scheduled" },
+    { "id": "W6", "division": "womens", "time": "12:50", "home": "WB", "away": "WC", "homeScore": null, "awayScore": null, "state": "scheduled" },
+    { "id": "WF", "division": "womens", "stage": "Final", "time": "13:00", "home": "1st in table", "away": "2nd in table", "homeScore": null, "awayScore": null, "state": "scheduled" },
+    { "id": "L1", "division": "legends", "time": "19:00", "home": "Donis Claret", "away": "Donis Sky", "homeScore": null, "awayScore": null, "state": "scheduled" }
+  ]
+}
