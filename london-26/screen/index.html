@@ -56,18 +56,28 @@
   .tv__dots i.on { background: var(--acid); border-color: var(--acid); }
   .tv__shot { font-size: 1.9vh; color: var(--mute); display: flex; align-items: center; gap: .8vw; }
   .tv__shot img { height: 3.4vh; width: auto; }
+  .tv__spx { margin: 0 0 0 auto; padding: 0; border: 0; gap: 1vh 1.6vw; }
+  .tv__spx .spx__label { font-size: 1.6vh; }
+  .tv__spx .spx__word { font-size: 2.6vh; }
+  .tv__spx .spx__logo { height: 4vh; }
+  .tv__spx + .tv__dots { margin-left: 2vw; }
+  .tv__stale { font: 2vh var(--f-mono); color: var(--ink); background: var(--orange); padding: 1vh 1.2vw; text-transform: uppercase; letter-spacing: .1em; }
+  .tv__fs { position: fixed; right: 2vw; bottom: 16vh; font: 1.8vh var(--f-mono); color: var(--ink); background: var(--bone); padding: 1vh 1.2vw; text-transform: uppercase; letter-spacing: .12em; cursor: pointer; z-index: 5; }
 </style>
 <script src="/assets/js/config.js"></script>
 <script src="/assets/js/site.js" defer></script>
 <script src="/assets/js/standings.js" defer></script>
 <script src="/assets/js/screen.js" defer></script>
+<script src="/assets/js/extras.js" defer></script>
 </head>
 <body>
+<button class="tv__fs" type="button" data-fs hidden>Click for full screen</button>
 <div class="tv">
   <header class="tv__head">
     <img src="/assets/brand/donis-wordmark-white.png" alt="Donis">
     <span class="tv__title">London 26 · <em data-div-name></em></span>
     <span class="tag tag--live" data-live hidden>Live</span>
+    <span class="tv__stale" data-stale hidden></span>
     <span class="tv__clock" data-clock></span>
   </header>
   <main class="tv__main">
@@ -78,6 +88,7 @@
   <footer class="tv__foot">
     <img class="qr" src="/assets/img/qr-games.png" alt="QR code for live scores" onerror="this.hidden=true">
     <div class="tv__follow"><span class="mono">Follow every score on your phone</span><b>donis.shotclubhouse.com/london-26/games</b></div>
+    <div class="spx tv__spx" data-sponsor-strip hidden></div>
     <div class="tv__dots" data-dots></div>
     <span class="mono tv__shot">Powered by <img src="/assets/brand/shot-logo.png" alt="SHOT"></span>
   </footer>

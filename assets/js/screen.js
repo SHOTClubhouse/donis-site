@@ -55,9 +55,39 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // The bar laptop runs this unattended, so it must say when it has lost the scores
+  // rather than silently showing old ones.
+  let lastOk = 0;
+  const hhmm = (t) => new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", hour: "2-digit", minute: "2-digit" }).format(t);
   async function load() {
-    try { data = await Donis.scores(); render(); } catch (e) { /* keep the last good view */ }
+    try { data = await Donis.scores(); lastOk = Date.now(); render(); } catch (e) { /* keep the last good view */ }
+    stale();
   }
+  function stale() {
+    const el = $("[data-stale]");
+    const old = !lastOk || Date.now() - lastOk > 90000;
+    el.hidden = !old;
+    if (old) el.textContent = lastOk ? `Reconnecting · scores from ${hhmm(lastOk)}` : "Connecting…";
+  }
+  setInterval(stale, 10000);
+
+  // Keep the screen awake all day, and take it back if the tab was hidden.
+  let lock = null;
+  async function wake() {
+    try { if ("wakeLock" in navigator && !document.hidden) lock = await navigator.wakeLock.request("screen"); } catch (e) { lock = null; }
+  }
+  wake();
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) { wake(); load(); } });
+
+  // One click (or key) from whoever sets up the laptop puts it full screen.
+  const fs = $("[data-fs]");
+  const syncFs = () => { fs.hidden = !!document.fullscreenElement || !document.documentElement.requestFullscreen; };
+  const goFs = () => { if (!document.fullscreenElement && document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(() => {}); wake(); };
+  document.addEventListener("fullscreenchange", syncFs);
+  document.addEventListener("click", goFs);
+  document.addEventListener("keydown", (e) => { if (e.key === "f" || e.key === "Enter") goFs(); });
+  syncFs();
+
   load();
   setInterval(load, 30000);
   setInterval(() => { if (data) { idx++; render(); } }, 12000);
