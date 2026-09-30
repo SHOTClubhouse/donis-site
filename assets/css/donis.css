@@ -105,6 +105,7 @@ body::before {
   text-decoration: none; padding: 12px 12px; color: var(--mute);
 }
 .nav__links a:hover, .nav__links a[aria-current="page"] { color: var(--bone); }
+.nav__links a.btn--orange, .nav__links a.btn--orange:hover { color: var(--ink); font-weight: 700; }
 .nav__toggle { display: none; margin-left: auto; background: none; border: 1px solid var(--line-strong); color: var(--bone); width: 44px; height: 44px; cursor: pointer; }
 @media (max-width: 860px) {
   .nav__toggle { display: grid; place-items: center; }

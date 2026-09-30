@@ -340,6 +340,8 @@
 .ednav a:hover { color: var(--bone); }
 .ednav a[aria-current="page"] { color: var(--bone); border-bottom-color: var(--acid); }
 @media (max-width: 560px) { .ednav__label { display: none; } }
+/* Above 860px the main nav already lists every London 26 page, so the tab strip would repeat it. */
+@media (min-width: 861px) { .ednav { display: none; } }
 
 /* Explore cards (London 26 overview) */
 .explore { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
