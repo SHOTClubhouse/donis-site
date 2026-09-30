@@ -68,10 +68,21 @@ document.addEventListener("DOMContentLoaded", () => {
   function renderStream() {
     if (!streamBox || !window.FixturesModel) return;
     const s = window.FixturesModel.streamInfo(data.stream);
-    const key = s ? `${s.kind}|${s.id || s.url}|${s.label}` : "";
+    // Until the stream is switched on, hold its place so people know to come back here;
+    // once every game is full time there is nothing left to wait for.
+    const over = data.fixtures.length && data.fixtures.every((f) => f.state === "ft");
+    const today = new Date().toISOString().slice(0, 10) === data.date;
+    const key = s ? `${s.kind}|${s.id || s.url}|${s.label}` : over ? "" : `wait|${today}`;
     if (streamBox.dataset.key === key) return;
     streamBox.dataset.key = key;
-    if (!s) { streamBox.hidden = true; streamBox.innerHTML = ""; streamBox.className = "streambox"; return; }
+    if (!s && over) { streamBox.hidden = true; streamBox.innerHTML = ""; streamBox.className = "streambox"; return; }
+    if (!s) {
+      streamBox.className = "streambox streambox--wait";
+      streamBox.innerHTML = `<span class="tag">${today ? "Later today" : "Sat 03.10.26"}</span><span class="streambox__label">Live from the cage</span>
+        <p class="streambox__note">The live stream plays right here on the day. Keep this page open.</p>`;
+      streamBox.hidden = false;
+      return;
+    }
     const title = s.label || "Live from the cage";
     if (s.kind === "youtube") {
       streamBox.className = "streambox";
