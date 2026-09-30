@@ -45,11 +45,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const tableHost = $("[data-table]");
     if (div.format === "round-robin") {
-      const t = window.DonisStandings.standings(div.teams, rows);
-      tableHost.innerHTML = `<table class="lt tvlt"><thead><tr><th>#</th><th class="lt__team">Team</th><th>P</th><th>GD</th><th>Pts</th></tr></thead><tbody>${t.map((r, i) => {
-        const l = label(div, r.id);
-        return `<tr class="${i === 0 && r.p > 0 ? "lead" : ""}"><td>${i + 1}</td><th class="lt__team ${l.tbc ? "tbc" : ""}">${E(l.text)}</th><td>${r.p}</td><td>${r.gd > 0 ? "+" : ""}${r.gd}</td><td><b>${r.pts}</b></td></tr>`;
-      }).join("")}</tbody></table>`;
+      // Groups sit side by side so a TV never has to scroll.
+      const names = [...new Set((div.teams || []).map((t) => t.group).filter(Boolean))];
+      const groups = names.length ? names.map((g) => [g, div.teams.filter((t) => t.group === g)]) : [[null, div.teams]];
+      tableHost.innerHTML = `<div class="tvgroups" style="--g:${groups.length}">${groups.map(([g, teams]) => {
+        const t = window.DonisStandings.standings(teams, rows);
+        return `<div>${g ? `<span class="mono lt__group">Group ${E(g)}</span>` : ""}<table class="lt tvlt"><thead><tr><th>#</th><th class="lt__team">Team</th><th>P</th><th>GD</th><th>Pts</th></tr></thead><tbody>${t.map((r, i) => {
+          const l = label(div, r.id);
+          return `<tr class="${i === 0 && r.p > 0 ? "lead" : ""}"><td>${i + 1}</td><th class="lt__team ${l.tbc ? "tbc" : ""}">${E(l.text)}</th><td>${r.p}</td><td>${r.gd > 0 ? "+" : ""}${r.gd}</td><td><b>${r.pts}</b></td></tr>`;
+        }).join("")}</tbody></table></div>`;
+      }).join("")}</div>`;
     } else {
       const next = data.fixtures.filter((f) => f.state === "scheduled").sort((a, b) => a.time.localeCompare(b.time))[0];
       const nd = next && data.divisions.find((d) => d.id === next.division);

@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       </div>
       <div class="pcard__qr">${qrSvg(qrText)}</div>
       <div class="pcard__num display" style="font-size:44px;text-align:center">${E(p.passNumber)}</div>
-      <div class="pcard__row mono"><span>Sat 03.10.26</span><span>Doors 10:30</span></div>
+      <div class="pcard__row mono"><span>Sat 03.10.26</span><span>Doors 11:40</span></div>
       <div class="pcard__row mono"><span>Riverside East</span><span>Stratford E20</span></div>
       <div class="pcard__foot mono"><span>${order.demo ? "Preview pass · not valid for entry" : linked ? "On Sport Head ID · @" + E(p.sportheadHandle || "") : "Gate pass"}</span><img src="/assets/brand/shot-logo.png" alt="SHOT" width="30" height="20"></div>
     </article>`;

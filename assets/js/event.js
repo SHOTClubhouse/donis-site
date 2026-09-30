@@ -41,20 +41,26 @@ document.addEventListener("DOMContentLoaded", async () => {
   // The Sound: one channel strip per DJ
   const desk = $("[data-desk]");
   if (desk) {
+    desk.style.setProperty("--n", Math.min(ev.djs.length, 6));
     desk.innerHTML = ev.djs.map((d, i) => {
       const bars = Array.from({ length: 22 }, (_, k) => `<i style="animation-delay:${((k * 37 + i * 53) % 900) / 1000}s"></i>`).join("");
       const lit = 5 + ((i * 3) % 4);
       const meter = Array.from({ length: 10 }, (_, k) => `<i class="${k < lit ? "on" : ""} ${k >= 8 ? "hot" : ""}"></i>`).join("");
-      return `<a class="strip" href="https://www.instagram.com/${E(d.handle)}/" rel="noopener" aria-label="${E(d.name)} on Instagram">
-        <div class="strip__img"><img src="/assets/img/${E(d.image)}.webp" alt="${E(d.name)}" loading="lazy" width="300" height="290"></div>
+      // A late addition can go up before their photo and handle arrive.
+      const tag = d.handle ? "a" : "div";
+      const link = d.handle ? ` href="https://www.instagram.com/${E(d.handle)}/" rel="noopener" aria-label="${E(d.name)} on Instagram"` : "";
+      const img = d.image ? `<img src="/assets/img/${E(d.image)}.webp" alt="${E(d.name)}" loading="lazy" width="300" height="290">`
+        : `<span class="strip__ph" aria-hidden="true">${E(d.name.split(/\s+/).map((w) => w[0]).join("").slice(0, 2))}</span>`;
+      return `<${tag} class="strip"${link}>
+        <div class="strip__img">${img}</div>
         <div class="strip__label"><span class="ch">CH ${E(d.ch)}</span><span>${E(d.name)}</span></div>
         <div class="strip__body">
           <div class="wave" aria-hidden="true">${bars}</div>
           <div class="fader" style="--pos:${30 + ((i * 17) % 40)}%" aria-hidden="true"></div>
           <div class="meter" aria-hidden="true">${meter}</div>
         </div>
-        <div class="strip__name"><span>${E(d.name)}</span><small>@${E(d.handle)}</small></div>
-      </a>`;
+        <div class="strip__name"><span>${E(d.name)}</span><small>${d.handle ? "@" + E(d.handle) : "&nbsp;"}</small></div>
+      </${tag}>`;
     }).join("");
     // Everything plays at once when the desk scrolls into view, then settles to hover.
     if ("IntersectionObserver" in window) {

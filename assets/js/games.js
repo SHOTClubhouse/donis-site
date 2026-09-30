@@ -134,16 +134,25 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>`).join("")}</div></div>`;
   }
 
+  // A division split into groups gets one table per group.
+  const groupsOf = (div) => {
+    const names = [...new Set((div.teams || []).map((t) => t.group).filter(Boolean))];
+    return names.length ? names.map((g) => [g, div.teams.filter((t) => t.group === g)]) : [[null, div.teams]];
+  };
   function tableHtml(div, rows) {
-    const t = window.DonisStandings.standings(div.teams, rows);
+    const groups = groupsOf(div);
+    return groups.map(([g, teams]) => (g ? `<h3 class="mono lt__group">Group ${E(g)}</h3>` : "") + oneTable(div, teams, rows, g)).join("")
+      + `<p class="lt__key mono muted">Win 3 · Draw 1 · Then goal difference, then goals scored</p>`;
+  }
+  function oneTable(div, teams, rows, g) {
+    const t = window.DonisStandings.standings(teams, rows);
     const played = t.some((r) => r.p > 0);
-    return `<table class="lt"><caption class="sr-only">${E(div.name)} league table</caption>
+    return `<table class="lt"><caption class="sr-only">${E(div.name)}${g ? " group " + E(g) : ""} league table</caption>
       <thead><tr><th scope="col">#</th><th scope="col" class="lt__team">Team</th><th scope="col">P</th><th scope="col" class="opt">W</th><th scope="col" class="opt">D</th><th scope="col" class="opt">L</th><th scope="col">GD</th><th scope="col">Pts</th></tr></thead>
       <tbody>${t.map((r, i) => {
         const l = label(div, r.id);
         return `<tr class="${played && i === 0 ? "lead" : ""}"><td>${i + 1}</td><th scope="row" class="lt__team ${l.tbc ? "tbc" : ""}">${E(l.text)}</th><td>${r.p}</td><td class="opt">${r.w}</td><td class="opt">${r.d}</td><td class="opt">${r.l}</td><td>${r.gd > 0 ? "+" : ""}${r.gd}</td><td><b>${r.pts}</b></td></tr>`;
-      }).join("")}</tbody></table>
-      <p class="lt__key mono muted">Win 3 · Draw 1 · Then goal difference, then goals scored</p>`;
+      }).join("")}</tbody></table>`;
   }
 
   function select(id, push) {

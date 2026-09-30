@@ -51,6 +51,7 @@
     ["/london-26/the-sound/", "The Sound"],
     ["/london-26/legends/", "Legends"],
     ["/london-26/sponsors/", "Partners"],
+    ["/london-26/faq/", "FAQs"],
   ];
   const links = [["/london-26/", "London 26"], ...edition.slice(1), ["/#merch", "Merch"]];
 

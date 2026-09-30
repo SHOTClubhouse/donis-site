@@ -41,6 +41,13 @@
   .tvlt th, .tvlt td { padding: 2vh 1vw; }
   .tvlt tbody th { font-size: 3.6vh; }
   .tvlt thead th { font-size: 1.8vh; }
+  .tvgroups { display: grid; grid-template-columns: repeat(var(--g, 1), minmax(0, 1fr)); gap: 1.5vw; }
+  .tvgroups .lt__group { display: block; font-size: 1.8vh; margin-bottom: .8vh; }
+  .tvgroups[style*="--g:2"] .tvlt { font-size: 2vh; }
+  .tvgroups[style*="--g:2"] .tvlt th, .tvgroups[style*="--g:2"] .tvlt td { padding: 1.1vh .5vw; }
+  .tvgroups[style*="--g:2"] .tvlt tbody th { font-size: 2.4vh; }
+  /* Long team names stay on one line so six rows always fit. */
+  .tvgroups .tvlt .lt__team { width: 100%; max-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .tvlt tbody td:last-child b { font-size: 3.2vh; }
   .tvnext { border: 1px solid var(--line-strong); background: var(--panel); padding: 3vh 2vw; display: grid; gap: 1.5vh; }
   .tvnext .mono { font-size: 2vh; }

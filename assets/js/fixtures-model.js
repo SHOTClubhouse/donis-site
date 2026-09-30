@@ -35,6 +35,7 @@
       (v.teams || []).forEach((t) => {
         if (!t.id || ids.has(t.id)) errs.push(`division ${v.id}: team ${t.id} missing or duplicate id`);
         if (t.name !== null && typeof t.name !== "string") errs.push(`team ${t.id}: name must be text or null`);
+        if (t.group !== undefined && (typeof t.group !== "string" || !t.group.trim() || t.group.length > 12)) errs.push(`team ${t.id}: group must be a short name`);
         ids.add(t.id);
       });
       divs[v.id] = { ...v, ids };

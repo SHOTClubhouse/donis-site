@@ -246,7 +246,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Teams first, then placeholders a knockout game can hold until the group is decided.
-  const PLACEHOLDERS = ["1st in table", "2nd in table", "3rd in table", "4th in table", "Winner Semi-final 1", "Winner Semi-final 2", "Loser Semi-final 1", "Loser Semi-final 2"];
+  const PLACEHOLDERS = ["1st in table", "2nd in table", "3rd in table", "4th in table", "1st Group A", "2nd Group A", "1st Group B", "2nd Group B", "Winner Semi-final 1", "Winner Semi-final 2", "Loser Semi-final 1", "Loser Semi-final 2"];
   function sideOptions(div, selected) {
     const opts = (div.teams || []).map((t) => [t.id, label(div, t.id).text]).concat(PLACEHOLDERS.map((p) => [p, p]));
     if (selected && !opts.some(([v]) => v === selected)) opts.push([selected, selected]);
