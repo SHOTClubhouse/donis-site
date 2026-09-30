@@ -19,8 +19,10 @@
     const wrap = (s, inner) => (safeUrl(s.url) ? `<a href="${E(safeUrl(s.url))}" rel="noopener" target="_blank">${inner}</a>` : inner);
 
     document.querySelectorAll("[data-sponsor-strip]").forEach((host) => {
-      if (!sp.length) { host.hidden = true; return; }
-      host.innerHTML = `<span class="mono spx__label">Supported by</span>` + sp.map((s) => wrap(s, mark(s, "spx"))).join("");
+      // The "Supported by" strip is for sponsors; a partner can sit on the Partners page only.
+      const strip = sp.filter((s) => s.strip !== false);
+      if (!strip.length) { host.hidden = true; return; }
+      host.innerHTML = `<span class="mono spx__label">Supported by</span>` + strip.map((s) => wrap(s, mark(s, "spx"))).join("");
       host.hidden = false;
     });
 

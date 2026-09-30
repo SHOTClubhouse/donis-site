@@ -211,11 +211,23 @@
   "sponsors": [
     {
       "name": "Favela Cerveja",
-      "role": "Headline sponsor"
+      "role": "Headline sponsor",
+      "logo": "/assets/img/sponsors/favela-cerveja.webp",
+      "_source": "Logos from donis.uk Featured Sponsors, 30 Sep 2026. Flair link from the donis.uk footer."
     },
     {
       "name": "Flair Digital Agency",
-      "role": "Headline sponsor"
+      "role": "Headline sponsor",
+      "logo": "/assets/img/sponsors/flair.webp",
+      "url": "https://withflair.agency"
+    },
+    {
+      "name": "SHOT Clubhouse",
+      "role": "Digital partner",
+      "logo": "/assets/brand/shot-logo.png",
+      "url": "https://shotclubhouse.com",
+      "strip": false,
+      "blurb": "The digital home for the Donis series: this site, live scores and tables, and the big screen at the cage."
     }
   ],
   "credentialExpiresAt": 1791158399,

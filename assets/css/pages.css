@@ -476,7 +476,8 @@
 .spx a { text-decoration: none; }
 .spx__label { color: var(--mute); }
 .spx__word { font-family: var(--f-display); font-size: 22px; text-transform: uppercase; letter-spacing: .02em; }
-.spx__logo { height: 36px; width: auto; }
+.spx__logo { height: 52px; width: auto; border-radius: 4px; }
+.spcard__logo { border-radius: 6px; }
 .spx--band { margin: 0; padding: 28px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); justify-content: center; }
 .partners { display: grid; gap: 16px; }
 .spcard { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); border: 1px solid var(--line-strong); background: var(--panel); }
