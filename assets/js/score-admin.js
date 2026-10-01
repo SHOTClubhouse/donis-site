@@ -222,6 +222,26 @@ document.addEventListener("DOMContentLoaded", () => {
   const mvpError = (m) => { mvpErr.textContent = m || ""; mvpErr.hidden = !m; };
   const slug = (s) => s.toLowerCase().normalize("NFKD").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 20) || "player";
   let mvpCounts = {};
+  // Squad lists come from the vote Worker, which only hands them to a signed-in scorer.
+  // Full names stay on this page; a nominee goes public by first name only.
+  let squads = {}, squadsTried = false;
+  const firstName = (full) => String(full || "").trim().split(/\s+/)[0] || "";
+  async function loadSquads() {
+    if (!key || !window.DONIS_CONFIG.mvpApi) return;
+    try {
+      const r = await fetch(window.DONIS_CONFIG.mvpApi + "/squads", { headers: { Authorization: `Bearer ${key}` }, cache: "no-store" });
+      if (!r.ok) return;
+      squads = Object.fromEntries((await r.json()).squads.map((x) => [x.team, x.players]));
+      renderMvpPanel();
+    } catch (e) { /* typing the name still works */ }
+  }
+  function renderPlayers() {
+    const players = squads[$("#mvp-team").value] || [];
+    $("[data-mvp-player-wrap]").hidden = !players.length;
+    $("#mvp-player").innerHTML = `<option value="">Pick a player…</option>` + players.map((p) => `<option value="${E(p)}">${E(p)}</option>`).join("") + `<option value="">Someone else (type the name above)</option>`;
+  }
+  $("#mvp-team").addEventListener("change", renderPlayers);
+  $("#mvp-player").addEventListener("change", () => { const v = $("#mvp-player").value; if (v) $("#mvp-name").value = firstName(v); });
   $("[data-mvp-add]").addEventListener("click", () => {
     const name = $("#mvp-name").value.trim(), team = $("#mvp-team").value;
     const m = mvpCur();
@@ -232,6 +252,7 @@ document.addEventListener("DOMContentLoaded", () => {
     while (m.nominees.some((x) => x.id === id)) id = slug(name + "-" + team).slice(0, 20) + "-" + n++;
     mvpError("");
     $("#mvp-name").value = "";
+    $("#mvp-player").value = "";
     edit(() => { work.mvp = { ...m, nominees: m.nominees.concat({ id, name, team }) }; });
   });
   $("[data-mvp-list]").addEventListener("click", (e) => {
@@ -258,12 +279,16 @@ document.addEventListener("DOMContentLoaded", () => {
   setTimeout(() => { if (work && mvpCur().nominees.length) refreshMvpCounts(); }, 3000);
   function renderMvpPanel() {
     if (!work) return;
+    if (!squadsTried && key) { squadsTried = true; loadSquads(); }
     const m = mvpCur();
     const teams = work.divisions.filter((d) => d.id !== "legends").flatMap((d) => (d.teams || []).filter((t) => t.name).map((t) => `${t.name}`));
     const sel = $("#mvp-team");
     const keep = sel.value;
     sel.innerHTML = [...new Set(teams)].map((t) => `<option>${E(t)}</option>`).join("") + `<option value="">No team</option>`;
     if (keep !== undefined && [...sel.options].some((o) => o.value === keep)) sel.value = keep;
+    const keepPlayer = $("#mvp-player").value;
+    renderPlayers();
+    if (keepPlayer && [...$("#mvp-player").options].some((o) => o.value === keepPlayer)) $("#mvp-player").value = keepPlayer;
     $("[data-mvp-list]").innerHTML = m.nominees.length ? m.nominees.map((n) => {
       const c = mvpCounts[n.id];
       return `<div style="display:flex;align-items:center;gap:10px;border:1px solid var(--line-strong);padding:8px 10px">
