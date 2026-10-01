@@ -200,6 +200,11 @@
       "a": "Buy a Donis London 26 Fan Ticket and you're entered into the draw for a signed Paolo Di Canio West Ham shirt. The winner is drawn after the legends game."
     },
     {
+      "id": "rules",
+      "q": "What are the rules?",
+      "a": "It's 2v2 on concrete in street shoes, in squads of up to four. Kick-offs are back to back on the centre spot. Kick-ins and corners can be passed or dribbled in, with defenders 3 yards back. A defender can't stay in the box for more than 5 seconds in a row, or it's a penalty: a 1v1 where the attacker has 10 seconds from their own half. Unsportsmanlike conduct means a one-minute sin bin. The full rules are on the Games page."
+    },
+    {
       "id": "mvp-vote",
       "q": "How does the fan MVP vote work?",
       "a": "On the day, nominees from the games go up on the Games page under the live stream. Fans vote for their favourite, one vote per email, and can change it while voting is open. The two players with the most votes play in the 19:00 legends game."
