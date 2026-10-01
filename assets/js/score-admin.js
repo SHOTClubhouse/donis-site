@@ -215,6 +215,68 @@ document.addEventListener("DOMContentLoaded", () => {
       : "";
   }
 
+  // ---- Fan MVP vote ----
+  // The list and the open switch live in the scores feed; the vote Worker reads them from there.
+  const mvpCur = () => work.mvp || { open: false, nominees: [] };
+  const mvpErr = $("[data-mvp-err]");
+  const mvpError = (m) => { mvpErr.textContent = m || ""; mvpErr.hidden = !m; };
+  const slug = (s) => s.toLowerCase().normalize("NFKD").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 20) || "player";
+  let mvpCounts = {};
+  $("[data-mvp-add]").addEventListener("click", () => {
+    const name = $("#mvp-name").value.trim(), team = $("#mvp-team").value;
+    const m = mvpCur();
+    if (!name) { mvpError("Add the player's first name."); return; }
+    if (name.length > 40) { mvpError("Keep the name to 40 characters."); return; }
+    if (m.nominees.length >= 8) { mvpError("Eight nominees at most."); return; }
+    let id = slug(name + "-" + team), n = 2;
+    while (m.nominees.some((x) => x.id === id)) id = slug(name + "-" + team).slice(0, 20) + "-" + n++;
+    mvpError("");
+    $("#mvp-name").value = "";
+    edit(() => { work.mvp = { ...m, nominees: m.nominees.concat({ id, name, team }) }; });
+  });
+  $("[data-mvp-list]").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-mvp-remove]"); if (!b) return;
+    const m = mvpCur();
+    if (m.open && m.nominees.length <= 2) { mvpError("Close the vote before taking it below two nominees."); return; }
+    const who = m.nominees.find((x) => x.id === b.dataset.mvpRemove);
+    if (!who || !confirm(`Remove ${who.name}? Their votes stop counting.`)) return;
+    mvpError("");
+    edit(() => { work.mvp = { ...m, nominees: m.nominees.filter((x) => x.id !== who.id) }; });
+  });
+  $("[data-mvp-toggle]").addEventListener("click", (e) => {
+    const b = e.target.closest("button"); if (!b) return;
+    const open = b.dataset.open === "true", m = mvpCur();
+    if (open && m.nominees.length < 2) { mvpError("Add at least two nominees first."); return; }
+    mvpError("");
+    edit(() => { work.mvp = { ...m, open }; });
+  });
+  async function refreshMvpCounts() {
+    if (!window.DONIS_CONFIG.mvpApi) return;
+    try { const t = await (await fetch(window.DONIS_CONFIG.mvpApi + "/tally", { cache: "no-store" })).json(); mvpCounts = Object.fromEntries(t.nominees.map((n) => [n.id, n])); mvpCounts._total = t.total; renderMvpPanel(); } catch (e) { /* counts are a nice-to-have here */ }
+  }
+  setInterval(() => { if (work && !document.hidden && mvpCur().nominees.length) refreshMvpCounts(); }, 30000);
+  setTimeout(() => { if (work && mvpCur().nominees.length) refreshMvpCounts(); }, 3000);
+  function renderMvpPanel() {
+    if (!work) return;
+    const m = mvpCur();
+    const teams = work.divisions.filter((d) => d.id !== "legends").flatMap((d) => (d.teams || []).filter((t) => t.name).map((t) => `${t.name}`));
+    const sel = $("#mvp-team");
+    const keep = sel.value;
+    sel.innerHTML = [...new Set(teams)].map((t) => `<option>${E(t)}</option>`).join("") + `<option value="">No team</option>`;
+    if (keep !== undefined && [...sel.options].some((o) => o.value === keep)) sel.value = keep;
+    $("[data-mvp-list]").innerHTML = m.nominees.length ? m.nominees.map((n) => {
+      const c = mvpCounts[n.id];
+      return `<div style="display:flex;align-items:center;gap:10px;border:1px solid var(--line-strong);padding:8px 10px">
+        <span style="flex:1"><b class="sc-name" style="font-size:18px">${E(n.name)}</b> <span class="sc-card__id">${E(n.team || "")}</span></span>
+        <span class="sc-card__id">${c ? `${c.votes} votes · ${c.pct}%` : ""}</span>
+        <button type="button" class="sc-link" data-mvp-remove="${E(n.id)}" aria-label="Remove ${E(n.name)}">Remove</button></div>`;
+    }).join("") : `<p class="sc-note">No nominees yet.</p>`;
+    document.querySelectorAll("[data-mvp-toggle] button").forEach((b) => b.setAttribute("aria-pressed", String((b.dataset.open === "true") === !!m.open)));
+    $("[data-mvp-note]").textContent = !m.nominees.length ? "Nothing shows on the Games page until there are nominees."
+      : m.open ? `Voting is open on the Games page.${mvpCounts._total != null ? ` ${mvpCounts._total} votes so far.` : ""}`
+      : `Voting is closed. The Games page shows the nominees${mvpCounts._total ? " and the final result" : ""}.`;
+  }
+
   el.publish.addEventListener("click", publish);
   $("[data-signout]").addEventListener("click", () => { if (!pending().length || confirm("You have unsaved changes. Sign out anyway?")) signOut(); });
   window.addEventListener("online", () => pending().length && schedule(500));
@@ -229,6 +291,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function render() {
     if (!work) return;
     renderStreamPanel();
+    renderMvpPanel();
     if (!divOf(current)) current = work.divisions[0].id;
     const div = divOf(current);
     el.tabs.innerHTML = work.divisions.map((d) => `<button type="button" role="tab" data-div="${E(d.id)}" aria-selected="${d.id === current}" style="flex:1">${E(d.name)}</button>`).join("");

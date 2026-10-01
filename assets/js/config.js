@@ -24,6 +24,8 @@ window.DONIS_CONFIG = {
   shot: "https://shotclubhouse.com",
   // Donis Clubhouse pre-registration (/join/). A Make webhook that saves each sign-up to the
   // "Donis Clubhouse pre-registrations" data store in Liam's Make account (eu1). Write-only.
+  // Fan MVP vote: Cloudflare Worker donis-mvp (workers/mvp), D1 database donis-mvp, SHOT account.
+  mvpApi: "https://donis-mvp.bff66e9b5be5bd00f27d0c072c428cf9a0895b96.workers.dev",
   joinHook: "https://hook.eu1.make.com/bkly7o7exsrxwe246wd61hanaoihpq3m",
   instagram: "https://www.instagram.com/donisclub/",
   donis: "https://donis.uk/",

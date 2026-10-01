@@ -549,3 +549,24 @@
 .join__privacy { margin: 0; font-size: 13px; }
 .join__privacy a { color: var(--bone); }
 @media (max-width: 860px) { .join { grid-template-columns: 1fr; } }
+/* Fan MVP vote, under the live stream on the Games page */
+.mvpbox { margin-top: 16px; border: 2px solid var(--acid); background: var(--panel); padding: clamp(16px, 3vw, 24px); display: grid; gap: 12px; }
+.mvpbox__head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.mvpbox__title { margin: 0; font-size: clamp(28px, 4vw, 44px); font-weight: 400; line-height: .95; }
+.mvpbox__lede { margin: 0; color: var(--bone); }
+.mvpbox__list { display: grid; gap: 8px; }
+.mvpbox__opt { position: relative; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 12px; padding: 12px 14px; min-height: 56px; background: var(--ink); border: 1px solid var(--line-strong); color: var(--bone); text-align: left; font: inherit; cursor: pointer; width: 100%; }
+div.mvpbox__opt { cursor: default; }
+.mvpbox__opt:hover { border-color: var(--bone); }
+.mvpbox__opt.is-on { border-color: var(--acid); box-shadow: inset 4px 0 0 var(--acid); }
+.mvpbox__opt.is-star { border-color: var(--acid); }
+.mvpbox__bar { position: absolute; inset: 0 auto 0 0; background: rgba(43, 240, 58, .12); transition: width .6s ease; pointer-events: none; }
+.mvpbox__who, .mvpbox__pct { position: relative; display: grid; gap: 2px; }
+.mvpbox__who b { font-family: var(--f-display); font-weight: 400; font-size: 22px; text-transform: uppercase; line-height: 1; }
+.mvpbox__who small, .mvpbox__pct small { font-family: var(--f-mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--mute); }
+.mvpbox__pct { text-align: right; font-family: var(--f-display); font-size: 26px; }
+.mvpbox__opt.is-mine .mvpbox__pct small, .mvpbox__opt.is-star .mvpbox__pct small { color: var(--acid); }
+.mvpbox__total { margin: 0; font-size: 11px; }
+.mvpbox__form { display: grid; gap: 12px; border-top: 1px solid var(--line); padding-top: 14px; }
+.mvpbox__form .btn { justify-content: center; min-height: 52px; }
+.join__msg.is-ok { color: var(--acid); }

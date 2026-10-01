@@ -113,6 +113,20 @@
       <p class="sc-err" data-stream-err hidden></p>
     </section>
 
+    <section class="sc-panel" data-mvp-panel>
+      <h2>Fan MVP vote</h2>
+      <p class="sc-note">Add 2 to 8 nominees, then open the vote. The two with the most fan votes play in the Legends game. Only add players who are 16 or over and have said yes to being named. First name and team only.</p>
+      <div data-mvp-list style="display:grid;gap:8px"></div>
+      <div class="sc-grid3">
+        <div class="sc-field"><label for="mvp-name">First name</label><input id="mvp-name" maxlength="40" autocomplete="off" placeholder="Sam"></div>
+        <div class="sc-field" style="grid-column:span 2"><label for="mvp-team">Team</label><select id="mvp-team"></select></div>
+      </div>
+      <button class="btn btn--ghost" type="button" data-mvp-add style="justify-content:center">Add nominee</button>
+      <div class="seg" data-mvp-toggle style="width:100%"><button type="button" data-open="false" style="flex:1">Voting closed</button><button type="button" data-open="true" style="flex:1">Voting open</button></div>
+      <p class="sc-note" data-mvp-note></p>
+      <p class="sc-err" data-mvp-err hidden></p>
+    </section>
+
     <section class="sc-panel" data-add>
       <h2>Add a game</h2>
       <div class="sc-field"><label for="add-stage">Stage</label>

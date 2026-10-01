@@ -50,6 +50,22 @@
         if (st.label !== undefined && (typeof st.label !== "string" || st.label.length > 80)) errs.push("stream: label must be 80 characters or fewer");
       }
     }
+    if (d.mvp !== undefined && d.mvp !== null) {
+      const m = d.mvp;
+      if (typeof m !== "object" || !Array.isArray(m.nominees)) errs.push("mvp: needs a nominees list");
+      else {
+        if (typeof m.open !== "boolean") errs.push("mvp: open must be true or false");
+        if (m.nominees.length > 8) errs.push("mvp: eight nominees at most");
+        if (m.open === true && m.nominees.length < 2) errs.push("mvp: add at least two nominees before opening the vote");
+        const ids = new Set();
+        m.nominees.forEach((n) => {
+          if (!n || typeof n.id !== "string" || !/^[a-z0-9-]{1,24}$/.test(n.id) || ids.has(n.id)) errs.push(`mvp: nominee ${n && n.id} has a missing or duplicate id`);
+          else ids.add(n.id);
+          if (!n || typeof n.name !== "string" || !n.name.trim() || n.name.length > 40) errs.push(`mvp: nominee ${n && n.id} needs a name of 40 characters or fewer`);
+          if (n && n.team !== undefined && (typeof n.team !== "string" || n.team.length > 40)) errs.push(`mvp: nominee ${n.id} team must be 40 characters or fewer`);
+        });
+      }
+    }
     const seen = new Set();
     d.fixtures.forEach((f) => {
       const at = `game ${f.id}`;
@@ -93,6 +109,7 @@
       });
     });
     if (JSON.stringify(base.stream || null) !== JSON.stringify(work.stream || null)) out.push({ op: "stream", stream: work.stream ? { ...work.stream } : null });
+    if (JSON.stringify(base.mvp || null) !== JSON.stringify(work.mvp || null)) out.push({ op: "mvp", mvp: work.mvp ? JSON.parse(JSON.stringify(work.mvp)) : null });
     return out;
   }
 
@@ -105,6 +122,7 @@
       else if (c.op === "remove") d.fixtures = d.fixtures.filter((x) => x.id !== c.id);
       else if (c.op === "add") { if (!d.fixtures.some((x) => x.id === c.fixture.id)) d.fixtures.push({ ...c.fixture }); }
       else if (c.op === "stream") d.stream = c.stream ? { ...c.stream } : null;
+      else if (c.op === "mvp") d.mvp = c.mvp ? JSON.parse(JSON.stringify(c.mvp)) : null;
       else if (c.op === "team") {
         const v = d.divisions.find((x) => x.id === c.division);
         const t = v && (v.teams || []).find((x) => x.id === c.id);
@@ -124,6 +142,7 @@
       }
       if (c.op === "team") return `${c.id} is ${c.name || "TBC"}`;
       if (c.op === "stream") return `stream ${c.stream && c.stream.on ? "on" : "off"}`;
+      if (c.op === "mvp") return `MVP vote ${c.mvp && c.mvp.open ? "open" : "closed"}, ${c.mvp ? c.mvp.nominees.length : 0} nominees`;
       if (c.op === "add") return `added ${c.fixture.id} ${c.fixture.time}`;
       return `removed ${c.id}`;
     });
