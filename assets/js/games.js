@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // once every game is full time there is nothing left to wait for.
     const over = data.fixtures.length && data.fixtures.every((f) => f.state === "ft");
     const today = new Date().toISOString().slice(0, 10) === data.date;
-    const key = s ? `${s.kind}|${s.id || s.url}|${s.label}` : over ? "" : `wait|${today}`;
+    const key = s ? `${s.kind}|${s.id || s.channel || s.url}|${s.label}` : over ? "" : `wait|${today}`;
     if (streamBox.dataset.key === key) return;
     streamBox.dataset.key = key;
     if (!s && over) { streamBox.hidden = true; streamBox.innerHTML = ""; streamBox.className = "streambox"; return; }
@@ -89,6 +89,12 @@ document.addEventListener("DOMContentLoaded", () => {
       streamBox.innerHTML = `<div class="streambox__head"><span class="tag tag--live">Live</span><span class="streambox__label">${E(title)}</span></div>
         <div class="streambox__frame"><iframe src="https://www.youtube-nocookie.com/embed/${E(s.id)}?rel=0&playsinline=1" title="${E(title)}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
         <a class="streambox__alt" href="https://www.youtube.com/watch?v=${E(s.id)}" target="_blank" rel="noopener">Not playing? Watch on YouTube &rarr;</a>`;
+    } else if (s.kind === "twitch") {
+      // Twitch only plays on the domains named in parent=, so name the one this page is on.
+      streamBox.className = "streambox";
+      streamBox.innerHTML = `<div class="streambox__head"><span class="tag tag--live">Live</span><span class="streambox__label">${E(title)}</span></div>
+        <div class="streambox__frame"><iframe src="https://player.twitch.tv/?channel=${encodeURIComponent(s.channel)}&parent=${encodeURIComponent(location.hostname)}&muted=true" title="${E(title)}" allow="autoplay; fullscreen" allowfullscreen></iframe></div>
+        <a class="streambox__alt" href="https://www.twitch.tv/${encodeURIComponent(s.channel)}" target="_blank" rel="noopener">Not playing? Watch on Twitch &rarr;</a>`;
     } else {
       streamBox.className = "streambox streambox--link";
       streamBox.innerHTML = `<span class="tag tag--live">Live</span><span class="streambox__label">${E(title)}</span>

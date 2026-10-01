@@ -18,6 +18,11 @@
       const id = host === "youtu.be" ? u.pathname.slice(1) : u.searchParams.get("v") || (u.pathname.match(/^\/(?:live|embed|shorts)\/([^/?#]+)/) || [])[1];
       if (id && /^[A-Za-z0-9_-]{11}$/.test(id)) return { kind: "youtube", id, url: s.url, host: "YouTube", label };
     }
+    // A Twitch channel page (twitch.tv/name) plays in Twitch's own player; videos and clips stay links.
+    if (host === "twitch.tv") {
+      const ch = (u.pathname.match(/^\/([A-Za-z0-9_]{3,25})\/?$/) || [])[1];
+      if (ch && !["videos", "directory", "settings", "downloads", "p"].includes(ch.toLowerCase())) return { kind: "twitch", channel: ch.toLowerCase(), url: s.url, host: "Twitch", label };
+    }
     const names = { "veo.co": "Veo", "app.veo.co": "Veo", "veo.com": "Veo", "live.veo.co": "Veo", "facebook.com": "Facebook", "fb.watch": "Facebook", "twitch.tv": "Twitch", "instagram.com": "Instagram", "youtube.com": "YouTube" };
     return { kind: "link", url: s.url, host: names[host] || host, label };
   }

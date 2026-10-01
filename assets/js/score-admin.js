@@ -211,6 +211,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const info = M.streamInfo({ ...s, on: true });
     $("[data-stream-note]").textContent = !s.url ? "No stream link yet."
       : info && info.kind === "youtube" ? `YouTube video found. ${s.on ? "Playing on the Games page." : "Switch on to show it on the Games page."}`
+      : info && info.kind === "twitch" ? `Twitch channel found. ${s.on ? "Playing on the Games page." : "Switch on to show it on the Games page."}`
       : info ? `Shows as a "Watch on ${info.host}" button. ${s.on ? "It's on." : "Switch on to show it."}`
       : "";
   }
