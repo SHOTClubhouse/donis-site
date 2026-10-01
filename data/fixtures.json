@@ -36,7 +36,7 @@
       "teams": [
         {
           "id": "MA1",
-          "name": "The Flying Dutchman",
+          "name": "Dutch Courage",
           "group": "A"
         },
         {
@@ -46,12 +46,12 @@
         },
         {
           "id": "MA3",
-          "name": "Euan / Olly FC",
+          "name": "Just here for the Pints FC",
           "group": "A"
         },
         {
           "id": "MA4",
-          "name": "David / Bailey FC",
+          "name": "Durkin FC",
           "group": "A"
         },
         {
