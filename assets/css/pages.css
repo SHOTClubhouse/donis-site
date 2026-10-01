@@ -516,3 +516,14 @@
 @media (max-width: 760px) { .facts { grid-template-columns: 1fr 1fr; } }
 .lt__group { color: var(--orange); font-weight: 400; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; margin: 0 0 8px; }
 .lt + .lt__group { margin-top: 20px; }
+.giveaway--img { grid-template-columns: minmax(0, 220px) minmax(0, 1fr); gap: 8px 24px; align-items: center; }
+.giveaway__img { width: 100%; height: auto; display: block; border: 1px solid var(--line-strong); }
+.giveaway__text { display: grid; gap: 8px; }
+@media (max-width: 560px) { .giveaway--img { grid-template-columns: 1fr; } .giveaway__img { max-width: 320px; } }
+/* Portrait promo video beside its copy (prize on Games, special guest on The Sound). */
+.feature { display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: clamp(24px, 5vw, 72px); align-items: center; }
+.feature__media video { width: 100%; aspect-ratio: 9 / 16; object-fit: cover; display: block; background: #000; border: 1px solid var(--line-strong); }
+.feature__copy { display: grid; gap: 14px; justify-items: start; }
+.feature__copy h2 { margin: 0; }
+.feature__copy p { margin: 0; }
+@media (max-width: 760px) { .feature { grid-template-columns: 1fr; } .feature__media { max-width: 340px; } }

@@ -192,8 +192,12 @@
       "a": "Live on the Games page: donis.shotclubhouse.com/london-26/games. It updates by itself through the day."
     },
     {
+      "q": "What do the winners get?",
+      "a": "The winning men's 2v2 team wins two tickets to Race Across the Desert."
+    },
+    {
       "q": "What's the giveaway?",
-      "a": "Every ticket holder goes into the draw for an authentic signed Paolo Di Canio shirt. The winner is drawn after the legends game."
+      "a": "Buy a Donis London 26 Fan Ticket and you're entered into the draw for a signed Paolo Di Canio West Ham shirt. The winner is drawn after the legends game."
     },
     {
       "q": "Is there parking?",
@@ -213,13 +217,25 @@
       "name": "Favela Cerveja",
       "role": "Headline sponsor",
       "logo": "/assets/img/sponsors/favela-cerveja.webp",
-      "_source": "Logos from donis.uk Featured Sponsors, 30 Sep 2026. Flair link from the donis.uk footer."
+      "_source": "favelacerveja.com, read 1 Oct 2026",
+      "blurb": [
+        "Favela is a premium beer built to capture the taste of Rio. It was started by father and son Charles and Fred Gay.",
+        "The range is a crisp 5% lager and Ipanema, a light 5% IPA with citrus notes. Both are vegan and gluten-free.",
+        "A share of every sale goes to The Favela Foundation, which funds grassroots education and community projects in Brazil's favelas."
+      ],
+      "url": "https://www.favelacerveja.com"
     },
     {
       "name": "Flair Digital Agency",
       "role": "Headline sponsor",
       "logo": "/assets/img/sponsors/flair.webp",
-      "url": "https://withflair.agency"
+      "url": "https://withflair.agency",
+      "blurb": [
+        "Flair is a founder-focused digital agency for growing businesses in London, Berkshire and across the UK, set up in October 2024.",
+        "It covers brand design, paid search and social campaigns, social media management, personal brands for founders, and SEO.",
+        "Flair designed the Donis website. It also sponsors football from England Beach Soccer and Reading FC to grassroots clubs in Berkshire."
+      ],
+      "_source": "withflair.agency and the donis.uk footer, read 1 Oct 2026"
     },
     {
       "name": "SHOT Clubhouse",
@@ -227,16 +243,25 @@
       "logo": "/assets/brand/shot-logo.png",
       "url": "https://shotclubhouse.com",
       "strip": false,
-      "blurb": "The digital home for the Donis series: this site, live scores and tables, and the big screen at the cage."
+      "blurb": [
+        "SHOT Clubhouse brings a whole club into one app: teams, fixtures, announcements and the people in it.",
+        "For Donis it runs this site, the live scores and tables you follow on your phone, and the big screen at the cage."
+      ],
+      "_source": "SHOT"
     }
   ],
   "credentialExpiresAt": 1791158399,
   "giveaway": {
     "label": "Legends giveaway",
-    "prize": "An authentic signed Paolo Di Canio shirt",
-    "how": "Every ticket holder goes into the draw.",
-    "when": "Winner drawn after the Legends game.",
-    "source": "Ben Smith, call 30 Sep 2026"
+    "prize": "A signed Paolo Di Canio West Ham shirt",
+    "how": "Buy a Donis London 26 Fan Ticket and you're automatically entered into the draw.",
+    "when": "Winner drawn after the legends game. With thanks to Nicky at West Ham Fan TV.",
+    "source": "Ben Smith, call 30 Sep 2026; @donisclub post 30 Sep 2026 (instagram.com/p/Dd6eM5RqsOX)",
+    "image": "/assets/img/giveaway-dicanio.webp"
   },
-  "_changes": "30 Sep 2026, Ben Smith: doors 11:40, men's 13:00 to 18:30, afterparty until 22:30, address confirmed, Ricci and Liam Flint out, George Clarke in."
+  "_changes": "30 Sep 2026, Ben Smith: doors 11:40, men's 13:00 to 18:30, afterparty until 22:30, address confirmed, Ricci and Liam Flint out, George Clarke in.",
+  "prizes": {
+    "mens": "Two tickets to Race Across the Desert for the winning men's 2v2 team.",
+    "source": "@donisclub post 29 Sep 2026 (instagram.com/p/Dd4HfD2qh4o)"
+  }
 }

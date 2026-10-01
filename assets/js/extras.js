@@ -34,7 +34,7 @@
           <div class="spcard__body">
             <span class="mono orange">${E(s.role || "Partner")}</span>
             <h2 class="${s.logo ? "display h-sm" : "sr-only"}">${E(s.name)}</h2>
-            ${s.blurb ? `<p class="muted">${E(s.blurb)}</p>` : ""}
+            ${[].concat(s.blurb || []).map((t) => `<p class="muted">${E(t)}</p>`).join("")}
             ${safeUrl(s.url) ? `<a class="btn btn--ghost btn--sm" href="${E(safeUrl(s.url))}" rel="noopener" target="_blank">Visit ${E(s.name)} <span class="arrow">&rarr;</span></a>` : ""}
           </div>
         </article>`).join("") : `<p class="muted">Partners to be announced.</p>`;
@@ -44,9 +44,12 @@
     const gv = ev.giveaway;
     document.querySelectorAll("[data-giveaway]").forEach((host) => {
       if (!gv || !gv.prize) { host.hidden = true; return; }
-      host.innerHTML = `<span class="mono giveaway__label">${E(gv.label || "Giveaway")}</span>
+      const img = gv.image && /^\/assets\/[\w/.-]+$/.test(gv.image) ? gv.image : null;
+      host.classList.toggle("giveaway--img", !!img);
+      host.innerHTML = (img ? `<img class="giveaway__img" src="${E(img)}" alt="Win a signed Di Canio shirt at Donis London 26" loading="lazy" width="900" height="1200">` : "")
+        + `<div class="giveaway__text"><span class="mono giveaway__label">${E(gv.label || "Giveaway")}</span>
         <b class="display giveaway__prize">${E(gv.prize)}</b>
-        <p class="giveaway__how">${E([gv.how, gv.when].filter(Boolean).join(" "))}</p>`;
+        <p class="giveaway__how">${E([gv.how, gv.when].filter(Boolean).join(" "))}</p></div>`;
       host.hidden = false;
     });
 
