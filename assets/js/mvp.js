@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="join__field"><label for="mvp-email">Your email</label><input id="mvp-email" name="email" type="email" autocomplete="email" maxlength="160" required></div>
         <div class="join__trap" aria-hidden="true"><label for="mvp-website">Leave this empty</label><input id="mvp-website" name="website" tabindex="-1" autocomplete="off"></div>
         <label class="join__check"><input type="checkbox" name="over13"> <span>I'm 13 or over.</span></label>
-        <label class="join__check"><input type="checkbox" name="join"> <span>Tell me about the Donis Clubhouse too (optional).</span></label>
+        <label class="join__check"><input type="checkbox" name="join"> <span>Tell me about future Donis events and the Donis Clubhouse (optional).</span></label>
         <button class="btn btn--orange" type="submit" ${sending ? "disabled" : ""}>${voted ? "Change my vote" : "Vote"} <span class="arrow">&rarr;</span></button>
         <p class="join__msg ${ok ? "is-ok" : ""}" role="status" aria-live="polite" ${msg ? "" : "hidden"}>${E(msg)}</p>
         <p class="join__privacy muted"><a href="/london-26/faq/#vote-email">How we use your email</a></p>
