@@ -50,7 +50,6 @@ document.addEventListener("DOMContentLoaded", () => {
         <label class="join__check"><input type="checkbox" name="join"> <span>Tell me about the Donis Clubhouse too (optional).</span></label>
         <button class="btn btn--orange" type="submit" ${sending ? "disabled" : ""}>${voted ? "Change my vote" : "Vote"} <span class="arrow">&rarr;</span></button>
         <p class="join__msg ${ok ? "is-ok" : ""}" role="status" aria-live="polite" ${msg ? "" : "hidden"}>${E(msg)}</p>
-        <p class="join__privacy muted">Your email makes it one vote per person and is used for nothing else unless you tick the Clubhouse box. To delete your vote, email <a href="mailto:liam@shotclubhouse.com">liam@shotclubhouse.com</a>.</p>
       </form>`}`;
     const f = box.querySelector("form");
     if (f && keep) { f.email.value = keep.email; f.over13.checked = keep.over13; f.join.checked = keep.join; }
