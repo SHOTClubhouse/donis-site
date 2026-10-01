@@ -70,7 +70,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // FAQ and venue
   const faq = $("[data-faq]");
-  if (faq) faq.innerHTML = ev.faq.map((f) => `<details><summary>${E(f.q)}</summary><p>${E(f.a)}</p></details>`).join("");
+  if (faq) {
+    faq.innerHTML = ev.faq.map((f) => `<details${f.id ? ` id="${E(f.id)}"` : ""}><summary>${E(f.q)}</summary><p>${E(f.a)}</p></details>`).join("");
+    // A link straight to one answer (e.g. /london-26/faq/#vote-email) opens it.
+    const target = location.hash && document.getElementById(location.hash.slice(1));
+    if (target && target.tagName === "DETAILS") { target.open = true; target.scrollIntoView({ block: "center" }); }
+  }
   const address = $("[data-address]");
   if (address) address.textContent = ev.venue.addressConfirmed ? ev.venue.address : `${ev.venue.area} E20. Full address on your Eventbrite ticket.`;
   const parking = $("[data-parking]");

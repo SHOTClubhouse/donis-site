@@ -200,6 +200,16 @@
       "a": "Buy a Donis London 26 Fan Ticket and you're entered into the draw for a signed Paolo Di Canio West Ham shirt. The winner is drawn after the legends game."
     },
     {
+      "id": "mvp-vote",
+      "q": "How does the fan MVP vote work?",
+      "a": "On the day, nominees from the games go up on the Games page under the live stream. Fans vote for their favourite, one vote per email, and can change it while voting is open. The two players with the most votes play in the 19:00 legends game."
+    },
+    {
+      "id": "vote-email",
+      "q": "What happens to my email when I vote?",
+      "a": "SHOT Clubhouse uses it only to make sure each person votes once. It isn't shown to anyone or used for anything else, unless you tick the box to hear about the Donis Clubhouse. To have your vote and email deleted, email liam@shotclubhouse.com."
+    },
+    {
       "q": "Is there parking?",
       "a": "No free parking. The nearest car park is Westfield Stratford City, Montfichet Road, E20 1EJ."
     },
