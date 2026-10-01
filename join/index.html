@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Join the Donis Clubhouse</title>
+<meta name="description" content="The Donis Clubhouse is coming soon on SHOT. Pre-register for exclusive content, early releases, member discounts and merch.">
+<meta name="theme-color" content="#0a0a0a">
+<meta name="robots" content="noindex"><!-- TODO: VERIFY remove once Donis sign off brand use -->
+<meta property="og:title" content="Join the Donis Clubhouse">
+<meta property="og:description" content="Coming soon. Pre-register for exclusive content, early releases, member discounts and merch.">
+<meta property="og:image" content="https://donis.shotclubhouse.com/assets/img/banner-legends.webp">
+<link rel="icon" href="/assets/brand/shot-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600&family=Libre+Caslon+Text&family=Pirata+One&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/donis.css">
+<link rel="stylesheet" href="/assets/css/pages.css">
+<script src="/assets/js/config.js"></script>
+<script src="/assets/js/site.js" defer></script>
+<script src="/assets/js/join.js" defer></script>
+</head>
+<body>
+<div data-nav></div>
+
+<main id="main">
+  <section class="subhero grid-paper">
+    <div class="wrap join">
+      <div class="join__intro">
+        <div class="subhero__top"><span class="tag tag--live">Coming soon</span></div>
+        <h1 class="gothic join__title">The Donis Clubhouse</h1>
+        <p class="lede">Donis's own Clubhouse is coming to SHOT. Pre-register now and you're first in when it opens.</p>
+        <ul class="join__perks">
+          <li><b>Exclusive content</b><span>Stories, clips and behind the scenes from every edition.</span></li>
+          <li><b>Pre-releases</b><span>First look at new events, line-ups and tickets.</span></li>
+          <li><b>Member discounts</b><span>Prices for members only.</span></li>
+          <li><b>Merch first</b><span>Drops land with members before anyone else.</span></li>
+        </ul>
+      </div>
+
+      <form class="join__form" data-join novalidate>
+        <h2 class="display h-sm">Become a member</h2>
+        <div class="join__field"><label for="j-name">Name</label><input id="j-name" name="name" autocomplete="name" maxlength="120" required></div>
+        <div class="join__field"><label for="j-phone">Mobile number</label><input id="j-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="40" required></div>
+        <div class="join__field"><label for="j-email">Email</label><input id="j-email" name="email" type="email" autocomplete="email" maxlength="160" required></div>
+        <div class="join__field"><label for="j-sport">Your sport</label><input id="j-sport" name="sport" list="j-sports" maxlength="60" placeholder="Football" required>
+          <datalist id="j-sports"><option>Football</option><option>Futsal</option><option>Basketball</option><option>Rugby</option><option>Netball</option><option>Cricket</option><option>Tennis</option><option>Padel</option><option>Boxing</option><option>Running</option></datalist></div>
+        <div class="join__trap" aria-hidden="true"><label for="j-website">Leave this empty</label><input id="j-website" name="website" tabindex="-1" autocomplete="off"></div>
+        <label class="join__check"><input type="checkbox" name="over13" required> <span>I'm 13 or over.</span></label>
+        <label class="join__check"><input type="checkbox" name="consent" required> <span>SHOT can contact me about the Donis Clubhouse by email, phone or text. I can ask to stop at any time.</span></label>
+        <button class="btn btn--orange" type="submit">Become a member <span class="arrow">&rarr;</span></button>
+        <p class="join__msg" data-join-msg role="status" aria-live="polite" hidden></p>
+        <p class="join__privacy muted">Your details are kept by SHOT Clubhouse and used only to tell you about the Donis Clubhouse and its perks. We never sell them. To see or delete what we hold, email <a href="mailto:liam@shotclubhouse.com">liam@shotclubhouse.com</a>.</p>
+      </form>
+
+      <div class="join__done" data-join-done hidden>
+        <span class="mono acid">You're on the list</span>
+        <h2 class="display h-md">Welcome to the Clubhouse</h2>
+        <p class="lede">We'll be in touch as soon as it opens. Members hear first.</p>
+        <a class="btn btn--ghost" href="/london-26/">Back to London 26 <span class="arrow">&rarr;</span></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div data-footer></div>
+</body>
+</html>
