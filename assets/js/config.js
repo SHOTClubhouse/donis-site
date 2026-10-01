@@ -22,6 +22,9 @@ window.DONIS_CONFIG = {
     feed: "https://shotclubhouse.github.io/donis-scores", keyFile: "scorer-key.json",
   },
   shot: "https://shotclubhouse.com",
+  // Donis Clubhouse pre-registration (/join/). A Make webhook that saves each sign-up to the
+  // "Donis Clubhouse pre-registrations" data store in Liam's Make account (eu1). Write-only.
+  joinHook: "https://hook.eu1.make.com/bkly7o7exsrxwe246wd61hanaoihpq3m",
   instagram: "https://www.instagram.com/donisclub/",
   donis: "https://donis.uk/",
   // Membership code redeemed in SHOT Clubhouse (Account > Membership). Created by a

@@ -527,3 +527,25 @@
 .feature__copy h2 { margin: 0; }
 .feature__copy p { margin: 0; }
 @media (max-width: 760px) { .feature { grid-template-columns: 1fr; } .feature__media { max-width: 340px; } }
+/* Donis Clubhouse pre-registration (/join/) */
+.join { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 88px); align-items: start; }
+.join__title { font-size: clamp(56px, 9vw, 128px); line-height: .9; margin: 18px 0 20px; }
+.join__perks { list-style: none; margin: 28px 0 0; padding: 0; display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.join__perks li { background: var(--ink); padding: 14px 16px; display: grid; gap: 4px; }
+.join__perks b { font-family: var(--f-display); font-weight: 400; font-size: 22px; text-transform: uppercase; }
+.join__perks span { color: var(--mute); }
+.join__form, .join__done { border: 1px solid var(--line-strong); background: var(--panel); padding: clamp(20px, 3vw, 32px); display: grid; gap: 14px; }
+.join__form h2, .join__done h2 { margin: 0; }
+.join__field { display: grid; gap: 6px; }
+.join__field label { font-family: var(--f-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--mute); }
+.join__field input { background: var(--ink); color: var(--bone); border: 1px solid var(--line-strong); min-height: 48px; padding: 0 12px; font: 16px var(--f-body); width: 100%; }
+.join__field input:focus { outline: 2px solid var(--acid); outline-offset: 1px; }
+.join__form [aria-invalid="true"] { border-color: var(--orange); outline: 2px solid var(--orange); }
+.join__check { display: grid; grid-template-columns: 24px 1fr; gap: 10px; align-items: start; font-size: 15px; cursor: pointer; }
+.join__check input { width: 22px; height: 22px; margin: 1px 0 0; accent-color: var(--acid); }
+.join__trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.join__form .btn { justify-content: center; min-height: 52px; }
+.join__msg { margin: 0; color: var(--orange); font-family: var(--f-mono); font-size: 13px; }
+.join__privacy { margin: 0; font-size: 13px; }
+.join__privacy a { color: var(--bone); }
+@media (max-width: 860px) { .join { grid-template-columns: 1fr; } }
