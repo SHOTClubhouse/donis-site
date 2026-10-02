@@ -115,7 +115,12 @@ document.addEventListener("DOMContentLoaded", () => {
       render();
       status(`Saved ${saved.updated} · going live on the site…`, "ok");
       toast("Saved ✓");
-      watchLive(saved.rev, saved.updated);
+      // Fast path: straight to the live site in a second or two. If that fails, the GitHub
+      // publish still gets it there, and the page says so when it does.
+      if (await pushFast(saved)) {
+        clearInterval(watch);
+        if (!pending().length) { status(`Live on the site · ${saved.updated}`, "ok"); toast("On the website ✓"); }
+      } else watchLive(saved.rev, saved.updated);
     } catch (e) {
       status(e.message || "Not saved. Check signal and tap Save now.", "warn");
       el.publish.hidden = false;
@@ -124,6 +129,18 @@ document.addEventListener("DOMContentLoaded", () => {
       busy = false;
       if (again || pending().length) { again = false; if (pending().length) schedule(1500); }
     }
+  }
+
+  async function pushFast(board) {
+    const api = window.DONIS_CONFIG.mvpApi;
+    if (!api || !key) return false;
+    try {
+      const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 6000);
+      const r = await fetch(api + "/board", { method: "POST", signal: ctl.signal, headers: { "Content-Type": "application/json", Authorization: `Bearer ${key}` }, body: JSON.stringify(board) });
+      clearTimeout(t);
+      // 409 means a newer board is already live (another scorer), which is fine.
+      return r.ok || r.status === 409;
+    } catch (e) { return false; }
   }
 
   // Confirms the public page is actually showing this save, not just that GitHub took it.

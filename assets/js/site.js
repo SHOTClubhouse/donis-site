@@ -27,13 +27,25 @@
     return body;
   };
 
-  // Live scores come from the scores feed. The copy bundled with the site is only used if
-  // the feed has never loaded on this visit, so a blip never swaps live scores for stale ones.
-  let scoresSeen = false;
+  // Live scores: first the fast path (the vote server's /board, updated the moment the scorer
+  // saves), then the GitHub-published feed, which is the record and the backup. The copy
+  // bundled with the site is only used if neither has loaded on this visit, so a blip never
+  // swaps live scores for stale ones. A board older than one already shown is ignored.
+  let scoresSeen = false, lastRev = 0;
+  const fresh = (d) => { if (d && (d.rev || 0) >= lastRev) { lastRev = d.rev || 0; return d; } throw new Error("older board"); };
+  const timed = async (url, ms) => {
+    const ctl = typeof AbortController !== "undefined" ? new AbortController() : null;
+    const t = ctl && setTimeout(() => ctl.abort(), ms);
+    try { const r = await fetch(url, { cache: "no-store", signal: ctl ? ctl.signal : undefined }); if (!r.ok) throw new Error(r.status); return await r.json(); }
+    finally { if (t) clearTimeout(t); }
+  };
   D.scores = async () => {
-    const feed = C.scores && C.scores.feed;
+    const fast = C.mvpApi, feed = C.scores && C.scores.feed;
+    if (fast) {
+      try { const d = fresh(await timed(`${fast}/board?t=${Date.now()}`, 4000)); scoresSeen = true; return d; } catch (e) { /* fall back to the feed */ }
+    }
     if (feed) {
-      try { const d = await D.json(`${feed.replace(/\/$/, "")}/fixtures.json`); scoresSeen = true; return d; }
+      try { const d = fresh(await D.json(`${feed.replace(/\/$/, "")}/fixtures.json`)); scoresSeen = true; return d; }
       catch (e) { if (scoresSeen) throw e; }
     }
     return D.json("/data/fixtures.json");

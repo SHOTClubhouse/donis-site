@@ -212,9 +212,9 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   window.addEventListener("hashchange", () => { chosen = true; select(location.hash.slice(1), false); });
 
-  // Pick up new scores without a refresh (every 30s while the page is on screen, any day,
+  // Pick up new scores without a refresh (every 5s while the page is on screen, any day,
   // so a rehearsal behaves like matchday), and straight away when a phone wakes.
   load();
-  setInterval(() => { if (!document.hidden) load(); }, 10000);
+  setInterval(() => { if (!document.hidden) load(); }, 5000);
   document.addEventListener("visibilitychange", () => { if (!document.hidden) load(); });
 });

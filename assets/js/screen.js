@@ -178,7 +178,7 @@ document.addEventListener("DOMContentLoaded", () => {
   load();
   loadVote();
   Donis.json("/data/london-26.json").then((ev) => { legends = ev.legends || null; render(); }).catch(() => {});
-  setInterval(load, 10000);
+  setInterval(load, 5000);
   setInterval(loadVote, 10000);
   setInterval(() => { if (data) { idx++; render(); } }, 12000);
   setInterval(() => { $("[data-clock]").textContent = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", hour: "2-digit", minute: "2-digit" }).format(new Date()); }, 1000);
