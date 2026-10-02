@@ -21,7 +21,13 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function render() {
-    if (!t || t.nominees.length < 2) { box.hidden = true; return; }
+    // Before there are nominees the box still holds its place, so fans know the vote is coming.
+    if (!t || t.nominees.length < 2) {
+      box.hidden = false;
+      box.innerHTML = `<div class="mvpbox__head"><span class="tag">Coming up</span><h2 class="display mvpbox__title">Pick the MVPs</h2></div>
+        <p class="mvpbox__lede">Nominees from the games go up here during the day. Vote for your favourite, and the two players with the most votes join the legends at 19:00.</p>`;
+      return;
+    }
     const lead = places(t.nominees);
     const closed = !t.open;
     // Keep what the fan has typed when the percentages refresh underneath them.
@@ -99,6 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
     render();
   });
 
+  render();
   load();
   setInterval(() => { if (!document.hidden && !sending) load(); }, 30000);
   document.addEventListener("visibilitychange", () => { if (!document.hidden) load(); });
