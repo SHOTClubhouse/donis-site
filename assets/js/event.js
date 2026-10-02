@@ -59,9 +59,21 @@ document.addEventListener("DOMContentLoaded", async () => {
           <div class="fader" style="--pos:${30 + ((i * 17) % 40)}%" aria-hidden="true"></div>
           <div class="meter" aria-hidden="true">${meter}</div>
         </div>
-        <div class="strip__name"><span>${E(d.name)}</span><small>${d.handle ? "@" + E(d.handle) : "&nbsp;"}</small></div>
+        <div class="strip__name"><span>${E(d.name)}</span><small>${d.set ? E(d.set.start + "–" + d.set.end) + (d.handle ? " · " : "") : ""}${d.handle ? "@" + E(d.handle) : d.set ? "" : "&nbsp;"}</small></div>
       </${tag}>`;
     }).join("");
+    // Running order: DJs sharing a slot play back to back.
+    const setlist = $("[data-setlist]");
+    if (setlist) {
+      const slots = [];
+      ev.djs.filter((d) => d.set).forEach((d) => {
+        const s = slots.find((x) => x.start === d.set.start && x.end === d.set.end);
+        s ? s.names.push(d.name) : slots.push({ start: d.set.start, end: d.set.end, names: [d.name] });
+      });
+      slots.sort((a, b) => a.start.localeCompare(b.start));
+      setlist.innerHTML = slots.map((s) => `<li><span class="mono">${E(s.start)}–${E(s.end)}</span><b>${s.names.map(E).join(" <small>b2b</small> ")}</b></li>`).join("");
+      setlist.closest("[data-setlist-wrap]").hidden = !slots.length;
+    }
     // Everything plays at once when the desk scrolls into view, then settles to hover.
     if ("IntersectionObserver" in window) {
       new IntersectionObserver(([en]) => desk.classList.toggle("is-live", en.isIntersecting), { threshold: 0.4 }).observe(desk);

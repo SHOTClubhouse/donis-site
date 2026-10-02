@@ -377,6 +377,12 @@
 .soundday__steps { display: grid; gap: 12px; margin-top: 24px; }
 .soundday__steps .stat b, .rules .stat b { font-size: clamp(36px, 4vw, 56px); }
 .stat p { margin: 10px 0 0; }
+.setlist { margin-top: 40px; }
+.setlist ol { list-style: none; margin: 16px 0 0; padding: 0; border-top: 1px solid var(--line); }
+.setlist li { display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: baseline; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.setlist li .mono { color: var(--acid); white-space: nowrap; min-width: 11ch; }
+.setlist b { font-family: var(--f-display); font-weight: 400; font-size: clamp(22px, 3vw, 34px); text-transform: uppercase; line-height: 1.05; }
+.setlist small { font-family: var(--f-mono, monospace); font-size: 12px; opacity: .6; text-transform: lowercase; margin: 0 .3em; vertical-align: middle; }
 .rules__sub { font-size: clamp(24px, 3vw, 36px); text-transform: uppercase; margin: 40px 0 16px; }
 .rulecard { border: 1px solid var(--line); padding: 20px 22px; background: var(--panel); }
 .rulecard h4 { font-family: var(--f-display); font-weight: 400; font-size: clamp(22px, 2.4vw, 30px); text-transform: uppercase; line-height: 1.05; margin: 8px 0 0; }

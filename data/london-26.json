@@ -100,33 +100,53 @@
   "djs": [
     {
       "ch": "01",
-      "name": "Korey",
-      "handle": "koreydj",
-      "image": "dj-korey"
+      "name": "Lewpet",
+      "handle": "lewis.pettigrew",
+      "image": "dj-lewpet",
+      "set": {
+        "start": "14:00",
+        "end": "18:00"
+      }
     },
     {
       "ch": "02",
-      "name": "Sam Jarvis",
-      "handle": "samjarvis17",
-      "image": "dj-sam-jarvis"
+      "name": "Ingers",
+      "handle": "joshua_ingleby",
+      "image": "dj-ingers",
+      "set": {
+        "start": "14:00",
+        "end": "18:00"
+      }
     },
     {
       "ch": "03",
-      "name": "Lewpet",
-      "handle": "lewis.pettigrew",
-      "image": "dj-lewpet"
+      "name": "Sam Jarvis",
+      "handle": "samjarvis17",
+      "image": "dj-sam-jarvis",
+      "set": {
+        "start": "18:00",
+        "end": "19:00"
+      }
     },
     {
       "ch": "04",
-      "name": "Ingers",
-      "handle": "joshua_ingleby",
-      "image": "dj-ingers"
+      "name": "George Clarke",
+      "handle": null,
+      "image": "dj-george-clarke",
+      "set": {
+        "start": "19:00",
+        "end": "20:00"
+      }
     },
     {
       "ch": "05",
-      "name": "George Clarke",
-      "handle": null,
-      "image": "dj-george-clarke"
+      "name": "Korey",
+      "handle": "koreydj",
+      "image": "dj-korey",
+      "set": {
+        "start": "20:00",
+        "end": "22:00"
+      }
     }
   ],
   "confirmedTeams": [
@@ -274,7 +294,7 @@
     "source": "Ben Smith, call 30 Sep 2026; @donisclub post 30 Sep 2026 (instagram.com/p/Dd6eM5RqsOX)",
     "image": "/assets/img/giveaway-dicanio.webp"
   },
-  "_changes": "30 Sep 2026, Ben Smith: doors 11:40, men's 13:00 to 18:30, afterparty until 22:30, address confirmed, Ricci and Liam Flint out, George Clarke in.",
+  "_changes": "30 Sep 2026, Ben Smith: doors 11:40, men's 13:00 to 18:30, afterparty until 22:30, address confirmed, Ricci and Liam Flint out, George Clarke in. 2 Oct 2026, Ben Smith: DJ set times (Lewpet b2b Ingers 14:00 to 18:00, Sam 18:00 to 19:00, George 19:00 to 20:00, Korey 20:00 to 22:00).",
   "prizes": {
     "mens": "Two tickets to Race Across the Desert for the winning men's 2v2 team.",
     "source": "@donisclub post 29 Sep 2026 (instagram.com/p/Dd4HfD2qh4o)"
