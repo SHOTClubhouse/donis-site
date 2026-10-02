@@ -34,11 +34,10 @@
 
 /* MESSAGE: a portrait selfie clip in a phone-style frame, copy alongside */
 .msg__in { display: grid; grid-template-columns: auto 1fr; gap: clamp(32px, 6vw, 96px); align-items: center; }
-.msg__frame { position: relative; width: min(320px, 78vw); aspect-ratio: 9 / 16; border-radius: 34px; padding: 10px; background: #0b0b0b; border: 1px solid var(--line-strong); box-shadow: 0 0 0 4px var(--orange), 0 30px 80px rgba(0, 0, 0, .65); transform: rotate(-2deg); }
-.msg__frame::before { content: ""; position: absolute; top: 18px; left: 50%; width: 64px; height: 6px; margin-left: -32px; border-radius: 6px; background: #000; z-index: 2; }
-.msg__frame video { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 26px; background: #000; }
+.msg__frame { position: relative; width: min(300px, 72vw); aspect-ratio: 9 / 16; border-radius: 28px; padding: 8px; background: #0b0b0b; border: 1px solid var(--line-strong); box-shadow: 0 0 0 3px var(--orange), 0 24px 60px rgba(0, 0, 0, .55); }
+.msg__frame video { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 21px; background: #000; overflow: hidden; isolation: isolate; }
 .msg__quote { margin: 20px 0 16px; padding-left: 16px; border-left: 3px solid var(--orange); font-family: var(--f-serif, Georgia, serif); font-size: clamp(18px, 2vw, 22px); line-height: 1.45; max-width: 46ch; }
-@media (max-width: 860px) { .msg__in { grid-template-columns: 1fr; justify-items: center; text-align: left; } .msg__frame { transform: none; } .msg__copy { justify-self: stretch; } }
+@media (max-width: 860px) { .msg__in { grid-template-columns: 1fr; justify-items: center; text-align: left; } .msg__copy { justify-self: stretch; } }
 
 /* EDITIONS */
 .editions { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 16px; }
@@ -599,3 +598,23 @@ div.mvpbox__opt { cursor: default; }
 .home-legends__msg { margin-top: clamp(40px, 6vw, 72px); }
 .home-legends .msg__quote { border-left-color: var(--sky); }
 .msg__quote cite { display: block; margin-top: 10px; font-family: var(--f-mono); font-style: normal; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; opacity: .8; }
+
+/* Homepage: The Digital Clubhouse (Donis x SHOT) */
+.dch__in { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 96px); align-items: center; }
+.dch__title { font-size: clamp(56px, 8vw, 120px); line-height: .9; margin: 0 0 20px; }
+.dch__cards { display: grid; gap: 16px; }
+.dch__card { display: grid; gap: 10px; justify-items: start; padding: clamp(20px, 3vw, 32px); border: 1px solid var(--line-strong); background: rgba(10, 10, 10, .6); text-decoration: none; color: inherit; transition: border-color .2s ease, transform .2s ease; }
+.dch__card h3 { margin: 4px 0 0; }
+.dch__card p { margin: 0; max-width: 46ch; }
+.dch__card:hover, .dch__card:focus-visible { border-color: var(--bone); }
+.dch__card--soon { border-color: var(--acid); }
+.dch__soon { color: var(--acid); border-color: var(--acid); }
+.dch__go { margin-top: 6px; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--bone); }
+@media (max-width: 860px) { .dch__in { grid-template-columns: 1fr; } }
+@media (max-width: 640px) {
+  .home-legends .g4 { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .home-legends .legend { min-height: 150px; padding: 14px; gap: 6px; }
+  .home-legends .legend__no { font-size: 48px; top: 6px; right: 10px; }
+  .home-legends .legend h3 { font-size: 22px; }
+  .home-legends .legend .mono:last-child { display: none; }
+}
