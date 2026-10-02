@@ -1,8 +1,8 @@
 {
   "_note": "Live scores for donis.shotclubhouse.com/london-26/games/. Edit at /london-26/score/ with the scorer passcode, not by hand. Every save is validated before it publishes.",
   "date": "2026-10-03",
-  "updated": "14:41",
-  "rev": 27,
+  "updated": "08:55",
+  "rev": 54,
   "divisions": [
     {
       "id": "womens",
@@ -81,7 +81,7 @@
         },
         {
           "id": "MA6",
-          "name": "East Sheen",
+          "name": "LB",
           "group": "B"
         },
         {
