@@ -100,6 +100,16 @@
   "djs": [
     {
       "ch": "01",
+      "name": "Max Evans",
+      "handle": null,
+      "image": "dj-max-evans",
+      "set": {
+        "start": "13:00",
+        "end": "14:00"
+      }
+    },
+    {
+      "ch": "02",
       "name": "Lewpet",
       "handle": "lewis.pettigrew",
       "image": "dj-lewpet",
@@ -109,7 +119,7 @@
       }
     },
     {
-      "ch": "02",
+      "ch": "03",
       "name": "Ingers",
       "handle": "joshua_ingleby",
       "image": "dj-ingers",
@@ -119,7 +129,7 @@
       }
     },
     {
-      "ch": "03",
+      "ch": "04",
       "name": "Sam Jarvis",
       "handle": "samjarvis17",
       "image": "dj-sam-jarvis",
@@ -129,7 +139,7 @@
       }
     },
     {
-      "ch": "04",
+      "ch": "05",
       "name": "George Clarke",
       "handle": null,
       "image": "dj-george-clarke",
@@ -139,7 +149,7 @@
       }
     },
     {
-      "ch": "05",
+      "ch": "06",
       "name": "Korey",
       "handle": "koreydj",
       "image": "dj-korey",
@@ -294,7 +304,7 @@
     "source": "Ben Smith, call 30 Sep 2026; @donisclub post 30 Sep 2026 (instagram.com/p/Dd6eM5RqsOX)",
     "image": "/assets/img/giveaway-dicanio.webp"
   },
-  "_changes": "30 Sep 2026, Ben Smith: doors 11:40, men's 13:00 to 18:30, afterparty until 22:30, address confirmed, Ricci and Liam Flint out, George Clarke in. 2 Oct 2026, Ben Smith: DJ set times (Lewpet b2b Ingers 14:00 to 18:00, Sam 18:00 to 19:00, George 19:00 to 20:00, Korey 20:00 to 22:00).",
+  "_changes": "30 Sep 2026, Ben Smith: doors 11:40, men's 13:00 to 18:30, afterparty until 22:30, address confirmed, Ricci and Liam Flint out, George Clarke in. 2 Oct 2026, Ben Smith: DJ set times (Lewpet b2b Ingers 14:00 to 18:00, Sam 18:00 to 19:00, George 19:00 to 20:00, Korey 20:00 to 22:00). 2 Oct 2026, Ben Smith: Max Evans added, 13:00 to 14:00; 12:00 to 13:00 is entry music with no DJ.",
   "prizes": {
     "mens": "Two tickets to Race Across the Desert for the winning men's 2v2 team.",
     "source": "@donisclub post 29 Sep 2026 (instagram.com/p/Dd4HfD2qh4o)"
