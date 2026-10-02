@@ -32,7 +32,12 @@
   // bundled with the site is only used if neither has loaded on this visit, so a blip never
   // swaps live scores for stale ones. A board older than one already shown is ignored.
   let scoresSeen = false, lastRev = 0;
-  const fresh = (d) => { if (d && (d.rev || 0) >= lastRev) { lastRev = d.rev || 0; return d; } throw new Error("older board"); };
+  const fresh = (d) => {
+    if (!d || !Array.isArray(d.fixtures) || !Array.isArray(d.divisions)) throw new Error("not a scores board");
+    if ((d.rev || 0) < lastRev) throw new Error("older board");
+    lastRev = d.rev || 0;
+    return d;
+  };
   const timed = async (url, ms) => {
     const ctl = typeof AbortController !== "undefined" ? new AbortController() : null;
     const t = ctl && setTimeout(() => ctl.abort(), ms);

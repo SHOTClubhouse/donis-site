@@ -68,10 +68,13 @@ document.addEventListener("DOMContentLoaded", () => {
     $("[data-champ]").innerHTML = champ ? `<span class="mono">${E(div.name)} champions</span><b class="display">${E(label(div, champ.ref).text)}</b>` : "";
     $("[data-champ]").hidden = !champ;
 
-    // At most four games, live first, then upcoming, then the latest results.
+    // At most four games: live first, then the result that just finished (so a final score stays
+    // up after the whistle), then upcoming, then older results.
+    const done = rows.filter((f) => f.state === "ft").reverse();
     const pick = rows.filter((f) => f.state === "live")
+      .concat(done.slice(0, 1))
       .concat(rows.filter((f) => f.state === "scheduled"))
-      .concat(rows.filter((f) => f.state === "ft").reverse());
+      .concat(done.slice(1));
     // The legends game names who is playing for each side.
     const lineup = (f) => {
       if (div.id !== "legends" || !legends) return "";
