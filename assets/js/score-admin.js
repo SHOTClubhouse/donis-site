@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const REPO = `https://api.github.com/repos/${S.repo}/contents/`;
   const API = REPO + S.path;
   const KEY = "donis.scorerKey", DRAFT = "donis.scorerDraft";
-  const SAVE_DELAY = 4000;
+  const SAVE_DELAY = 1000;
   const $ = (s) => document.querySelector(s);
   const el = { status: $("[data-status]"), toast: $("[data-toast]"), signin: $("[data-signin]"), app: $("[data-app]"), publish: $("[data-publish]"),
     tabs: $("[data-tabs]"), games: $("[data-games]"), teams: $("[data-team-list]"), teamsPanel: $("[data-teams]"),
@@ -136,7 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const pub = await Donis.json(`${FEED}/fixtures.json?r=${rev}-${Date.now()}`);
         if ((pub.rev || 0) >= rev) { clearInterval(watch); if (!busy && !pending().length) { status(`Live on the site · ${at}`, "ok"); toast("On the website ✓"); } }
       } catch (e) { /* keep waiting */ }
-    }, 10000);
+    }, 5000);
   }
 
   // ---- Editing ----

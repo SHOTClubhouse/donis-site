@@ -1,5 +1,5 @@
 // London 26 games page: schedule, live scores and league tables from /data/fixtures.json.
-// The scorer page saves that file; this page re-reads it every 30 seconds on matchday.
+// The scorer page saves that file; this page re-reads it every 10 seconds on matchday.
 document.addEventListener("DOMContentLoaded", () => {
   const E = Donis.esc;
   const $ = (s) => document.querySelector(s);
@@ -200,6 +200,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Pick up new scores without a refresh (every 30s while the page is on screen, any day,
   // so a rehearsal behaves like matchday), and straight away when a phone wakes.
   load();
-  setInterval(() => { if (!document.hidden) load(); }, 30000);
+  setInterval(() => { if (!document.hidden) load(); }, 10000);
   document.addEventListener("visibilitychange", () => { if (!document.hidden) load(); });
 });

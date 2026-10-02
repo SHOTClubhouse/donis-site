@@ -1,5 +1,5 @@
 // Big-screen mode for a venue TV: rotates through the divisions, shows live games,
-// the table and the champions, and re-reads /data/fixtures.json every 30 seconds.
+// the table and the champions, and re-reads /data/fixtures.json every 10 seconds.
 document.addEventListener("DOMContentLoaded", () => {
   const E = Donis.esc;
   const $ = (s) => document.querySelector(s);
@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
   syncFs();
 
   load();
-  setInterval(load, 30000);
+  setInterval(load, 10000);
   setInterval(() => { if (data) { idx++; render(); } }, 12000);
   setInterval(() => { $("[data-clock]").textContent = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", hour: "2-digit", minute: "2-digit" }).format(new Date()); }, 1000);
 });
