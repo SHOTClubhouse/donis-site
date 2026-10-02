@@ -109,6 +109,19 @@ document.addEventListener("DOMContentLoaded", () => {
       streamBox.innerHTML = `<div class="streambox__head"><span class="tag tag--live">Live</span><span class="streambox__label">${E(title)}</span></div>
         <div class="streambox__frame"><iframe src="https://player.twitch.tv/?channel=${encodeURIComponent(s.channel)}&parent=${encodeURIComponent(location.hostname)}&muted=true" title="${E(title)}" allow="autoplay; fullscreen" allowfullscreen></iframe></div>
         <a class="streambox__alt" href="https://www.twitch.tv/${encodeURIComponent(s.channel)}" target="_blank" rel="noopener">Not playing? Watch on Twitch &rarr;</a>`;
+    } else if (s.kind === "video") {
+      // A direct video file or live feed plays in our own player. A live feed (.m3u8) plays
+      // natively on iPhones and through hls.js elsewhere.
+      streamBox.className = "streambox";
+      streamBox.innerHTML = `<div class="streambox__head"><span class="tag tag--live">Live</span><span class="streambox__label">${E(title)}</span></div>
+        <div class="streambox__frame"><video controls playsinline muted autoplay preload="metadata" title="${E(title)}"></video></div>
+        <a class="streambox__alt" href="${E(s.url)}" target="_blank" rel="noopener">Not playing? Open the video &rarr;</a>`;
+      const v = streamBox.querySelector("video");
+      if (s.format === "hls" && !v.canPlayType("application/vnd.apple.mpegurl")) {
+        const go = () => { if (window.Hls && window.Hls.isSupported()) { const h = new window.Hls(); h.loadSource(s.url); h.attachMedia(v); } else v.src = s.url; };
+        if (window.Hls) go();
+        else { const sc = document.createElement("script"); sc.src = "https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.5.20/hls.min.js"; sc.onload = go; sc.onerror = () => (v.src = s.url); document.head.appendChild(sc); }
+      } else v.src = s.url;
     } else {
       streamBox.className = "streambox streambox--link";
       streamBox.innerHTML = `<span class="tag tag--live">Live</span><span class="streambox__label">${E(title)}</span>

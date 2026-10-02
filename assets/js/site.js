@@ -70,7 +70,7 @@
     ["/london-26/sponsors/", "Partners"],
     ["/london-26/faq/", "FAQs"],
   ];
-  const links = [["/london-26/", "London 26"], ...edition.slice(1), ["/#merch", "Merch"], ["/join/", "Join"]];
+  const links = [["/london-26/", "London 26"], ...edition.slice(1), ["/#merch", "Merch"], ["/join/", "Join the waitlist"]];
 
   // Tab strip across the London 26 pages, so the next page is one tap away on a phone
   // where the main nav sits behind the menu button.

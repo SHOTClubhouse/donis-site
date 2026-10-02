@@ -6,8 +6,10 @@
   const isScore = (n) => Number.isInteger(n) && n >= 0 && n <= 99;
   const HTTPS = /^https:\/\/[^\s"'<>]+$/;
 
-  // The live stream the Games page shows. YouTube links become an embedded player; any other
-  // https link (Veo, Facebook...) becomes a button. Off, missing or unsafe means nothing shows.
+  // The live stream the Games page shows. YouTube and Twitch links become an embedded player,
+  // and so does a direct video file (.mp4) or live feed (.m3u8), such as the video behind a Veo
+  // page, which Veo won't let other sites frame. Any other https link (a Veo page, Facebook...)
+  // becomes a button. Off, missing or unsafe means nothing shows.
   function streamInfo(s) {
     if (!s || s.on !== true || typeof s.url !== "string" || !HTTPS.test(s.url)) return null;
     let u;
@@ -22,6 +24,11 @@
     if (host === "twitch.tv") {
       const ch = (u.pathname.match(/^\/([A-Za-z0-9_]{3,25})\/?$/) || [])[1];
       if (ch && !["videos", "directory", "settings", "downloads", "p"].includes(ch.toLowerCase())) return { kind: "twitch", channel: ch.toLowerCase(), url: s.url, host: "Twitch", label };
+    }
+    const ext = (u.pathname.match(/\.(mp4|m4v|webm|mov|m3u8)$/i) || [])[1];
+    if (ext) {
+      const vhost = /(^|\.)veocdn\.com$/.test(host) || /(^|\.)veo\.co$/.test(host) ? "Veo" : host;
+      return { kind: "video", format: ext.toLowerCase() === "m3u8" ? "hls" : "file", url: s.url, host: vhost, label };
     }
     const names = { "veo.co": "Veo", "app.veo.co": "Veo", "veo.com": "Veo", "live.veo.co": "Veo", "facebook.com": "Facebook", "fb.watch": "Facebook", "twitch.tv": "Twitch", "instagram.com": "Instagram", "youtube.com": "YouTube" };
     return { kind: "link", url: s.url, host: names[host] || host, label };
