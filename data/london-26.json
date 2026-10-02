@@ -237,12 +237,12 @@
     {
       "id": "mvp-vote",
       "q": "How does the fan MVP vote work?",
-      "a": "On the day, nominees from the games go up on the Games page under the live stream. Fans vote for their favourite, one vote per email, and can change it while voting is open. The two players with the most votes play in the 19:00 legends game."
+      "a": "Each game's player of the match goes up on the Games page under the live stream, and on the big screen. Tap your favourite to vote. It's one vote per phone, and you can change it until voting closes at 18:30. The two players with the most votes play in the 19:00 legends game."
     },
     {
       "id": "vote-email",
-      "q": "What happens to my email when I vote?",
-      "a": "We store your email so each person votes once. If you tick the box when you vote, we'll also use it to tell you about future Donis events and the Donis Clubhouse. To be removed, email contact@shotclubhouse.com with \"unsubscribe\"."
+      "q": "Do I need to give my email to vote?",
+      "a": "No. A vote only stores a random code for your phone, so each phone votes once. If you tick the box for Donis news, we keep your email to tell you about future Donis events and the Donis Clubhouse. To be removed, email contact@shotclubhouse.com with \"unsubscribe\"."
     },
     {
       "q": "Is there parking?",
@@ -304,7 +304,7 @@
     "source": "Ben Smith, call 30 Sep 2026; @donisclub post 30 Sep 2026 (instagram.com/p/Dd6eM5RqsOX)",
     "image": "/assets/img/giveaway-dicanio.webp"
   },
-  "_changes": "30 Sep 2026, Ben Smith: doors 11:40, men's 13:00 to 18:30, afterparty until 22:30, address confirmed, Ricci and Liam Flint out, George Clarke in. 2 Oct 2026, Ben Smith: DJ set times (Lewpet b2b Ingers 14:00 to 18:00, Sam 18:00 to 19:00, George 19:00 to 20:00, Korey 20:00 to 22:00). 2 Oct 2026, Ben Smith: Max Evans added, 13:00 to 14:00; 12:00 to 13:00 is entry music with no DJ.",
+  "_changes": "30 Sep 2026, Ben Smith: doors 11:40, men's 13:00 to 18:30, afterparty until 22:30, address confirmed, Ricci and Liam Flint out, George Clarke in. 2 Oct 2026, Ben Smith: DJ set times (Lewpet b2b Ingers 14:00 to 18:00, Sam 18:00 to 19:00, George 19:00 to 20:00, Korey 20:00 to 22:00). 2 Oct 2026, Ben Smith: Max Evans added, 13:00 to 14:00; 12:00 to 13:00 is entry music with no DJ. 2 Oct 2026, Liam: MVP vote is one tap per phone, email only for Donis news; players of the match join the vote; voting closes 18:30.",
   "prizes": {
     "mens": "Two tickets to Race Across the Desert for the winning men's 2v2 team.",
     "source": "@donisclub post 29 Sep 2026 (instagram.com/p/Dd4HfD2qh4o)"

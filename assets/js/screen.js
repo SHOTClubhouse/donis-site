@@ -3,7 +3,9 @@
 document.addEventListener("DOMContentLoaded", () => {
   const E = Donis.esc;
   const $ = (s) => document.querySelector(s);
-  let data = null, idx = 0;
+  let data = null, idx = 0, vote = null;
+  const VOTE = { id: "_vote", name: "Fan MVP vote" };
+  const API = window.DONIS_CONFIG && window.DONIS_CONFIG.mvpApi;
 
   // Knockout placeholders show the real team as soon as the scores decide it.
   const label = (div, ref) => {
@@ -18,8 +20,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function render() {
     if (!data) return;
-    const ds = data.divisions.filter((d) => data.fixtures.some((f) => f.division === d.id) || d.message);
+    const ds = data.divisions.filter((d) => data.fixtures.some((f) => f.division === d.id) || d.message)
+      .concat(vote && vote.nominees.length >= 2 ? [VOTE] : []);
     const div = ds[idx % ds.length];
+    // The vote takes the whole screen on its turn in the rotation.
+    const onVote = div === VOTE;
+    ["[data-games]", "[data-table]"].forEach((s) => ($(s).hidden = onVote));
+    $("[data-vote]").hidden = !onVote;
+    if (onVote) {
+      $("[data-div-name]").textContent = VOTE.name;
+      $("[data-dots]").innerHTML = ds.map((d, i) => `<i class="${i === idx % ds.length ? "on" : ""}"></i>`).join("");
+      $("[data-live]").hidden = !data.fixtures.some((f) => f.state === "live");
+      $("[data-champ]").hidden = true;
+      renderVote();
+      return;
+    }
     const rows = data.fixtures.filter((f) => f.division === div.id).sort((a, b) => a.time.localeCompare(b.time));
     const live = data.fixtures.filter((f) => f.state === "live");
     $("[data-div-name]").textContent = div.name;
@@ -66,6 +81,27 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Top two once voting closes; anyone level on second place is shown as tied.
+  function renderVote() {
+    const ns = vote.nominees.slice().sort((a, b) => b.votes - a.votes).slice(0, 8);
+    const s = ns.filter((n) => n.votes > 0);
+    const cut = s.length > 1 ? s[1].votes : s.length ? s[0].votes : 0;
+    const top = s.filter((n) => n.votes >= cut);
+    const star = !vote.open ? (top.length <= 2 ? top.map((n) => n.id) : s.filter((n) => n.votes > cut).map((n) => n.id)) : [];
+    const tied = !vote.open && top.length > 2 ? s.filter((n) => n.votes === cut).map((n) => n.id) : [];
+    $("[data-vote]").innerHTML = `<div class="tvvote__list">${ns.map((n) => `
+      <div class="tvvote__row ${star.includes(n.id) ? "is-star" : ""}"><span class="tvvote__bar" style="width:${n.pct}%"></span>
+        <span class="tvvote__who"><b>${E(n.name)}</b><small>${E(n.team)}${n.potm ? " · Player of the match" + (n.potm > 1 ? " ×" + n.potm : "") : ""}</small></span>
+        <span class="tvvote__pct">${vote.total ? n.pct + "%" : ""}${star.includes(n.id) ? "<small>Plays with the legends</small>" : tied.includes(n.id) ? "<small>Tied</small>" : ""}</span></div>`).join("")}</div>
+      <div class="tvvote__side">${vote.open
+        ? `<span class="mono">Fan vote${vote.closesAt ? " · closes " + E(vote.closesAt) : ""}</span><b>Scan to vote</b><img src="/assets/img/qr-games.png" alt="QR code for the vote"><p>Top two play with the legends at 19:00</p><span class="mono">${vote.total} vote${vote.total === 1 ? "" : "s"}</span>`
+        : `<span class="mono">Voting closed</span><b>Your MVPs</b><p>The top two join the Legends game at 19:00.</p><span class="mono">${vote.total} vote${vote.total === 1 ? "" : "s"}</span>`}</div>`;
+  }
+  async function loadVote() {
+    if (!API) return;
+    try { const r = await fetch(API + "/tally", { cache: "no-store" }); if (r.ok) vote = await r.json(); } catch (e) { /* the vote slide just waits */ }
+  }
+
   // The bar laptop runs this unattended, so it must say when it has lost the scores
   // rather than silently showing old ones.
   let lastOk = 0;
@@ -100,7 +136,9 @@ document.addEventListener("DOMContentLoaded", () => {
   syncFs();
 
   load();
+  loadVote();
   setInterval(load, 10000);
+  setInterval(loadVote, 10000);
   setInterval(() => { if (data) { idx++; render(); } }, 12000);
   setInterval(() => { $("[data-clock]").textContent = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", hour: "2-digit", minute: "2-digit" }).format(new Date()); }, 1000);
 });

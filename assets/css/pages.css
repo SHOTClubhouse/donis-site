@@ -618,3 +618,4 @@ div.mvpbox__opt { cursor: default; }
   .home-legends .legend h3 { font-size: 22px; }
   .home-legends .legend .mono:last-child { display: none; }
 }
+.mvpbox__when { margin: 0; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--acid); }

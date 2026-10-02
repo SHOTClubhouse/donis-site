@@ -48,6 +48,9 @@
   .sc-pens { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 10px 12px; border-top: 1px solid var(--line); }
   .sc-pens span { grid-column: 1 / -1; font: 12px var(--f-mono); color: var(--orange, #ff6a1a); }
   .sc-pens button { min-height: 44px; background: var(--ink); color: var(--bone); border: 1px solid var(--line-strong); font: 14px var(--f-body); cursor: pointer; }
+  .sc-potm { display: grid; gap: 6px; padding: 10px 12px; border-top: 1px solid var(--line); }
+  .sc-potm label { font: 12px var(--f-mono); color: var(--acid, #2bf03a); letter-spacing: .06em; text-transform: uppercase; }
+  .sc-potm select { min-height: 44px; background: var(--ink); color: var(--bone); border: 1px solid var(--line-strong); font: 15px var(--f-body); padding: 0 10px; }
   .sc-pens button[aria-pressed="true"] { background: var(--acid, #2bf03a); color: #000; border-color: transparent; }
   .sc-foot { display: flex; justify-content: flex-end; padding: 0 12px 10px; }
   .sc-link { background: none; border: 0; color: var(--mute); font: 12px var(--f-mono); text-decoration: underline; min-height: 44px; cursor: pointer; }
@@ -124,7 +127,8 @@
 
     <section class="sc-panel" data-mvp-panel>
       <h2>Fan MVP vote</h2>
-      <p class="sc-note">Add 2 to 8 nominees, then open the vote. The two with the most fan votes play in the Legends game. Only add players who are 16 or over and have said yes to being named. First name and team only.</p>
+      <p class="sc-note">At full time, pick a player of the match on the game card. They join the vote automatically, and the vote opens by itself once there are two. You can also add someone here. Up to 12 nominees. The two with the most fan votes play in the Legends game. Only pick players who are 16 or over and have said yes to being named. First name and team only.</p>
+      <div class="sc-field"><label for="mvp-close">Voting closes at</label><input id="mvp-close" type="time" value="18:30"></div>
       <div data-mvp-list style="display:grid;gap:8px"></div>
       <div class="sc-grid3">
         <div class="sc-field"><label for="mvp-name">First name</label><input id="mvp-name" maxlength="40" autocomplete="off" placeholder="Sam"></div>

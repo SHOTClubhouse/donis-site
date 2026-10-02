@@ -71,6 +71,21 @@
   .tv__spx .spx__logo { height: 6vh; }
   .tv__spx + .tv__dots { margin-left: 2vw; }
   .tv__stale { font: 2vh var(--f-mono); color: var(--ink); background: var(--orange); padding: 1vh 1.2vw; text-transform: uppercase; letter-spacing: .1em; }
+  .tvvote { grid-column: 1 / -1; display: grid; grid-template-columns: 3fr 2fr; gap: 3vw; align-items: start; }
+  .tvvote__list { display: grid; gap: 1.2vh; }
+  .tvvote__row { position: relative; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 2vw; padding: 1.4vh 1.5vw; border: 1px solid var(--line-strong); background: var(--panel); }
+  .tvvote__row.is-star { border-color: var(--acid); }
+  .tvvote__bar { position: absolute; inset: 0 auto 0 0; background: rgba(43, 240, 58, .16); transition: width .8s ease; }
+  .tvvote__who, .tvvote__pct { position: relative; }
+  .tvvote__who b { display: block; font-family: var(--f-display); font-weight: 400; font-size: 4.6vh; line-height: 1; text-transform: uppercase; }
+  .tvvote__who small { font: 1.8vh var(--f-mono); color: var(--mute); text-transform: uppercase; letter-spacing: .1em; }
+  .tvvote__pct { font-family: var(--f-display); font-size: 5vh; }
+  .tvvote__pct small { display: block; font: 1.6vh var(--f-mono); color: var(--acid); text-align: right; letter-spacing: .1em; text-transform: uppercase; }
+  .tvvote__side { border: 2px solid var(--acid); padding: 3vh 2vw; display: grid; gap: 2vh; justify-items: center; text-align: center; }
+  .tvvote__side img { width: 30vh; height: 30vh; background: var(--bone); padding: 1.4vh; }
+  .tvvote__side b { font-family: var(--f-display); font-weight: 400; font-size: 6vh; line-height: 1; text-transform: uppercase; }
+  .tvvote__side .mono { font-size: 2.2vh; color: var(--acid); letter-spacing: .12em; text-transform: uppercase; }
+  .tvvote__side p { margin: 0; font-size: 2.4vh; color: var(--bone); }
   .tv__fs { position: fixed; right: 2vw; bottom: 16vh; font: 1.8vh var(--f-mono); color: var(--ink); background: var(--bone); padding: 1vh 1.2vw; text-transform: uppercase; letter-spacing: .12em; cursor: pointer; z-index: 5; }
 </style>
 <script src="/assets/js/config.js"></script>
@@ -95,6 +110,7 @@
     <div class="tv__champ" data-champ hidden></div>
     <div data-games></div>
     <div data-table></div>
+    <div class="tvvote" data-vote hidden></div>
   </main>
   <footer class="tv__foot">
     <img class="qr" src="/assets/img/qr-games.png" alt="QR code for live scores" onerror="this.hidden=true">

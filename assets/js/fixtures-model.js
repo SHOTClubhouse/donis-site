@@ -2,6 +2,7 @@
 // the test suite in CI, so a bad save fails the deploy instead of reaching the site.
 (function (root) {
   const STATES = ["scheduled", "live", "ft"];
+  const MAX_NOMINEES = 12;
   const FIELDS = ["time", "home", "away", "homeScore", "awayScore", "state", "stage", "pens"];
   const isScore = (n) => Number.isInteger(n) && n >= 0 && n <= 99;
   const HTTPS = /^https:\/\/[^\s"'<>]+$/;
@@ -60,7 +61,8 @@
       if (typeof m !== "object" || !Array.isArray(m.nominees)) errs.push("mvp: needs a nominees list");
       else {
         if (typeof m.open !== "boolean") errs.push("mvp: open must be true or false");
-        if (m.nominees.length > 8) errs.push("mvp: eight nominees at most");
+        if (m.nominees.length > MAX_NOMINEES) errs.push(`mvp: ${MAX_NOMINEES} nominees at most`);
+        if (m.closesAt !== undefined && (typeof m.closesAt !== "string" || !/^([01]\d|2[0-3]):[0-5]\d$/.test(m.closesAt))) errs.push("mvp: closing time must be HH:MM");
         if (m.open === true && m.nominees.length < 2) errs.push("mvp: add at least two nominees before opening the vote");
         const ids = new Set();
         m.nominees.forEach((n) => {
@@ -68,6 +70,8 @@
           else ids.add(n.id);
           if (!n || typeof n.name !== "string" || !n.name.trim() || n.name.length > 40) errs.push(`mvp: nominee ${n && n.id} needs a name of 40 characters or fewer`);
           if (n && n.team !== undefined && (typeof n.team !== "string" || n.team.length > 40)) errs.push(`mvp: nominee ${n.id} team must be 40 characters or fewer`);
+          // The games a nominee was player of the match in (fixture ids), set from the score cards.
+          if (n && n.games !== undefined && (!Array.isArray(n.games) || n.games.length > 60 || n.games.some((g) => typeof g !== "string" || g.length > 24))) errs.push(`mvp: nominee ${n.id} games must be a list of game ids`);
         });
       }
     }
@@ -180,7 +184,7 @@
     return new TextDecoder().decode(Uint8Array.from(bin, (c) => c.charCodeAt(0)));
   }
 
-  const api = { validate, changes, apply, summary, format, toBase64, fromBase64, streamInfo, STATES };
+  const api = { validate, changes, apply, summary, format, toBase64, fromBase64, streamInfo, STATES, MAX_NOMINEES };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   else root.FixturesModel = api;
 })(this);
