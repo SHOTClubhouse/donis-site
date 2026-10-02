@@ -12,6 +12,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!t) return { text: ref || "TBC", tbc: !ref };
     return t.name ? { text: t.name, tbc: false } : { text: "Team " + t.id.slice(-1), tbc: true };
   };
+  // Finished games: "win" or "lose" for a side (green or red); nothing for a draw or an unfinished game.
+  const won = (f, side) => { const w = window.DonisStandings.winnerOf(f); return !w ? "" : w === side ? "win" : "lose"; };
   const score = (f) => (f.homeScore == null ? "v" : `${E(f.homeScore)}&ndash;${E(f.awayScore)}`);
 
   function render() {
@@ -41,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
     $("[data-games]").innerHTML = (show.length ? show.map((f) => `
       <div class="tvg tvg--${E(f.state)}">
         <span class="mono tvg__meta">${E(f.time)}${f.stage ? " · " + E(f.stage) : ""}${f.state === "live" ? ' · <b class="acid">LIVE</b>' : f.state === "ft" ? " · FT" + (window.DonisStandings.winnerOf(f) && f.homeScore === f.awayScore ? " (pens)" : "") : ""}</span>
-        <span class="tvg__line"><b class="${label(div, f.home).tbc ? "tbc" : ""}">${E(label(div, f.home).text)}</b><span class="tvg__score">${score(f)}</span><b class="${label(div, f.away).tbc ? "tbc" : ""}">${E(label(div, f.away).text)}</b></span>
+        <span class="tvg__line"><b class="${label(div, f.home).tbc ? "tbc" : ""} ${won(f, "home")}">${E(label(div, f.home).text)}</b><span class="tvg__score">${score(f)}</span><b class="${label(div, f.away).tbc ? "tbc" : ""} ${won(f, "away")}">${E(label(div, f.away).text)}</b></span>
       </div>`).join("") : `<p class="mono muted">${E(div.message || "Fixtures to follow.")}</p>`)
       + (more > 0 ? `<p class="mono muted">+ ${more} more on your phone</p>` : "");
 

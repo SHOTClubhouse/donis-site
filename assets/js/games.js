@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const h = label(div, f.home), a = label(div, f.away);
       return `<a class="now ${f.state === "live" ? "now--live" : ""}" href="#${E(div.id)}" data-go="${E(div.id)}">
         <span class="mono">${k} · ${E(div.name)} · ${E(f.time)}</span>
-        <span class="now__line"><b class="${h.tbc ? "tbc" : ""}">${E(h.text)}</b><span class="now__score">${scoreHtml(f)}</span><b class="${a.tbc ? "tbc" : ""}">${E(a.text)}</b></span>
+        <span class="now__line"><b class="${h.tbc ? "tbc" : ""} ${result(f)[0]}">${E(h.text)}</b><span class="now__score">${scoreHtml(f)}</span><b class="${a.tbc ? "tbc" : ""} ${result(f)[1]}">${E(a.text)}</b></span>
       </a>`;
     }).join("");
   }

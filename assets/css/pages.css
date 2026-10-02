@@ -432,8 +432,9 @@
 .ko__side + .ko__side { border-top: 1px solid var(--line); }
 .ko__side b { font-family: var(--f-display); font-weight: 400; font-size: 20px; text-transform: uppercase; line-height: 1.05; }
 .ko__side span { font-family: var(--f-display); font-size: 24px; }
+/* Finished games: winner green, loser red. A draw stays white. */
 .ko__side.win b, .ko__side.win span { color: var(--acid); }
-.ko__side.lose { opacity: .55; }
+.ko__side.lose b, .ko__side.lose span { color: var(--lose, #ff4d4d); }
 .ko__side b.tbc { color: #6a6762; }
 @media (max-width: 560px) { .ko__rounds { grid-auto-flow: row; grid-auto-columns: auto; } }
 
@@ -445,7 +446,8 @@
 .gm__time em { font-style: normal; display: block; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
 .gm__team { font-family: var(--f-display); font-size: 20px; text-transform: uppercase; line-height: 1.05; overflow-wrap: anywhere; }
 .gm__team--away { text-align: right; }
-.gm__team.lose { color: var(--mute); }
+.gm__team.win, .now__line b.win { color: var(--acid); }
+.gm__team.lose, .now__line b.lose { color: var(--lose, #ff4d4d); }
 .gm__team.tbc, .lt__team.tbc, .now__line b.tbc { color: #6a6762; }
 .gm__score { font-family: var(--f-display); font-size: 26px; text-align: center; border: 1px solid var(--line-strong); padding: 6px 0; line-height: 1; }
 .gm__score i { font-style: normal; color: var(--mute); padding: 0 4px; }

@@ -249,7 +249,9 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       const r = await fetch(window.DONIS_CONFIG.mvpApi + "/squads", { headers: { Authorization: `Bearer ${key}` }, cache: "no-store" });
       if (!r.ok) return;
-      squads = Object.fromEntries((await r.json()).squads.map((x) => [x.team, x.players]));
+      // Keyed by team name; a club with a men's and a women's side (London BallerZ) gets both lists.
+      squads = {};
+      (await r.json()).squads.forEach((x) => { squads[x.team] = (squads[x.team] || []).concat(x.players); });
       renderMvpPanel();
     } catch (e) { /* typing the name still works */ }
   }
