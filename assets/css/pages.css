@@ -243,6 +243,9 @@
 .ticket--team { border-color: var(--orange); }
 .ticket--team .ticket__head { background: var(--orange); color: var(--ink); }
 .ticket--team .ticket__price small { color: var(--ink); }
+.ticket--closed { border-color: var(--line, #333); }
+.ticket--closed .ticket__head { background: transparent; color: var(--bone); }
+.ticket--closed .ticket__head .mono { color: #ff4d4d; }
 @media (max-width: 760px) { .tickets { grid-template-columns: 1fr; } }
 
 /* FAQ */
