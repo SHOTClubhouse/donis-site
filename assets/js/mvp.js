@@ -145,8 +145,9 @@ document.addEventListener("DOMContentLoaded", () => {
   if ("IntersectionObserver" in window) new IntersectionObserver((es) => { inView = es.some((x) => x.isIntersecting); }, { rootMargin: "200px" }).observe(box);
   setInterval(() => {
     if (document.hidden || sending) return;
-    const fast = inView && t && t.open && !t.over;
-    if (Date.now() - last >= (fast ? 10000 : 60000)) { last = Date.now(); load(); }
+    // Fast only while there's a game to vote in; between games every 30 seconds is plenty.
+    const fast = inView && t && t.open && !t.over && t.games.length > 0;
+    if (Date.now() - last >= (fast ? 10000 : inView && t && t.open && !t.over ? 30000 : 60000)) { last = Date.now(); load(); }
   }, 5000);
   document.addEventListener("visibilitychange", () => { if (!document.hidden) { last = Date.now(); load(); } });
 

@@ -3,7 +3,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const E = Donis.esc;
   const $ = (s) => document.querySelector(s);
-  let data = null, idx = 0, vote = null;
+  let data = null, idx = 0, vote = null, legends = null;
   const VOTE = { id: "_vote", name: "Fan MVP vote" };
   const API = window.DONIS_CONFIG && window.DONIS_CONFIG.mvpApi;
 
@@ -22,23 +22,43 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!data) return;
     const ds = data.divisions.filter((d) => data.fixtures.some((f) => f.division === d.id) || d.message)
       .concat(vote && vote.open && (vote.leaders.length || vote.games.length) ? [VOTE] : []);
-    const div = ds[idx % ds.length];
+    // A division with a game on comes round every other slide, so the live score is up most of the time.
+    const liveDiv = ds.find((d) => d !== VOTE && data.fixtures.some((f) => f.division === d.id && f.state === "live"));
+    const order = liveDiv && ds.length > 2 ? ds.filter((d) => d !== liveDiv).flatMap((d) => [liveDiv, d]) : ds;
+    const div = order[idx % order.length];
+    const dots = () => ds.map((d) => `<i class="${d === div ? "on" : ""}"></i>`).join("");
+    const tv = document.querySelector(".tv");
+    tv.classList.remove("tv--tight");
+    // A TV never scrolls: if this slide doesn't fit the screen, tighten the spacing, then show fewer rows.
+    const main = document.querySelector(".tv__main");
+    const fits = () => main.scrollHeight <= main.clientHeight + 1;
+    const fit = (draw, most) => {
+      let n = most;
+      draw(n);
+      while (!fits()) {
+        if (!tv.classList.contains("tv--tight")) tv.classList.add("tv--tight");
+        else if (n > 1) n--;
+        else break;
+        draw(n);
+      }
+    };
     // The vote takes the whole screen on its turn in the rotation.
     const onVote = div === VOTE;
     ["[data-games]", "[data-table]"].forEach((s) => ($(s).hidden = onVote));
     $("[data-vote]").hidden = !onVote;
     if (onVote) {
       $("[data-div-name]").textContent = VOTE.name;
-      $("[data-dots]").innerHTML = ds.map((d, i) => `<i class="${i === idx % ds.length ? "on" : ""}"></i>`).join("");
+      $("[data-dots]").innerHTML = dots();
       $("[data-live]").hidden = !data.fixtures.some((f) => f.state === "live");
       $("[data-champ]").hidden = true;
-      renderVote();
+      main.classList.remove("tv__main--groups");
+      fit(renderVote, 7);
       return;
     }
     const rows = data.fixtures.filter((f) => f.division === div.id).sort((a, b) => a.time.localeCompare(b.time));
     const live = data.fixtures.filter((f) => f.state === "live");
     $("[data-div-name]").textContent = div.name;
-    $("[data-dots]").innerHTML = ds.map((d, i) => `<i class="${i === idx % ds.length ? "on" : ""}"></i>`).join("");
+    $("[data-dots]").innerHTML = dots();
     const pill = $("[data-live]");
     pill.hidden = !live.length;
     const sp = $("[data-stream-pill]");
@@ -48,21 +68,36 @@ document.addEventListener("DOMContentLoaded", () => {
     $("[data-champ]").innerHTML = champ ? `<span class="mono">${E(div.name)} champions</span><b class="display">${E(label(div, champ.ref).text)}</b>` : "";
     $("[data-champ]").hidden = !champ;
 
-    // A TV never scrolls: show at most four games, live first, then upcoming, then the latest results.
-    const show = rows.filter((f) => f.state === "live")
+    // At most four games, live first, then upcoming, then the latest results.
+    const pick = rows.filter((f) => f.state === "live")
       .concat(rows.filter((f) => f.state === "scheduled"))
-      .concat(rows.filter((f) => f.state === "ft").reverse())
-      .slice(0, champ ? 3 : 4)
-      .sort((a, b) => a.time.localeCompare(b.time));
+      .concat(rows.filter((f) => f.state === "ft").reverse());
+    // The legends game names who is playing for each side.
+    const lineup = (f) => {
+      if (div.id !== "legends" || !legends) return "";
+      const side = (ref) => {
+        const n = (label(div, ref).text || "").toLowerCase();
+        const kit = n.includes("sky") ? "sky" : n.includes("claret") ? "claret" : null;
+        return kit ? legends.filter((l) => l.kit === kit).map((l) => l.short || l.name).join(" & ") : "";
+      };
+      const h = side(f.home), a = side(f.away);
+      return h && a ? `<span class="mono tvg__meta">${E(h)} v ${E(a)}</span>` : "";
+    };
+    const drawGames = (n) => {
+    const show = pick.slice(0, n).sort((a, b) => a.time.localeCompare(b.time));
     const more = rows.length - show.length;
     $("[data-games]").innerHTML = (show.length ? show.map((f) => `
       <div class="tvg tvg--${E(f.state)}">
         <span class="mono tvg__meta">${E(f.time)}${f.stage ? " · " + E(f.stage) : (() => { const t = (div.teams || []).find((x) => x.id === f.home); return t && t.group ? " · Group " + E(t.group) : ""; })()}${f.state === "live" ? ' · <b class="acid">LIVE</b>' : f.state === "ft" ? " · FT" + (window.DonisStandings.winnerOf(f) && f.homeScore === f.awayScore ? " (pens)" : "") : ""}</span>
         <span class="tvg__line"><b class="${label(div, f.home).tbc ? "tbc" : ""} ${won(f, "home")}">${E(label(div, f.home).text)}</b><span class="tvg__score">${score(f)}</span><b class="${label(div, f.away).tbc ? "tbc" : ""} ${won(f, "away")}">${E(label(div, f.away).text)}</b></span>
+        ${lineup(f)}
       </div>`).join("") : `<p class="mono muted">${E(div.message || "Fixtures to follow.")}</p>`)
       + (more > 0 ? `<p class="mono muted">+ ${more} more on your phone</p>` : "");
+    };
 
     const tableHost = $("[data-table]");
+    const grouped = div.format === "round-robin" && (div.teams || []).some((t) => t.group);
+    main.classList.toggle("tv__main--groups", grouped);
     if (div.format === "round-robin") {
       // Groups sit side by side so a TV never has to scroll.
       const names = [...new Set((div.teams || []).map((t) => t.group).filter(Boolean))];
@@ -79,12 +114,13 @@ document.addEventListener("DOMContentLoaded", () => {
       const nd = next && data.divisions.find((d) => d.id === next.division);
       tableHost.innerHTML = next ? `<div class="tvnext"><span class="mono muted">Up next · ${E(nd.name)} · ${E(next.time)}</span><b class="display">${E(label(nd, next.home).text)}<i>v</i>${E(label(nd, next.away).text)}</b></div>` : "";
     }
+    fit(drawGames, champ ? 3 : 4);
   }
 
   // The leaderboard, plus what's open for voting now. Top two marked once every game is done;
   // anyone level on second place is shown as tied.
-  function renderVote() {
-    const ls = vote.leaders.slice(0, 7);
+  function renderVote(n) {
+    const ls = vote.leaders.slice(0, n || 7);
     const cut = ls.length > 1 ? ls[1].votes : ls.length ? ls[0].votes : 0;
     const top = ls.filter((p) => p.votes >= cut);
     const star = vote.over ? (top.length <= 2 ? top.map((p) => p.id) : ls.filter((p) => p.votes > cut).map((p) => p.id)) : [];
@@ -141,6 +177,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   load();
   loadVote();
+  Donis.json("/data/london-26.json").then((ev) => { legends = ev.legends || null; render(); }).catch(() => {});
   setInterval(load, 10000);
   setInterval(loadVote, 10000);
   setInterval(() => { if (data) { idx++; render(); } }, 12000);

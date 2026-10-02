@@ -86,6 +86,22 @@
   .tvvote__side b { font-family: var(--f-display); font-weight: 400; font-size: 6vh; line-height: 1; text-transform: uppercase; }
   .tvvote__side .mono { font-size: 2.2vh; color: var(--acid); letter-spacing: .12em; text-transform: uppercase; }
   .tvvote__side p { margin: 0; font-size: 2.4vh; color: var(--bone); }
+  /* Two group tables get half the screen so team names have room. */
+  .tv__main--groups { grid-template-columns: 1fr 1fr; }
+  /* Tighter spacing, used only when a slide would otherwise run into the footer. */
+  .tv--tight .tvg { padding: 1vh 1.2vw; margin-bottom: 1vh; gap: .4vh; }
+  .tv--tight .tvg__line > b { font-size: 4vh; }
+  .tv--tight .tvg__score { font-size: 5vh; }
+  .tv--tight .tv__champ { padding: 1.4vh 1.6vw; gap: .4vh; }
+  .tv--tight .tv__champ b { font-size: 6vh; }
+  .tv--tight .tvlt th, .tv--tight .tvlt td { padding: 1.1vh .8vw; }
+  .tv--tight .tvlt tbody th { font-size: 2.8vh; }
+  .tv--tight .tvvote__list { gap: .8vh; }
+  .tv--tight .tvvote__row { padding: .8vh 1.2vw; }
+  .tv--tight .tvvote__who b { font-size: 3.6vh; }
+  .tv--tight .tvvote__pct { font-size: 4vh; }
+  .tv--tight .tvvote__side { padding: 2vh 1.6vw; gap: 1.2vh; }
+  .tv--tight .tvvote__side img { width: 24vh; height: 24vh; }
   .tv__fs { position: fixed; right: 2vw; bottom: 16vh; font: 1.8vh var(--f-mono); color: var(--ink); background: var(--bone); padding: 1vh 1.2vw; text-transform: uppercase; letter-spacing: .12em; cursor: pointer; z-index: 5; }
 </style>
 <script src="/assets/js/config.js"></script>
