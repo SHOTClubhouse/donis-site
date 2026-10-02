@@ -24,6 +24,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!t) return { text: ref || "TBC", tbc: !ref || PLACEHOLDER.test(ref) };
     return t.name ? { text: t.name, tbc: false } : { text: "Team " + t.id.slice(-1), tbc: true };
   };
+  // A group game in a division split into groups names its group ("Group A"), so a fan knows which table it counts for.
+  const groupOf = (div, f) => { if (f.stage) return ""; const t = (div.teams || []).find((x) => x.id === f.home); return t && t.group ? "Group " + t.group : ""; };
   const result = (f) => {
     const w = S() ? S().winnerOf(f) : null;
     return w === "home" ? ["win", "lose"] : w === "away" ? ["lose", "win"] : ["", ""];
@@ -36,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const [rh, ra] = result(f);
     const h = label(div, f.home), a = label(div, f.away);
     return `<li class="gm gm--${E(f.state)}">
-      <span class="gm__time">${E(f.time)}${f.stage ? ` <em>${E(f.stage)}</em>` : withDiv ? ` <em>${E(div.name)}</em>` : ""}</span>
+      <span class="gm__time">${E(f.time)}${f.stage ? ` <em>${E(f.stage)}</em>` : groupOf(div, f) ? ` <em>${E(groupOf(div, f))}</em>` : withDiv ? ` <em>${E(div.name)}</em>` : ""}</span>
       <span class="gm__team ${rh} ${h.tbc ? "tbc" : ""}">${E(h.text)}</span>
       <span class="gm__score">${scoreHtml(f)}</span>
       <span class="gm__team gm__team--away ${ra} ${a.tbc ? "tbc" : ""}">${E(a.text)}</span>
@@ -68,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const div = divOf(f.division);
       const h = label(div, f.home), a = label(div, f.away);
       return `<a class="now ${f.state === "live" ? "now--live" : ""}" href="#${E(div.id)}" data-go="${E(div.id)}">
-        <span class="mono">${k} · ${E(div.name)} · ${E(f.time)}</span>
+        <span class="mono">${k} · ${E(div.name)}${f.stage ? " · " + E(f.stage) : groupOf(div, f) ? " · " + E(groupOf(div, f)) : ""} · ${E(f.time)}</span>
         <span class="now__line"><b class="${h.tbc ? "tbc" : ""} ${result(f)[0]}">${E(h.text)}</b><span class="now__score">${scoreHtml(f)}</span><b class="${a.tbc ? "tbc" : ""} ${result(f)[1]}">${E(a.text)}</b></span>
       </a>`;
     }).join("");

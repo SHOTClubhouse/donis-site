@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const more = rows.length - show.length;
     $("[data-games]").innerHTML = (show.length ? show.map((f) => `
       <div class="tvg tvg--${E(f.state)}">
-        <span class="mono tvg__meta">${E(f.time)}${f.stage ? " · " + E(f.stage) : ""}${f.state === "live" ? ' · <b class="acid">LIVE</b>' : f.state === "ft" ? " · FT" + (window.DonisStandings.winnerOf(f) && f.homeScore === f.awayScore ? " (pens)" : "") : ""}</span>
+        <span class="mono tvg__meta">${E(f.time)}${f.stage ? " · " + E(f.stage) : (() => { const t = (div.teams || []).find((x) => x.id === f.home); return t && t.group ? " · Group " + E(t.group) : ""; })()}${f.state === "live" ? ' · <b class="acid">LIVE</b>' : f.state === "ft" ? " · FT" + (window.DonisStandings.winnerOf(f) && f.homeScore === f.awayScore ? " (pens)" : "") : ""}</span>
         <span class="tvg__line"><b class="${label(div, f.home).tbc ? "tbc" : ""} ${won(f, "home")}">${E(label(div, f.home).text)}</b><span class="tvg__score">${score(f)}</span><b class="${label(div, f.away).tbc ? "tbc" : ""} ${won(f, "away")}">${E(label(div, f.away).text)}</b></span>
       </div>`).join("") : `<p class="mono muted">${E(div.message || "Fixtures to follow.")}</p>`)
       + (more > 0 ? `<p class="mono muted">+ ${more} more on your phone</p>` : "");

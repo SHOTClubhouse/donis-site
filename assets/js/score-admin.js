@@ -380,7 +380,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return `<article class="sc-card sc-card--${E(f.state)}" data-id="${E(f.id)}">
       <div class="sc-card__head">
         <input type="time" value="${E(f.time)}" aria-label="Kick-off time">
-        ${f.stage ? `<span class="sc-card__stage">${E(f.stage)}</span>` : `<span class="sc-card__id">${E(f.id)}</span>`}
+        ${f.stage ? `<span class="sc-card__stage">${E(f.stage)}</span>` : `<span class="sc-card__id">${(() => { const t = (div.teams || []).find((x) => x.id === f.home); return t && t.group ? `<b style="color:var(--bone)">Group ${E(t.group)}</b> · ` : ""; })()}${E(f.id)}</span>`}
         <div class="seg seg--sm">${st("scheduled", "Not started")}${st("live", "Live")}${st("ft", "FT")}</div>
       </div>
       ${sides}
