@@ -27,12 +27,6 @@
       "type": "info"
     },
     {
-      "start": "11:50",
-      "end": "13:00",
-      "title": "2v2 Women's Showcase",
-      "type": "football"
-    },
-    {
       "start": "13:00",
       "end": "18:30",
       "title": "2v2 Men's Showcase",
@@ -52,11 +46,6 @@
     }
   ],
   "divisions": [
-    {
-      "id": "womens",
-      "name": "Women's 2v2",
-      "window": "11:50 to 13:00"
-    },
     {
       "id": "mens",
       "name": "Men's 2v2",
@@ -164,7 +153,6 @@
       "name": "London BallerZ",
       "handle": "londonballerzz",
       "divisions": [
-        "womens",
         "mens"
       ]
     }
@@ -195,7 +183,7 @@
     },
     {
       "q": "What time does everything happen?",
-      "a": "Doors 11:40. Women's 2v2 from 11:50. Men's 2v2 from 13:00 to 18:30. The legends game is at 19:00. The afterparty runs from 20:00 to 22:30."
+      "a": "Doors 11:40. Men's 2v2 from 13:00 to 18:30. The legends game is at 19:00. The afterparty runs from 20:00 to 22:30."
     },
     {
       "q": "How do I get tickets or enter a team?",
@@ -304,7 +292,7 @@
     "source": "Ben Smith, call 30 Sep 2026; @donisclub post 30 Sep 2026 (instagram.com/p/Dd6eM5RqsOX)",
     "image": "/assets/img/giveaway-dicanio.webp"
   },
-  "_changes": "30 Sep 2026, Ben Smith: doors 11:40, men's 13:00 to 18:30, afterparty until 22:30, address confirmed, Ricci and Liam Flint out, George Clarke in. 2 Oct 2026, Ben Smith: DJ set times (Lewpet b2b Ingers 14:00 to 18:00, Sam 18:00 to 19:00, George 19:00 to 20:00, Korey 20:00 to 22:00). 2 Oct 2026, Ben Smith: Max Evans added, 13:00 to 14:00; 12:00 to 13:00 is entry music with no DJ. 2 Oct 2026, Liam: MVP vote is one tap per phone, email only for Donis news; players of the match join the vote; voting closes 18:30. 2 Oct 2026, Liam: MVP vote reworked again. Fans vote per game for any player in the live game; each game locks a minute after full time; votes add up across the day; no scorer step.",
+  "_changes": "30 Sep 2026, Ben Smith: doors 11:40, men's 13:00 to 18:30, afterparty until 22:30, address confirmed, Ricci and Liam Flint out, George Clarke in. 2 Oct 2026, Ben Smith: DJ set times (Lewpet b2b Ingers 14:00 to 18:00, Sam 18:00 to 19:00, George 19:00 to 20:00, Korey 20:00 to 22:00). 2 Oct 2026, Ben Smith: Max Evans added, 13:00 to 14:00; 12:00 to 13:00 is entry music with no DJ. 2 Oct 2026, Liam: MVP vote is one tap per phone, email only for Donis news; players of the match join the vote; voting closes 18:30. 2 Oct 2026, Liam: MVP vote reworked again. Fans vote per game for any player in the live game; each game locks a minute after full time; votes add up across the day; no scorer step. 2 Oct 2026, Liam: the women's teams pulled out; the women's 2v2 is removed.",
   "prizes": {
     "mens": "Two tickets to Race Across the Desert for the winning men's 2v2 team.",
     "source": "@donisclub post 29 Sep 2026 (instagram.com/p/Dd4HfD2qh4o)"
