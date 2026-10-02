@@ -593,3 +593,9 @@ div.mvpbox__opt { cursor: default; }
 .mvpbox__form { display: grid; gap: 12px; border-top: 1px solid var(--line); padding-top: 14px; }
 .mvpbox__form .btn { justify-content: center; min-height: 52px; }
 .join__msg.is-ok { color: var(--acid); }
+
+/* Homepage legends block: the claret legends section with Etherington's message inside it */
+.home-legends { position: relative; }
+.home-legends__msg { margin-top: clamp(40px, 6vw, 72px); }
+.home-legends .msg__quote { border-left-color: var(--sky); }
+.msg__quote cite { display: block; margin-top: 10px; font-family: var(--f-mono); font-style: normal; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; opacity: .8; }

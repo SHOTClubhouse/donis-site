@@ -19,6 +19,7 @@
 <script src="/assets/js/config.js"></script>
 <script src="/assets/js/site.js" defer></script>
 <script src="/assets/js/home.js" defer></script>
+<script src="/assets/js/event.js" defer></script>
 </head>
 <body>
 <div data-nav></div>
@@ -39,10 +40,10 @@
         <img src="/assets/brand/donis-wordmark-white.png" alt="Donis" width="805" height="230">
       </h1>
       <p class="serif-caps hero__serif rv">Welcome to our culture</p>
-      <p class="lede rv">Football, fashion and music. London 26 is a full day of 2v2 street football, West Ham legends in the cage and DJs into the night.</p>
+      <p class="lede rv">Four West Ham legends take the cage at 7pm. Before that, a full day of 2v2 street football, and DJs into the night.</p>
       <div class="hero__cta rv">
         <a class="btn btn--orange" href="https://www.eventbrite.co.uk/e/donis-london-2026-2v2-street-football-event-djs-west-ham-legends-match-tickets-1998357098877" target="_blank" rel="noopener">Get tickets <span class="arrow">&rarr;</span></a>
-        <a class="btn btn--ghost" href="/london-26/">See the line-up</a>
+        <a class="btn btn--ghost" href="#legends">Meet the legends</a>
       </div>
     </div>
     <div class="hero__foot wrap mono">
@@ -54,23 +55,31 @@
     <div class="marquee__track"><span>Sun</span><span>Sea</span><span>Sand</span><span>Snow</span><span>Style</span><span>Sound</span><span>Club Donis forever</span></div>
   </div>
 
-  <!-- MESSAGE AHEAD OF SATURDAY -->
-  <section class="sec msg">
-    <div class="wrap msg__in">
-      <div class="msg__frame rv">
-        <video controls playsinline preload="none" poster="/assets/video/legends-message.jpg" aria-label="Video message from Matthew Etherington ahead of Donis London 26">
-          <source src="/assets/video/legends-message.mp4" type="video/mp4">
-          <track kind="captions" src="/assets/video/legends-message.vtt" srclang="en" label="English" default>
-        </video>
+  <!-- THE LEGENDS -->
+  <section class="sec legends home-legends" id="legends">
+    <div class="grid-paper" aria-hidden="true"></div>
+    <div class="wrap" style="position:relative">
+      <div class="legends__head rv">
+        <div><span class="mono kicker">Saturday · 19:00 · The headline</span><h2 class="gothic legends__title">Hammers Legends</h2></div>
+        <p class="lede">Four West Ham legends step into the 2v2 cage. Collins and Etherington in claret, Harewood and Gabbidon in sky.</p>
       </div>
-      <div class="msg__copy rv">
-        <span class="mono orange kicker">A message from Matthew Etherington</span>
-        <h2 class="display h-lg">See you all there</h2>
-        <blockquote class="msg__quote">“Looking forward to the Donis event on the 3rd of October, Riverside East. James Collins, Marlon Harewood and Danny Gabbidon, see you all there.”</blockquote>
-        <p class="muted">Matthew Etherington and the West Ham legends take the cage at 7pm. Doors open at 11:40.</p>
-        <div class="hero__cta">
-          <a class="btn btn--orange" href="https://www.eventbrite.co.uk/e/donis-london-2026-2v2-street-football-event-djs-west-ham-legends-match-tickets-1998357098877" target="_blank" rel="noopener">Get tickets <span class="arrow">&rarr;</span></a>
-          <a class="btn btn--ghost" href="/london-26/legends/">Meet the legends</a>
+      <div class="g4" data-legends style="margin-top:40px"></div>
+      <div class="msg__in home-legends__msg">
+        <div class="msg__frame rv">
+          <video controls playsinline preload="none" poster="/assets/video/legends-message.jpg" aria-label="Video message from Matthew Etherington ahead of Donis London 26">
+            <source src="/assets/video/legends-message.mp4" type="video/mp4">
+            <track kind="captions" src="/assets/video/legends-message.vtt" srclang="en" label="English" default>
+          </video>
+        </div>
+        <div class="msg__copy rv">
+          <span class="mono kicker">A message from Matthew Etherington</span>
+          <h3 class="display h-lg">See you all there</h3>
+          <blockquote class="msg__quote">“Looking forward to the Donis event on the 3rd of October, Riverside East. James Collins, Marlon Harewood and Danny Gabbidon, see you all there.”<cite>Matthew Etherington, West Ham</cite></blockquote>
+          <p>Kick-off at 7pm. Doors open at 11:40.</p>
+          <div class="hero__cta">
+            <a class="btn btn--orange" href="https://www.eventbrite.co.uk/e/donis-london-2026-2v2-street-football-event-djs-west-ham-legends-match-tickets-1998357098877" target="_blank" rel="noopener">Get tickets <span class="arrow">&rarr;</span></a>
+            <a class="btn btn--ghost" href="/london-26/legends/">Meet the legends</a>
+          </div>
         </div>
       </div>
     </div>
