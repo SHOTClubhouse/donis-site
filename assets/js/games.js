@@ -7,6 +7,9 @@ document.addEventListener("DOMContentLoaded", () => {
     view: $("[data-view]"), now: $("[data-now]"), status: $("[data-status]"), updated: $("[data-updated]"), pane: $("[data-pane]") };
   let data = null;
   let current = (location.hash || "").slice(1);
+  // Until a fan picks a tab (or follows a link to one), the page follows the action:
+  // whichever division has a game live, else the latest result, else the first game.
+  let chosen = !!current;
   let view = "schedule";
   const STATE = { scheduled: ["", ""], live: ["Live", "tag--live"], ft: ["FT", "tag--orange"] };
   const byTime = (a, b) => a.time.localeCompare(b.time);
@@ -44,7 +47,9 @@ document.addEventListener("DOMContentLoaded", () => {
   function renderNow() {
     const all = data.fixtures.slice().sort(byTime);
     const live = all.filter((f) => f.state === "live");
-    const next = all.find((f) => f.state === "scheduled");
+    // Up next is the next unplayed game after the action, not one left behind earlier in the day.
+    const busy = all.filter((f) => f.state !== "scheduled").pop();
+    const next = all.find((f) => f.state === "scheduled" && (!busy || f.time >= busy.time)) || all.find((f) => f.state === "scheduled");
     const done = all.length && all.every((f) => f.state === "ft");
     const today = new Date().toISOString().slice(0, 10) === data.date;
     if (el.status) {
@@ -54,6 +59,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!el.now) return;
     const cards = [];
     live.forEach((f) => cards.push(["Live now", f]));
+    // Between games, the score that just finished stays on top so there is always one to see.
+    const last = live.length ? null : all.filter((f) => f.state === "ft").pop();
+    if (last) cards.push(["Latest result", last]);
     if (next) cards.push(["Up next", next]);
     el.now.hidden = !cards.length;
     el.now.innerHTML = cards.map(([k, f]) => {
@@ -182,20 +190,25 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!el.tabs.children.length) {
       el.tabs.innerHTML = data.divisions.map((d) => `<button type="button" role="tab" data-div="${E(d.id)}">${E(d.name)}</button>`).join("");
     }
+    if (!chosen) {
+      const all = data.fixtures.slice().sort(byTime);
+      const f = all.find((x) => x.state === "live") || all.filter((x) => x.state === "ft").pop() || all.find((x) => x.state === "scheduled");
+      if (f && divOf(f.division)) current = f.division;
+    }
     renderNow();
     renderStream();
     renderDiv();
     if (el.updated) el.updated.textContent = data.updated ? `Updated ${data.updated} · refreshes by itself` : "Scores go up here on the day.";
   }
 
-  el.tabs.addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) select(b.dataset.div, true); });
+  el.tabs.addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) { chosen = true; select(b.dataset.div, true); } });
   el.view.addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) { view = b.dataset.v; renderDiv(); } });
   if (el.now) el.now.addEventListener("click", (e) => {
     const a = e.target.closest("[data-go]"); if (!a) return;
-    e.preventDefault(); select(a.dataset.go, true);
+    e.preventDefault(); chosen = true; select(a.dataset.go, true);
     el.pane.scrollIntoView({ behavior: "smooth", block: "start" });
   });
-  window.addEventListener("hashchange", () => select(location.hash.slice(1), false));
+  window.addEventListener("hashchange", () => { chosen = true; select(location.hash.slice(1), false); });
 
   // Pick up new scores without a refresh (every 30s while the page is on screen, any day,
   // so a rehearsal behaves like matchday), and straight away when a phone wakes.
