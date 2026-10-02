@@ -13,15 +13,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const divOf = (id) => data.divisions.find((d) => d.id === id);
   const PLACEHOLDER = /^(1st|2nd|3rd|4th|winner|loser|tbc)/i;
+  // "1st Group A" or "Winner Semi-final 1" shows the real team as soon as the scores decide it.
+  const S = () => window.DonisStandings;
   const label = (div, ref) => {
-    const t = (div.teams || []).find((x) => x.id === ref);
+    const id = (S() && S().resolve(div, data.fixtures, ref)) || ref;
+    const t = (div.teams || []).find((x) => x.id === id);
     if (!t) return { text: ref || "TBC", tbc: !ref || PLACEHOLDER.test(ref) };
     return t.name ? { text: t.name, tbc: false } : { text: "Team " + t.id.slice(-1), tbc: true };
   };
   const result = (f) => {
-    if (f.state !== "ft" || f.homeScore == null) return ["", ""];
-    return f.homeScore > f.awayScore ? ["win", "lose"] : f.homeScore < f.awayScore ? ["lose", "win"] : ["", ""];
+    const w = S() ? S().winnerOf(f) : null;
+    return w === "home" ? ["win", "lose"] : w === "away" ? ["lose", "win"] : ["", ""];
   };
+  const pensNote = (f) => (S() && S().winnerOf(f) && f.homeScore === f.awayScore ? " (pens)" : "");
   const scoreHtml = (f) => (f.homeScore == null ? `<span class="gm__v">v</span>` : `${E(f.homeScore)}<i>&ndash;</i>${E(f.awayScore)}`);
 
   function gameRow(f, div, withDiv) {
@@ -135,7 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="ko__round"><span class="mono ko__name">${E(n)}${rounds[n].length > 1 && !/s$/.test(n) ? "s" : ""}</span>
         ${rounds[n].sort(byTime).map((f) => {
           const [rh, ra] = result(f);
-          return `<div class="ko__game ko__game--${E(f.state)}"><span class="mono ko__meta">${E(f.time)} · ${E(f.stage)}${f.state === "live" ? ' · <b class="acid">Live</b>' : f.state === "ft" ? " · FT" : ""}</span>${side(f, f.home, f.homeScore, rh === "win")}${side(f, f.away, f.awayScore, ra === "win")}</div>`;
+          return `<div class="ko__game ko__game--${E(f.state)}"><span class="mono ko__meta">${E(f.time)} · ${E(f.stage)}${f.state === "live" ? ' · <b class="acid">Live</b>' : f.state === "ft" ? " · FT" + pensNote(f) : ""}</span>${side(f, f.home, f.homeScore, rh === "win")}${side(f, f.away, f.awayScore, ra === "win")}</div>`;
         }).join("")}
       </div>`).join("")}</div></div>`;
   }

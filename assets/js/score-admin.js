@@ -131,14 +131,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ---- Editing ----
   const divOf = (id) => work.divisions.find((d) => d.id === id);
+  // A knockout side picked as "1st Group A" shows the team the scores have put there.
+  const Table = window.DonisStandings;
   const label = (div, ref) => {
-    const t = (div.teams || []).find((x) => x.id === ref);
+    const id = (Table && Table.resolve(div, work.fixtures, ref)) || ref;
+    const t = (div.teams || []).find((x) => x.id === id);
     if (!t) return { text: ref, tbc: false };
     return t.name ? { text: t.name, tbc: false } : { text: "Team " + t.id.slice(-1), tbc: true };
   };
   const fx = (id) => work.fixtures.find((f) => f.id === id);
 
-  function edit(fn) { fn(); render(); schedule(); }
+  // A penalty winner only stands while the game is a level full-time knockout.
+  const tidyPens = (f) => { if (f.pens && !(f.state === "ft" && f.homeScore != null && f.homeScore === f.awayScore)) f.pens = null; };
+  function edit(fn) { fn(); work.fixtures.forEach(tidyPens); render(); schedule(); }
 
   el.games.addEventListener("click", (e) => {
     const b = e.target.closest("button[data-act]"); if (!b) return;
@@ -155,6 +160,8 @@ document.addEventListener("DOMContentLoaded", () => {
       if (to === "ft" && f.homeScore == null) { f.homeScore = 0; f.awayScore = 0; }
       if (to === "scheduled" && f.homeScore != null && !confirm("Clear the score and set this game back to not started?")) return;
       edit(() => { f.state = to; if (to === "scheduled") { f.homeScore = null; f.awayScore = null; } });
+    } else if (act === "pens") {
+      edit(() => { f.pens = f.pens === b.dataset.side ? null : b.dataset.side; });
     } else if (act === "remove") {
       if (!confirm(`Remove the ${f.time} game?`)) return;
       edit(() => { work.fixtures = work.fixtures.filter((x) => x.id !== f.id); });
@@ -337,7 +344,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // Teams first, then placeholders a knockout game can hold until the group is decided.
   const PLACEHOLDERS = ["1st in table", "2nd in table", "3rd in table", "4th in table", "1st Group A", "2nd Group A", "1st Group B", "2nd Group B", "Winner Semi-final 1", "Winner Semi-final 2", "Loser Semi-final 1", "Loser Semi-final 2"];
   function sideOptions(div, selected) {
-    const opts = (div.teams || []).map((t) => [t.id, label(div, t.id).text]).concat(PLACEHOLDERS.map((p) => [p, p]));
+    const known = (p) => { const id = Table && Table.resolve(div, work.fixtures, p); return id ? `${p} · ${label(div, id).text}` : p; };
+    // A division in groups places teams by group; one without groups by its single table.
+    const grouped = (div.teams || []).some((t) => t.group);
+    const fits = (p) => (/ in table$/.test(p) ? !grouped : / Group /.test(p) ? grouped : true);
+    const opts = (div.teams || []).map((t) => [t.id, label(div, t.id).text]).concat(PLACEHOLDERS.filter(fits).map((p) => [p, known(p)]));
     if (selected && !opts.some(([v]) => v === selected)) opts.push([selected, selected]);
     return opts.map(([v, t]) => `<option value="${E(v)}" ${v === selected ? "selected" : ""}>${E(t)}</option>`).join("");
   }
@@ -363,6 +374,9 @@ document.addEventListener("DOMContentLoaded", () => {
       ${sides}
       ${row("home", h, f.homeScore)}
       ${row("away", a, f.awayScore)}
+      ${f.stage && f.state === "ft" && f.homeScore != null && f.homeScore === f.awayScore ? `<div class="sc-pens"><span>Level at full time. Who won on penalties?</span>
+        <button type="button" data-act="pens" data-side="home" aria-pressed="${f.pens === "home"}">${E(h.text)}</button>
+        <button type="button" data-act="pens" data-side="away" aria-pressed="${f.pens === "away"}">${E(a.text)}</button></div>` : ""}
       ${f.state === "scheduled" && f.homeScore == null ? `<div class="sc-foot"><button type="button" class="sc-link" data-act="remove">Remove game</button></div>` : ""}
     </article>`;
   }

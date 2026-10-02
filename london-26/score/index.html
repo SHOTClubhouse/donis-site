@@ -42,6 +42,10 @@
   .sc-btn:active { background: var(--acid); color: var(--ink); }
   .sc-btn--plus { background: var(--bone); color: var(--ink); }
   .sc-num { font: 36px var(--f-display); text-align: center; }
+  .sc-pens { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 10px 12px; border-top: 1px solid var(--line); }
+  .sc-pens span { grid-column: 1 / -1; font: 12px var(--f-mono); color: var(--orange, #ff6a1a); }
+  .sc-pens button { min-height: 44px; background: var(--ink); color: var(--bone); border: 1px solid var(--line-strong); font: 14px var(--f-body); cursor: pointer; }
+  .sc-pens button[aria-pressed="true"] { background: var(--acid, #2bf03a); color: #000; border-color: transparent; }
   .sc-foot { display: flex; justify-content: flex-end; padding: 0 12px 10px; }
   .sc-link { background: none; border: 0; color: var(--mute); font: 12px var(--f-mono); text-decoration: underline; min-height: 44px; cursor: pointer; }
   .sc-panel { border: 1px solid var(--line-strong); background: var(--panel); padding: 16px; display: grid; gap: 12px; }
@@ -57,6 +61,7 @@
 <script src="/assets/js/config.js"></script>
 <script src="/assets/js/site.js" defer></script>
 <script src="/assets/js/fixtures-model.js" defer></script>
+<script src="/assets/js/standings.js" defer></script>
 <script src="/assets/js/keybox.js" defer></script>
 <script src="/assets/js/score-admin.js" defer></script>
 </head>

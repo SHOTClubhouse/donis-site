@@ -2,7 +2,7 @@
 // the test suite in CI, so a bad save fails the deploy instead of reaching the site.
 (function (root) {
   const STATES = ["scheduled", "live", "ft"];
-  const FIELDS = ["time", "home", "away", "homeScore", "awayScore", "state", "stage"];
+  const FIELDS = ["time", "home", "away", "homeScore", "awayScore", "state", "stage", "pens"];
   const isScore = (n) => Number.isInteger(n) && n >= 0 && n <= 99;
   const HTTPS = /^https:\/\/[^\s"'<>]+$/;
 
@@ -89,6 +89,11 @@
       if (hasH !== hasA) errs.push(`${at}: both scores or neither`);
       if ((hasH && !isScore(f.homeScore)) || (hasA && !isScore(f.awayScore))) errs.push(`${at}: scores must be whole numbers 0 to 99`);
       if (f.state === "ft" && !hasH) errs.push(`${at}: full time needs a score`);
+      // A knockout game level at full time is settled on penalties: record which side won them.
+      if (f.pens !== undefined && f.pens !== null) {
+        if (f.pens !== "home" && f.pens !== "away") errs.push(`${at}: penalty winner must be home or away`);
+        else if (!f.stage || f.state !== "ft" || !hasH || f.homeScore !== f.awayScore) errs.push(`${at}: only a level knockout game at full time has a penalty winner`);
+      }
     });
     return errs;
   }
