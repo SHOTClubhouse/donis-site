@@ -5,7 +5,7 @@
   "passPrefix": "DL26",
   "date": "2026-10-03",
   "doorsOpen": "2026-10-03T11:40:00+01:00",
-  "starts": "2026-10-03T12:00:00+01:00",
+  "starts": "2026-10-03T11:50:00+01:00",
   "venue": {
     "name": "Riverside East",
     "area": "Stratford, London",
@@ -27,7 +27,7 @@
       "type": "info"
     },
     {
-      "start": "12:00",
+      "start": "11:50",
       "end": "13:00",
       "title": "2v2 Women's Showcase",
       "type": "football"
@@ -55,7 +55,7 @@
     {
       "id": "womens",
       "name": "Women's 2v2",
-      "window": "12:00 to 13:00"
+      "window": "11:50 to 13:00"
     },
     {
       "id": "mens",
@@ -185,7 +185,7 @@
     },
     {
       "q": "What time does everything happen?",
-      "a": "Doors 11:40. Women's 2v2 from 12:00. Men's 2v2 from 13:00 to 18:30. The legends game is at 19:00. The afterparty runs from 20:00 to 22:30."
+      "a": "Doors 11:40. Women's 2v2 from 11:50. Men's 2v2 from 13:00 to 18:30. The legends game is at 19:00. The afterparty runs from 20:00 to 22:30."
     },
     {
       "q": "How do I get tickets or enter a team?",
