@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const KEY = "donis.scorerKey", DRAFT = "donis.scorerDraft";
   const SAVE_DELAY = 4000;
   const $ = (s) => document.querySelector(s);
-  const el = { status: $("[data-status]"), signin: $("[data-signin]"), app: $("[data-app]"), publish: $("[data-publish]"),
+  const el = { status: $("[data-status]"), toast: $("[data-toast]"), signin: $("[data-signin]"), app: $("[data-app]"), publish: $("[data-publish]"),
     tabs: $("[data-tabs]"), games: $("[data-games]"), teams: $("[data-team-list]"), teamsPanel: $("[data-teams]"),
     addHome: $("[data-add-home]"), addAway: $("[data-add-away]"), addErr: $("[data-add-err]") };
 
@@ -25,6 +25,15 @@ document.addEventListener("DOMContentLoaded", () => {
   function status(text, tone) {
     el.status.textContent = text;
     el.status.dataset.tone = tone || "";
+  }
+  // A short pop-up over the bottom bar, so a save is obvious wherever the scorer has scrolled to.
+  let toastTimer = null;
+  function toast(text) {
+    if (!el.toast) return;
+    el.toast.textContent = text;
+    el.toast.hidden = false;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => (el.toast.hidden = true), 2500);
   }
 
   async function gh(method, body, url = API) {
@@ -105,6 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
       saveDraft();
       render();
       status(`Saved ${saved.updated} · going live on the site…`, "ok");
+      toast("Saved ✓");
       watchLive(saved.rev, saved.updated);
     } catch (e) {
       status(e.message || "Not saved. Check signal and tap Save now.", "warn");
@@ -124,7 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (Date.now() - started > 5 * 60000) { clearInterval(watch); status(`Saved ${at}. The site is slow to update; it will catch up.`, "warn"); return; }
       try {
         const pub = await Donis.json(`${FEED}/fixtures.json?r=${rev}-${Date.now()}`);
-        if ((pub.rev || 0) >= rev) { clearInterval(watch); if (!busy && !pending().length) status(`Live on the site · ${at}`, "ok"); }
+        if ((pub.rev || 0) >= rev) { clearInterval(watch); if (!busy && !pending().length) { status(`Live on the site · ${at}`, "ok"); toast("On the website ✓"); } }
       } catch (e) { /* keep waiting */ }
     }, 10000);
   }

@@ -19,11 +19,14 @@
   .sc-top__in { display: flex; align-items: center; gap: 12px; min-height: 60px; }
   .sc-top h1 { font-family: var(--f-display); font-weight: 400; font-size: 22px; text-transform: uppercase; margin: 0; }
   .sc-top .btn { margin-left: auto; }
-  .sc-status { font-family: var(--f-mono); font-size: 12px; letter-spacing: .06em; padding: 10px var(--gutter); border-bottom: 1px solid var(--line); }
-  .sc-status[data-tone="ok"] { color: var(--acid); }
-  .sc-status[data-tone="busy"] { color: var(--bone); }
-  .sc-status[data-tone="warn"] { color: var(--orange); background: rgba(255,68,16,.08); }
-  .sc-body { padding-top: 16px; padding-bottom: calc(40px + env(safe-area-inset-bottom)); display: grid; gap: 16px; max-width: 720px; }
+  /* Save status lives in a bar pinned to the bottom, so it is in view wherever the scorer is. */
+  .sc-status { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; font-family: var(--f-mono); font-size: 13px; letter-spacing: .04em; padding: 14px var(--gutter) calc(14px + env(safe-area-inset-bottom)); background: rgba(10,10,10,.97); border-top: 2px solid var(--line-strong); }
+  .sc-status[data-tone="ok"] { color: var(--acid); border-top-color: var(--acid); }
+  .sc-status[data-tone="busy"] { color: var(--bone); border-top-color: var(--bone); }
+  .sc-status[data-tone="warn"] { color: var(--orange); border-top-color: var(--orange); background: #1d0d06; }
+  .sc-toast { position: fixed; left: 50%; bottom: calc(66px + env(safe-area-inset-bottom)); transform: translateX(-50%); z-index: 31; background: var(--acid); color: #000; font: 22px var(--f-display); text-transform: uppercase; letter-spacing: .02em; padding: 12px 22px; box-shadow: 0 8px 24px rgba(0,0,0,.5); pointer-events: none; white-space: nowrap; }
+  .sc-toast[hidden] { display: none; }
+  .sc-body { padding-top: 16px; padding-bottom: calc(96px + env(safe-area-inset-bottom)); display: grid; gap: 16px; max-width: 720px; }
   .sc-card { border: 1px solid var(--line-strong); background: var(--panel); }
   .sc-card--live { border-color: var(--acid); box-shadow: inset 4px 0 0 var(--acid); }
   .sc-card--ft { opacity: .85; }
@@ -74,6 +77,7 @@
   </div>
 </header>
 <div class="sc-status" data-status role="status" aria-live="polite">Loading…</div>
+<div class="sc-toast" data-toast aria-hidden="true" hidden></div>
 
 <main id="main" class="wrap sc-body">
   <section class="sc-panel" data-signin hidden>
