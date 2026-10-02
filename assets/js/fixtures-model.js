@@ -2,7 +2,6 @@
 // the test suite in CI, so a bad save fails the deploy instead of reaching the site.
 (function (root) {
   const STATES = ["scheduled", "live", "ft"];
-  const MAX_NOMINEES = 12;
   const FIELDS = ["time", "home", "away", "homeScore", "awayScore", "state", "stage", "pens"];
   const isScore = (n) => Number.isInteger(n) && n >= 0 && n <= 99;
   const HTTPS = /^https:\/\/[^\s"'<>]+$/;
@@ -57,23 +56,10 @@
       }
     }
     if (d.mvp !== undefined && d.mvp !== null) {
+      // The fan vote's on/off switch. Fans vote for players in live games; nothing else lives here.
       const m = d.mvp;
-      if (typeof m !== "object" || !Array.isArray(m.nominees)) errs.push("mvp: needs a nominees list");
-      else {
-        if (typeof m.open !== "boolean") errs.push("mvp: open must be true or false");
-        if (m.nominees.length > MAX_NOMINEES) errs.push(`mvp: ${MAX_NOMINEES} nominees at most`);
-        if (m.closesAt !== undefined && (typeof m.closesAt !== "string" || !/^([01]\d|2[0-3]):[0-5]\d$/.test(m.closesAt))) errs.push("mvp: closing time must be HH:MM");
-        if (m.open === true && m.nominees.length < 2) errs.push("mvp: add at least two nominees before opening the vote");
-        const ids = new Set();
-        m.nominees.forEach((n) => {
-          if (!n || typeof n.id !== "string" || !/^[a-z0-9-]{1,24}$/.test(n.id) || ids.has(n.id)) errs.push(`mvp: nominee ${n && n.id} has a missing or duplicate id`);
-          else ids.add(n.id);
-          if (!n || typeof n.name !== "string" || !n.name.trim() || n.name.length > 40) errs.push(`mvp: nominee ${n && n.id} needs a name of 40 characters or fewer`);
-          if (n && n.team !== undefined && (typeof n.team !== "string" || n.team.length > 40)) errs.push(`mvp: nominee ${n.id} team must be 40 characters or fewer`);
-          // The games a nominee was player of the match in (fixture ids), set from the score cards.
-          if (n && n.games !== undefined && (!Array.isArray(n.games) || n.games.length > 60 || n.games.some((g) => typeof g !== "string" || g.length > 24))) errs.push(`mvp: nominee ${n.id} games must be a list of game ids`);
-        });
-      }
+      if (typeof m !== "object" || Array.isArray(m)) errs.push("mvp: must be an object");
+      else if (typeof m.open !== "boolean") errs.push("mvp: open must be true or false");
     }
     const seen = new Set();
     d.fixtures.forEach((f) => {
@@ -156,7 +142,7 @@
       }
       if (c.op === "team") return `${c.id} is ${c.name || "TBC"}`;
       if (c.op === "stream") return `stream ${c.stream && c.stream.on ? "on" : "off"}`;
-      if (c.op === "mvp") return `MVP vote ${c.mvp && c.mvp.open ? "open" : "closed"}, ${c.mvp ? c.mvp.nominees.length : 0} nominees`;
+      if (c.op === "mvp") return `MVP vote switched ${c.mvp && c.mvp.open ? "on" : "off"}`;
       if (c.op === "add") return `added ${c.fixture.id} ${c.fixture.time}`;
       return `removed ${c.id}`;
     });
@@ -184,7 +170,7 @@
     return new TextDecoder().decode(Uint8Array.from(bin, (c) => c.charCodeAt(0)));
   }
 
-  const api = { validate, changes, apply, summary, format, toBase64, fromBase64, streamInfo, STATES, MAX_NOMINEES };
+  const api = { validate, changes, apply, summary, format, toBase64, fromBase64, streamInfo, STATES };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   else root.FixturesModel = api;
 })(this);

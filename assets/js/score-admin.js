@@ -178,8 +178,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
   el.games.addEventListener("change", (e) => {
-    const p = e.target.closest("select[data-potm]");
-    if (p) { pickPotm(p.closest("[data-id]").dataset.id, p.value, p); return; }
     const s = e.target.closest("select[data-sidepick]");
     if (s) { const f = fx(s.closest("[data-id]").dataset.id); if (f) edit(() => (f[s.dataset.sidepick] = s.value)); return; }
     const t = e.target.closest("input[type=time]"); if (!t || !t.value) return;
@@ -236,150 +234,32 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ---- Fan MVP vote ----
-  // The list and the open switch live in the scores feed; the vote Worker reads them from there.
-  const mvpCur = () => work.mvp || { open: false, nominees: [] };
-  const mvpErr = $("[data-mvp-err]");
-  const mvpError = (m) => { mvpErr.textContent = m || ""; mvpErr.hidden = !m; };
-  const slug = (s) => s.toLowerCase().normalize("NFKD").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 20) || "player";
-  let mvpCounts = {};
-  // Squad lists come from the vote Worker, which only hands them to a signed-in scorer.
-  // Full names stay on this page; a nominee goes public by first name only.
-  let squads = {}, squadsTried = false;
-  const firstName = (full) => String(full || "").trim().split(/\s+/)[0] || "";
-  async function loadSquads() {
-    if (!key || !window.DONIS_CONFIG.mvpApi) return;
-    try {
-      const r = await fetch(window.DONIS_CONFIG.mvpApi + "/squads", { headers: { Authorization: `Bearer ${key}` }, cache: "no-store" });
-      if (!r.ok) return;
-      // Keyed by team name; a club with a men's and a women's side (London BallerZ) gets both lists.
-      squads = {};
-      (await r.json()).squads.forEach((x) => { squads[x.team] = (squads[x.team] || []).concat(x.players); });
-      // The player-of-the-match pickers on the game cards use these lists too.
-      render();
-    } catch (e) { /* typing the name still works */ }
-  }
-  function renderPlayers() {
-    const players = squads[$("#mvp-team").value] || [];
-    $("[data-mvp-player-wrap]").hidden = !players.length;
-    $("#mvp-player").innerHTML = `<option value="">Pick a player…</option>` + players.map((p) => `<option value="${E(p)}">${E(p)}</option>`).join("") + `<option value="">Someone else (type the name above)</option>`;
-  }
-  $("#mvp-team").addEventListener("change", renderPlayers);
-  $("#mvp-player").addEventListener("change", () => { const v = $("#mvp-player").value; if (v) $("#mvp-name").value = firstName(v); });
-  const MAX = M.MAX_NOMINEES || 12;
-  // Past the closing time on the event day, the vote Worker refuses votes whatever the switch says.
-  const londonNow = () => {
-    const p = Object.fromEntries(new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).formatToParts(new Date()).map((x) => [x.type, x.value]));
-    return { date: `${p.year}-${p.month}-${p.day}`, time: `${p.hour}:${p.minute}` };
-  };
-  const timeUp = (m) => { if (!m.closesAt) return false; const l = londonNow(), day = work.date || l.date; return l.date > day || (l.date === day && l.time >= m.closesAt); };
-  const closesAt = (m) => m.closesAt || "18:30";
-  const SEP = "|";
-
-  // Player of the match: picked on a finished game's card. The player joins the vote (or gets
-  // another game against their name), and the vote opens by itself when it reaches two.
-  function pickPotm(gameId, value, sel) {
-    const m = JSON.parse(JSON.stringify(mvpCur()));
-    if (!m.closesAt) m.closesAt = closesAt(m);
-    const before = m.nominees.length;
-    let name = "", team = "";
-    if (value) {
-      const [kind, t, full] = value.split(SEP);
-      team = t;
-      name = kind === "other" ? (prompt(`First name of the player of the match (${t}). Only someone 16 or over who has said yes to being named.`) || "").trim() : firstName(full);
-      if (!name) { render(); return; }
-      if (name.length > 40) { alert("Keep the name to 40 characters."); render(); return; }
-    }
-    // Take this game off whoever had it, give it to the new pick, then drop anyone left with no
-    // games, unless that would take an open vote below two.
-    m.nominees.forEach((n) => { if (Array.isArray(n.games)) n.games = n.games.filter((g) => g !== gameId); });
-    if (name) {
-      const same = m.nominees.find((n) => n.name.toLowerCase() === name.toLowerCase() && (n.team || "") === team);
-      if (same) same.games = (same.games || []).concat(gameId);
-      else {
-        const spare = m.nominees.filter((n) => Array.isArray(n.games) && !n.games.length).length;
-        if (m.nominees.length - spare >= MAX) { alert(`The vote list is full (${MAX}). Remove someone in the Fan MVP vote panel first.`); render(); return; }
-        let id = slug(name + "-" + team), k = 2;
-        while (m.nominees.some((x) => x.id === id)) id = slug(name + "-" + team).slice(0, 20) + "-" + k++;
-        m.nominees.push({ id, name, team, games: [gameId] });
-      }
-    }
-    m.nominees.filter((n) => Array.isArray(n.games) && !n.games.length).forEach((o) => {
-      if (!m.open || m.nominees.length > 2) m.nominees = m.nominees.filter((n) => n !== o); else delete o.games;
-    });
-    if (m.nominees.length > MAX) { alert(`The vote list is full (${MAX}). Remove someone in the Fan MVP vote panel first.`); render(); return; }
-    if (!m.open && before < 2 && m.nominees.length >= 2 && !timeUp(m)) m.open = true;
-    edit(() => { work.mvp = m; });
-    if (sel) sel.blur();
-  }
-  $("#mvp-close").addEventListener("change", (e) => {
-    const v = e.target.value;
-    if (!/^[0-9]{2}:[0-9]{2}$/.test(v)) return;
-    edit(() => { work.mvp = { ...mvpCur(), closesAt: v }; });
-  });
-
-  $("[data-mvp-add]").addEventListener("click", () => {
-    const name = $("#mvp-name").value.trim(), team = $("#mvp-team").value;
-    const m = mvpCur();
-    if (!name) { mvpError("Add the player's first name."); return; }
-    if (name.length > 40) { mvpError("Keep the name to 40 characters."); return; }
-    if (m.nominees.length >= MAX) { mvpError(`${MAX} nominees at most.`); return; }
-    let id = slug(name + "-" + team), n = 2;
-    while (m.nominees.some((x) => x.id === id)) id = slug(name + "-" + team).slice(0, 20) + "-" + n++;
-    mvpError("");
-    $("#mvp-name").value = "";
-    $("#mvp-player").value = "";
-    edit(() => { work.mvp = { closesAt: closesAt(m), ...m, nominees: m.nominees.concat({ id, name, team }) }; });
-  });
-  $("[data-mvp-list]").addEventListener("click", (e) => {
-    const b = e.target.closest("[data-mvp-remove]"); if (!b) return;
-    const m = mvpCur();
-    if (m.open && m.nominees.length <= 2) { mvpError("Close the vote before taking it below two nominees."); return; }
-    const who = m.nominees.find((x) => x.id === b.dataset.mvpRemove);
-    if (!who || !confirm(`Remove ${who.name}? Their votes stop counting.`)) return;
-    mvpError("");
-    edit(() => { work.mvp = { ...m, nominees: m.nominees.filter((x) => x.id !== who.id) }; });
-  });
+  // The vote runs by itself: fans vote for a player while a game is live, and each game's vote
+  // locks a minute after full time. The only control here is the on/off switch.
+  const mvpOn = () => !!(work.mvp && work.mvp.open);
   $("[data-mvp-toggle]").addEventListener("click", (e) => {
     const b = e.target.closest("button"); if (!b) return;
-    const open = b.dataset.open === "true", m = mvpCur();
-    if (open && m.nominees.length < 2) { mvpError("Add at least two nominees first."); return; }
-    mvpError("");
-    if (open && timeUp(m)) { mvpError(`It's past the closing time (${m.closesAt}). Change the closing time first.`); return; }
-    edit(() => { work.mvp = { closesAt: closesAt(m), ...m, open }; });
+    const open = b.dataset.open === "true";
+    if (!open && !confirm("Switch the fan vote off? Fans can't vote until it's back on.")) return;
+    edit(() => { work.mvp = { ...(work.mvp || {}), open }; });
   });
-  async function refreshMvpCounts() {
+  let mvpView = null;
+  async function refreshMvp() {
     if (!window.DONIS_CONFIG.mvpApi) return;
-    try { const t = await (await fetch(window.DONIS_CONFIG.mvpApi + "/tally", { cache: "no-store" })).json(); mvpCounts = Object.fromEntries(t.nominees.map((n) => [n.id, n])); mvpCounts._total = t.total; renderMvpPanel(); } catch (e) { /* counts are a nice-to-have here */ }
+    try { mvpView = await (await fetch(window.DONIS_CONFIG.mvpApi + "/tally", { cache: "no-store" })).json(); renderMvpPanel(); } catch (e) { /* the counts are a nice-to-have here */ }
   }
-  setInterval(() => { if (work && !document.hidden && mvpCur().nominees.length) refreshMvpCounts(); }, 30000);
-  setTimeout(() => { if (work && mvpCur().nominees.length) refreshMvpCounts(); }, 3000);
+  setInterval(() => { if (work && !document.hidden) refreshMvp(); }, 20000);
+  setTimeout(() => { if (work) refreshMvp(); }, 2000);
   function renderMvpPanel() {
     if (!work) return;
-    if (!squadsTried && key) { squadsTried = true; loadSquads(); }
-    const m = mvpCur();
-    const teams = work.divisions.filter((d) => d.id !== "legends").flatMap((d) => (d.teams || []).filter((t) => t.name).map((t) => `${t.name}`));
-    const sel = $("#mvp-team");
-    const keep = sel.value;
-    sel.innerHTML = [...new Set(teams)].map((t) => `<option>${E(t)}</option>`).join("") + `<option value="">No team</option>`;
-    if (keep !== undefined && [...sel.options].some((o) => o.value === keep)) sel.value = keep;
-    const keepPlayer = $("#mvp-player").value;
-    renderPlayers();
-    if (keepPlayer && [...$("#mvp-player").options].some((o) => o.value === keepPlayer)) $("#mvp-player").value = keepPlayer;
-    $("[data-mvp-list]").innerHTML = m.nominees.length ? m.nominees.map((n) => {
-      const c = mvpCounts[n.id];
-      return `<div style="display:flex;align-items:center;gap:10px;border:1px solid var(--line-strong);padding:8px 10px">
-        <span style="flex:1"><b class="sc-name" style="font-size:18px">${E(n.name)}</b> <span class="sc-card__id">${E(n.team || "")}${n.games && n.games.length ? ` · POTM ×${n.games.length}` : ""}</span></span>
-        <span class="sc-card__id">${c ? `${c.votes} votes · ${c.pct}%` : ""}</span>
-        <button type="button" class="sc-link" data-mvp-remove="${E(n.id)}" aria-label="Remove ${E(n.name)}">Remove</button></div>`;
-    }).join("") : `<p class="sc-note">No nominees yet.</p>`;
-    document.querySelectorAll("[data-mvp-toggle] button").forEach((b) => b.setAttribute("aria-pressed", String((b.dataset.open === "true") === !!m.open)));
-    const close = $("#mvp-close");
-    if (document.activeElement !== close) close.value = closesAt(m);
-    const shut = m.open && timeUp(m);
-    $("[data-mvp-note]").textContent = !m.nominees.length ? `Nothing shows on the Games page until there are nominees. Voting closes at ${closesAt(m)}.`
-      : shut ? `Voting closed automatically at ${closesAt(m)}.${mvpCounts._total != null ? ` ${mvpCounts._total} votes.` : ""}`
-      : m.open ? `Voting is open on the Games page until ${closesAt(m)}.${mvpCounts._total != null ? ` ${mvpCounts._total} votes so far.` : ""}`
-      : `Voting is closed. The Games page shows the nominees${mvpCounts._total ? " and the final result" : ""}.`;
+    const on = mvpOn();
+    document.querySelectorAll("[data-mvp-toggle] button").forEach((b) => b.setAttribute("aria-pressed", String((b.dataset.open === "true") === on)));
+    const v = mvpView;
+    const lead = v && v.leaders && v.leaders.length ? v.leaders.slice(0, 5).map((p) => `<li><b>${E(p.name)}</b> <span class="sc-card__id">${E(p.team)} · ${p.votes}</span></li>`).join("") : "";
+    $("[data-mvp-list]").innerHTML = lead ? `<ol class="sc-lead">${lead}</ol>` : "";
+    $("[data-mvp-note]").textContent = !on ? "The fan vote is off. Fans can't vote."
+      : v ? `On. ${v.total} vote${v.total === 1 ? "" : "s"} so far.${v.games && v.games.length ? ` Open now: ${v.games.length} game${v.games.length === 1 ? "" : "s"}.` : " Opens when a game goes live."}`
+      : "On. Fans vote while a game is live.";
   }
 
   el.publish.addEventListener("click", publish);
@@ -449,27 +329,8 @@ document.addEventListener("DOMContentLoaded", () => {
       ${f.stage && f.state === "ft" && f.homeScore != null && f.homeScore === f.awayScore ? `<div class="sc-pens"><span>Level at full time. Who won on penalties?</span>
         <button type="button" data-act="pens" data-side="home" aria-pressed="${f.pens === "home"}">${E(h.text)}</button>
         <button type="button" data-act="pens" data-side="away" aria-pressed="${f.pens === "away"}">${E(a.text)}</button></div>` : ""}
-      ${f.state === "ft" && div.id !== "legends" ? potmPicker(f, h, a) : ""}
       ${f.state === "scheduled" && f.homeScore == null ? `<div class="sc-foot"><button type="button" class="sc-link" data-act="remove">Remove game</button></div>` : ""}
     </article>`;
-  }
-
-  function potmPicker(f, h, a) {
-    const cur = mvpCur().nominees.find((n) => Array.isArray(n.games) && n.games.includes(f.id));
-    let found = false;
-    const group = (l) => {
-      if (l.tbc) return "";
-      const opts = (squads[l.text] || []).map((p) => {
-        const on = !found && cur && cur.team === l.text && firstName(p).toLowerCase() === cur.name.toLowerCase();
-        if (on) found = true;
-        return `<option value="${E(["squad", l.text, p].join(SEP))}" ${on ? "selected" : ""}>${E(firstName(p))}</option>`;
-      }).join("");
-      return `<optgroup label="${E(l.text)}">${opts}<option value="${E(["other", l.text].join(SEP))}">Someone else from ${E(l.text)}…</option></optgroup>`;
-    };
-    const groups = group(h) + group(a);
-    const typed = cur && !found ? `<option value="${E(["typed", cur.team || "", cur.name].join(SEP))}" selected>${E(cur.name)} · ${E(cur.team || "")}</option>` : "";
-    return `<div class="sc-potm"><label for="potm-${E(f.id)}">Player of the match (joins the fan vote)</label>
-      <select id="potm-${E(f.id)}" data-potm>${typed}<option value="" ${cur ? "" : "selected"}>${cur ? "Take them off this game" : "Not picked"}</option>${groups}</select></div>`;
   }
 
   // ---- Sign in and out ----

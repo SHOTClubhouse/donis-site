@@ -618,4 +618,21 @@ div.mvpbox__opt { cursor: default; }
   .home-legends .legend h3 { font-size: 22px; }
   .home-legends .legend .mono:last-child { display: none; }
 }
-.mvpbox__when { margin: 0; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--acid); }
+/* Fan vote: one card per game that's open for voting, both teams' players as buttons */
+.mvpg { border: 1px solid var(--line-strong); background: var(--ink); padding: 12px; display: grid; gap: 8px; }
+.mvpg--live { border-color: var(--acid); }
+.mvpg__meta, .mvpg__when { margin: 0; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--mute); }
+.mvpg__when { color: var(--acid); }
+.mvpg__sides { display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; align-items: start; }
+.mvpg__v { align-self: center; font-family: var(--f-mono); color: var(--mute); font-size: 12px; }
+.mvpg__side { display: grid; gap: 6px; min-width: 0; }
+.mvpg__team { font-family: var(--f-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--bone); overflow-wrap: anywhere; }
+.mvpg__p { display: grid; gap: 2px; justify-items: start; min-height: 48px; padding: 8px 10px; background: var(--panel); border: 1px solid var(--line-strong); color: var(--bone); font-family: var(--f-display); font-size: 20px; text-transform: uppercase; line-height: 1; text-align: left; cursor: pointer; }
+.mvpg__p:hover:not(:disabled) { border-color: var(--bone); }
+.mvpg__p.is-mine { border-color: var(--acid); box-shadow: inset 4px 0 0 var(--acid); }
+.mvpg__p small { font-family: var(--f-mono); font-size: 9px; letter-spacing: .1em; color: var(--acid); }
+.mvpg__p:disabled { opacity: .5; cursor: default; }
+.mvpg__none { font-size: 13px; color: var(--mute); }
+.mvpg__ask { display: grid; gap: 10px; border-top: 1px solid var(--line); padding-top: 10px; }
+.mvpg__ask .btn { justify-content: center; min-height: 48px; }
+.mvpg__idle { margin: 0; font-size: 12px; color: var(--mute); text-transform: uppercase; letter-spacing: .08em; }

@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function render() {
     if (!data) return;
     const ds = data.divisions.filter((d) => data.fixtures.some((f) => f.division === d.id) || d.message)
-      .concat(vote && vote.nominees.length >= 2 ? [VOTE] : []);
+      .concat(vote && vote.open && (vote.leaders.length || vote.games.length) ? [VOTE] : []);
     const div = ds[idx % ds.length];
     // The vote takes the whole screen on its turn in the rotation.
     const onVote = div === VOTE;
@@ -81,21 +81,25 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Top two once voting closes; anyone level on second place is shown as tied.
+  // The leaderboard, plus what's open for voting now. Top two marked once every game is done;
+  // anyone level on second place is shown as tied.
   function renderVote() {
-    const ns = vote.nominees.slice().sort((a, b) => b.votes - a.votes).slice(0, 8);
-    const s = ns.filter((n) => n.votes > 0);
-    const cut = s.length > 1 ? s[1].votes : s.length ? s[0].votes : 0;
-    const top = s.filter((n) => n.votes >= cut);
-    const star = !vote.open ? (top.length <= 2 ? top.map((n) => n.id) : s.filter((n) => n.votes > cut).map((n) => n.id)) : [];
-    const tied = !vote.open && top.length > 2 ? s.filter((n) => n.votes === cut).map((n) => n.id) : [];
-    $("[data-vote]").innerHTML = `<div class="tvvote__list">${ns.map((n) => `
-      <div class="tvvote__row ${star.includes(n.id) ? "is-star" : ""}"><span class="tvvote__bar" style="width:${n.pct}%"></span>
-        <span class="tvvote__who"><b>${E(n.name)}</b><small>${E(n.team)}${n.potm ? " · Player of the match" + (n.potm > 1 ? " ×" + n.potm : "") : ""}</small></span>
-        <span class="tvvote__pct">${vote.total ? n.pct + "%" : ""}${star.includes(n.id) ? "<small>Plays with the legends</small>" : tied.includes(n.id) ? "<small>Tied</small>" : ""}</span></div>`).join("")}</div>
-      <div class="tvvote__side">${vote.open
-        ? `<span class="mono">Fan vote${vote.closesAt ? " · closes " + E(vote.closesAt) : ""}</span><b>Scan to vote</b><img src="/assets/img/qr-games.png" alt="QR code for the vote"><p>Top two play with the legends at 19:00</p><span class="mono">${vote.total} vote${vote.total === 1 ? "" : "s"}</span>`
-        : `<span class="mono">Voting closed</span><b>Your MVPs</b><p>The top two join the Legends game at 19:00.</p><span class="mono">${vote.total} vote${vote.total === 1 ? "" : "s"}</span>`}</div>`;
+    const ls = vote.leaders.slice(0, 7);
+    const cut = ls.length > 1 ? ls[1].votes : ls.length ? ls[0].votes : 0;
+    const top = ls.filter((p) => p.votes >= cut);
+    const star = vote.over ? (top.length <= 2 ? top.map((p) => p.id) : ls.filter((p) => p.votes > cut).map((p) => p.id)) : [];
+    const tied = vote.over && top.length > 2 ? ls.filter((p) => p.votes === cut).map((p) => p.id) : [];
+    const max = ls.length ? ls[0].votes : 0;
+    const now = vote.games.map((g) => `${E(g.sides.map((x) => x.team).join(" v "))}`).join("<br>");
+    $("[data-vote]").innerHTML = `<div class="tvvote__list">${ls.length ? ls.map((p) => `
+      <div class="tvvote__row ${star.includes(p.id) ? "is-star" : ""}"><span class="tvvote__bar" style="width:${max ? Math.round((p.votes / max) * 100) : 0}%"></span>
+        <span class="tvvote__who"><b>${E(p.name)}</b><small>${E(p.team)}</small></span>
+        <span class="tvvote__pct">${p.votes}${star.includes(p.id) ? "<small>Plays with the legends</small>" : tied.includes(p.id) ? "<small>Tied</small>" : ""}</span></div>`).join("")
+      : `<div class="tvvote__row"><span class="tvvote__who"><b>No votes yet</b><small>Be the first</small></span></div>`}</div>
+      <div class="tvvote__side">${vote.over
+        ? `<span class="mono">Voting closed</span><b>Your MVPs</b><p>The top two join the Legends game at 19:00.</p>`
+        : `<span class="mono">Fan vote · top two play with the legends</span><b>Scan to vote</b><img src="/assets/img/qr-games.png" alt="QR code for the vote">${now ? `<p>Voting now:<br>${now}</p>` : "<p>Vote for a player in every game</p>"}`}
+        <span class="mono">${vote.total} vote${vote.total === 1 ? "" : "s"}</span></div>`;
   }
   async function loadVote() {
     if (!API) return;
