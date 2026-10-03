@@ -1,8 +1,8 @@
 {
   "_note": "Live scores for donis.shotclubhouse.com/london-26/games/. Edit at /london-26/score/ with the scorer passcode, not by hand. Every save is validated before it publishes.",
   "date": "2026-10-03",
-  "updated": "18:39",
-  "rev": 448,
+  "updated": "18:41",
+  "rev": 449,
   "divisions": [
     {
       "id": "mens",
@@ -75,9 +75,26 @@
     {
       "id": "legends",
       "name": "Legends",
-      "format": "exhibition",
-      "blurb": "19:00. The legends take on the men's champions, the two fan MVPs and Donis, one game each. 6-minute games with 2 minutes between.",
-      "teams": []
+      "format": "round-robin",
+      "blurb": "19:00. Legends, the men's champions, the two fan MVPs and Donis. Everyone plays everyone once. 6-minute games with 2 minutes between; the legends play every other game.",
+      "teams": [
+        {
+          "id": "LG",
+          "name": "Legends"
+        },
+        {
+          "id": "CH",
+          "name": "Champs"
+        },
+        {
+          "id": "MV",
+          "name": "MVPs"
+        },
+        {
+          "id": "DN",
+          "name": "Donis"
+        }
+      ]
     }
   ],
   "stream": {
@@ -121,8 +138,11 @@
     { "id": "SF1", "division": "mens", "stage": "Semi-final 1", "time": "18:00", "home": "1st Group A", "away": "2nd Group B", "homeScore": 9, "awayScore": 3, "state": "ft" },
     { "id": "SF2", "division": "mens", "stage": "Semi-final 2", "time": "18:10", "home": "1st Group B", "away": "2nd Group A", "homeScore": 1, "awayScore": 3, "state": "ft" },
     { "id": "MF", "division": "mens", "stage": "Final", "time": "18:20", "home": "Winner Semi-final 1", "away": "Winner Semi-final 2", "homeScore": 3, "awayScore": 4, "state": "ft" },
-    { "id": "L1", "division": "legends", "time": "19:00", "home": "Legends", "away": "Champs", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "L2", "division": "legends", "time": "19:08", "home": "Legends", "away": "MVPs", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "L3", "division": "legends", "time": "19:16", "home": "Legends", "away": "Donis", "homeScore": null, "awayScore": null, "state": "scheduled" }
+    { "id": "L1", "division": "legends", "time": "19:00", "home": "LG", "away": "CH", "homeScore": null, "awayScore": null, "state": "scheduled" },
+    { "id": "L2", "division": "legends", "time": "19:08", "home": "MV", "away": "DN", "homeScore": null, "awayScore": null, "state": "scheduled" },
+    { "id": "L3", "division": "legends", "time": "19:16", "home": "LG", "away": "MV", "homeScore": null, "awayScore": null, "state": "scheduled" },
+    { "id": "L4", "division": "legends", "time": "19:24", "home": "CH", "away": "DN", "homeScore": null, "awayScore": null, "state": "scheduled" },
+    { "id": "L5", "division": "legends", "time": "19:32", "home": "LG", "away": "DN", "homeScore": null, "awayScore": null, "state": "scheduled" },
+    { "id": "L6", "division": "legends", "time": "19:40", "home": "CH", "away": "MV", "homeScore": null, "awayScore": null, "state": "scheduled" }
   ]
 }
