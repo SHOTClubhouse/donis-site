@@ -3,7 +3,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const E = Donis.esc;
   const $ = (s) => document.querySelector(s);
-  let data = null, idx = 0, vote = null, legends = null;
+  let data = null, idx = 0, vote = null;
   const VOTE = { id: "_vote", name: "Fan MVP vote" };
   const API = window.DONIS_CONFIG && window.DONIS_CONFIG.mvpApi;
 
@@ -75,17 +75,6 @@ document.addEventListener("DOMContentLoaded", () => {
       .concat(done.slice(0, 1))
       .concat(rows.filter((f) => f.state === "scheduled"))
       .concat(done.slice(1));
-    // The legends game names who is playing for each side.
-    const lineup = (f) => {
-      if (div.id !== "legends" || !legends) return "";
-      const side = (ref) => {
-        const n = (label(div, ref).text || "").toLowerCase();
-        const kit = n.includes("sky") ? "sky" : n.includes("claret") ? "claret" : null;
-        return kit ? legends.filter((l) => l.kit === kit).map((l) => l.short || l.name).join(" & ") : "";
-      };
-      const h = side(f.home), a = side(f.away);
-      return h && a ? `<span class="mono tvg__meta">${E(h)} v ${E(a)}</span>` : "";
-    };
     const drawGames = (n) => {
     const show = pick.slice(0, n).sort((a, b) => a.time.localeCompare(b.time));
     const more = rows.length - show.length;
@@ -93,7 +82,6 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="tvg tvg--${E(f.state)}">
         <span class="mono tvg__meta">${E(f.time)}${f.stage ? " · " + E(f.stage) : (() => { const t = (div.teams || []).find((x) => x.id === f.home); return t && t.group ? " · Group " + E(t.group) : ""; })()}${f.state === "live" ? ' · <b class="acid">LIVE</b>' : f.state === "ft" ? " · FT" + (window.DonisStandings.winnerOf(f) && f.homeScore === f.awayScore ? " (pens)" : "") : ""}</span>
         <span class="tvg__line"><b class="${label(div, f.home).tbc ? "tbc" : ""} ${won(f, "home")}">${E(label(div, f.home).text)}</b><span class="tvg__score">${score(f)}</span><b class="${label(div, f.away).tbc ? "tbc" : ""} ${won(f, "away")}">${E(label(div, f.away).text)}</b></span>
-        ${lineup(f)}
       </div>`).join("") : `<p class="mono muted">${E(div.message || "Fixtures to follow.")}</p>`)
       + (more > 0 ? `<p class="mono muted">+ ${more} more on your phone</p>` : "");
     };
@@ -180,7 +168,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   load();
   loadVote();
-  Donis.json("/data/london-26.json").then((ev) => { legends = ev.legends || null; render(); }).catch(() => {});
   setInterval(load, 5000);
   setInterval(loadVote, 10000);
   setInterval(() => { if (data) { idx++; render(); } }, 12000);

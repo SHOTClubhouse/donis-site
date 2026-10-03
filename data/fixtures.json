@@ -1,8 +1,8 @@
 {
   "_note": "Live scores for donis.shotclubhouse.com/london-26/games/. Edit at /london-26/score/ with the scorer passcode, not by hand. Every save is validated before it publishes.",
   "date": "2026-10-03",
-  "updated": "06:43",
-  "rev": 96,
+  "updated": "18:26",
+  "rev": 447,
   "divisions": [
     {
       "id": "mens",
@@ -75,9 +75,26 @@
     {
       "id": "legends",
       "name": "Legends",
-      "format": "exhibition",
-      "blurb": "19:00. The headline exhibition: four West Ham legends, claret against sky.",
-      "teams": []
+      "format": "round-robin",
+      "blurb": "19:00. Legends Claret, Legends Sky, the two fan MVPs and the men's champions. Everyone plays everyone once, then 1st v 2nd in the final at 19:48. Kick-off times are a guide.",
+      "teams": [
+        {
+          "id": "LC",
+          "name": "Legends Claret"
+        },
+        {
+          "id": "LS",
+          "name": "Legends Sky"
+        },
+        {
+          "id": "LM",
+          "name": "MVPs"
+        },
+        {
+          "id": "LW",
+          "name": "Champs"
+        }
+      ]
     }
   ],
   "stream": {
@@ -88,39 +105,45 @@
     "open": true
   },
   "fixtures": [
-    { "id": "L1", "division": "legends", "time": "19:00", "home": "Donis Claret", "away": "Donis Sky", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "M01", "division": "mens", "time": "13:00", "home": "MB4", "away": "MA5", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "M02", "division": "mens", "time": "13:10", "home": "MB1", "away": "MA1", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "M03", "division": "mens", "time": "13:20", "home": "MA2", "away": "MA6", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "M04", "division": "mens", "time": "13:30", "home": "MA3", "away": "MA4", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "M05", "division": "mens", "time": "13:40", "home": "MA5", "away": "MB2", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "M06", "division": "mens", "time": "13:50", "home": "MB6", "away": "MB3", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "M07", "division": "mens", "time": "14:00", "home": "MB4", "away": "MB5", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "M08", "division": "mens", "time": "14:10", "home": "MA6", "away": "MA4", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "M09", "division": "mens", "time": "14:20", "home": "MB1", "away": "MB2", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "M10", "division": "mens", "time": "14:30", "home": "MA2", "away": "MA3", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "M11", "division": "mens", "time": "14:40", "home": "MA5", "away": "MA1", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "M12", "division": "mens", "time": "14:50", "home": "MA4", "away": "MB6", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "M13", "division": "mens", "time": "15:00", "home": "MB5", "away": "MB2", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "M14", "division": "mens", "time": "15:10", "home": "MA6", "away": "MB3", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "M15", "division": "mens", "time": "15:20", "home": "MB4", "away": "MB1", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "M16", "division": "mens", "time": "15:30", "home": "MA2", "away": "MB6", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "M17", "division": "mens", "time": "15:40", "home": "MA1", "away": "MB5", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "M18", "division": "mens", "time": "15:50", "home": "MA3", "away": "MB3", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "M19", "division": "mens", "time": "16:00", "home": "MA5", "away": "MB1", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "M20", "division": "mens", "time": "16:10", "home": "MA6", "away": "MB6", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "M21", "division": "mens", "time": "16:20", "home": "MB4", "away": "MB2", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "M22", "division": "mens", "time": "16:30", "home": "MA2", "away": "MA4", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "M23", "division": "mens", "time": "16:40", "home": "MB1", "away": "MB5", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "M24", "division": "mens", "time": "16:50", "home": "MA3", "away": "MB6", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "M25", "division": "mens", "time": "17:00", "home": "MA1", "away": "MB2", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "M26", "division": "mens", "time": "17:10", "home": "MA4", "away": "MB3", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "M27", "division": "mens", "time": "17:20", "home": "MA5", "away": "MB5", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "M28", "division": "mens", "time": "17:30", "home": "MA6", "away": "MA3", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "M29", "division": "mens", "time": "17:40", "home": "MB4", "away": "MA1", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "M30", "division": "mens", "time": "17:50", "home": "MA2", "away": "MB3", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "SF1", "division": "mens", "stage": "Semi-final 1", "time": "18:00", "home": "1st Group A", "away": "2nd Group B", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "SF2", "division": "mens", "stage": "Semi-final 2", "time": "18:10", "home": "1st Group B", "away": "2nd Group A", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "MF", "division": "mens", "stage": "Final", "time": "18:20", "home": "Winner Semi-final 1", "away": "Winner Semi-final 2", "homeScore": null, "awayScore": null, "state": "scheduled" }
+    { "id": "M01", "division": "mens", "time": "13:00", "home": "MB4", "away": "MA5", "homeScore": 3, "awayScore": 8, "state": "ft" },
+    { "id": "M02", "division": "mens", "time": "13:10", "home": "MB1", "away": "MA1", "homeScore": 2, "awayScore": 9, "state": "ft" },
+    { "id": "M03", "division": "mens", "time": "13:20", "home": "MA2", "away": "MA6", "homeScore": 3, "awayScore": 4, "state": "ft" },
+    { "id": "M04", "division": "mens", "time": "13:30", "home": "MA3", "away": "MA4", "homeScore": 3, "awayScore": 5, "state": "ft" },
+    { "id": "M05", "division": "mens", "time": "13:40", "home": "MA5", "away": "MB2", "homeScore": 1, "awayScore": 4, "state": "ft" },
+    { "id": "M06", "division": "mens", "time": "13:50", "home": "MB6", "away": "MB3", "homeScore": 0, "awayScore": 6, "state": "ft" },
+    { "id": "M07", "division": "mens", "time": "14:00", "home": "MB4", "away": "MB5", "homeScore": 3, "awayScore": 2, "state": "ft" },
+    { "id": "M08", "division": "mens", "time": "14:10", "home": "MA6", "away": "MA4", "homeScore": 3, "awayScore": 5, "state": "ft" },
+    { "id": "M09", "division": "mens", "time": "14:20", "home": "MB1", "away": "MB2", "homeScore": 2, "awayScore": 2, "state": "ft" },
+    { "id": "M10", "division": "mens", "time": "14:30", "home": "MA2", "away": "MA3", "homeScore": 7, "awayScore": 2, "state": "ft" },
+    { "id": "M11", "division": "mens", "time": "14:40", "home": "MA5", "away": "MA1", "homeScore": 3, "awayScore": 6, "state": "ft" },
+    { "id": "M12", "division": "mens", "time": "14:50", "home": "MA4", "away": "MB6", "homeScore": 8, "awayScore": 2, "state": "ft" },
+    { "id": "M13", "division": "mens", "time": "15:00", "home": "MB5", "away": "MB2", "homeScore": 3, "awayScore": 2, "state": "ft" },
+    { "id": "M14", "division": "mens", "time": "15:10", "home": "MA6", "away": "MB3", "homeScore": 4, "awayScore": 6, "state": "ft" },
+    { "id": "M15", "division": "mens", "time": "15:20", "home": "MB4", "away": "MB1", "homeScore": 3, "awayScore": 3, "state": "ft" },
+    { "id": "M16", "division": "mens", "time": "15:30", "home": "MA2", "away": "MB6", "homeScore": 8, "awayScore": 2, "state": "ft" },
+    { "id": "M17", "division": "mens", "time": "15:40", "home": "MA1", "away": "MB5", "homeScore": 9, "awayScore": 2, "state": "ft" },
+    { "id": "M18", "division": "mens", "time": "15:50", "home": "MA3", "away": "MB3", "homeScore": 3, "awayScore": 6, "state": "ft" },
+    { "id": "M19", "division": "mens", "time": "16:00", "home": "MA5", "away": "MB1", "homeScore": 4, "awayScore": 1, "state": "ft" },
+    { "id": "M20", "division": "mens", "time": "16:10", "home": "MA6", "away": "MB6", "homeScore": 2, "awayScore": 7, "state": "ft" },
+    { "id": "M21", "division": "mens", "time": "16:20", "home": "MB4", "away": "MB2", "homeScore": 2, "awayScore": 4, "state": "ft" },
+    { "id": "M22", "division": "mens", "time": "16:30", "home": "MA2", "away": "MA4", "homeScore": 10, "awayScore": 4, "state": "ft" },
+    { "id": "M23", "division": "mens", "time": "16:40", "home": "MB1", "away": "MB5", "homeScore": 4, "awayScore": 10, "state": "ft" },
+    { "id": "M24", "division": "mens", "time": "16:50", "home": "MA3", "away": "MB6", "homeScore": 3, "awayScore": 4, "state": "ft" },
+    { "id": "M25", "division": "mens", "time": "17:00", "home": "MA1", "away": "MB2", "homeScore": 2, "awayScore": 5, "state": "ft" },
+    { "id": "M26", "division": "mens", "time": "17:10", "home": "MA4", "away": "MB3", "homeScore": 3, "awayScore": 2, "state": "ft" },
+    { "id": "M27", "division": "mens", "time": "17:20", "home": "MA5", "away": "MB5", "homeScore": 2, "awayScore": 4, "state": "ft" },
+    { "id": "M28", "division": "mens", "time": "17:30", "home": "MA6", "away": "MA3", "homeScore": 5, "awayScore": 4, "state": "ft" },
+    { "id": "M29", "division": "mens", "time": "17:40", "home": "MB4", "away": "MA1", "homeScore": 1, "awayScore": 7, "state": "ft" },
+    { "id": "M30", "division": "mens", "time": "17:50", "home": "MA2", "away": "MB3", "homeScore": 5, "awayScore": 4, "state": "ft" },
+    { "id": "SF1", "division": "mens", "stage": "Semi-final 1", "time": "18:00", "home": "1st Group A", "away": "2nd Group B", "homeScore": 9, "awayScore": 3, "state": "ft" },
+    { "id": "SF2", "division": "mens", "stage": "Semi-final 2", "time": "18:10", "home": "1st Group B", "away": "2nd Group A", "homeScore": 1, "awayScore": 3, "state": "ft" },
+    { "id": "MF", "division": "mens", "stage": "Final", "time": "18:20", "home": "Winner Semi-final 1", "away": "Winner Semi-final 2", "homeScore": 3, "awayScore": 4, "state": "ft" },
+    { "id": "L1", "division": "legends", "time": "19:00", "home": "LC", "away": "LS", "homeScore": null, "awayScore": null, "state": "scheduled" },
+    { "id": "L2", "division": "legends", "time": "19:08", "home": "LM", "away": "LW", "homeScore": null, "awayScore": null, "state": "scheduled" },
+    { "id": "L3", "division": "legends", "time": "19:16", "home": "LC", "away": "LM", "homeScore": null, "awayScore": null, "state": "scheduled" },
+    { "id": "L4", "division": "legends", "time": "19:24", "home": "LS", "away": "LW", "homeScore": null, "awayScore": null, "state": "scheduled" },
+    { "id": "L5", "division": "legends", "time": "19:32", "home": "LC", "away": "LW", "homeScore": null, "awayScore": null, "state": "scheduled" },
+    { "id": "L6", "division": "legends", "time": "19:40", "home": "LS", "away": "LM", "homeScore": null, "awayScore": null, "state": "scheduled" },
+    { "id": "LF", "division": "legends", "stage": "Final", "time": "19:48", "home": "1st in table", "away": "2nd in table", "homeScore": null, "awayScore": null, "state": "scheduled" }
   ]
 }
