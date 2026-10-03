@@ -1,8 +1,8 @@
 {
   "_note": "Live scores for donis.shotclubhouse.com/london-26/games/. Edit at /london-26/score/ with the scorer passcode, not by hand. Every save is validated before it publishes.",
   "date": "2026-10-03",
-  "updated": "18:26",
-  "rev": 447,
+  "updated": "18:39",
+  "rev": 448,
   "divisions": [
     {
       "id": "mens",
@@ -75,26 +75,9 @@
     {
       "id": "legends",
       "name": "Legends",
-      "format": "round-robin",
-      "blurb": "19:00. Legends Claret, Legends Sky, the two fan MVPs and the men's champions. Everyone plays everyone once, then 1st v 2nd in the final at 19:48. Kick-off times are a guide.",
-      "teams": [
-        {
-          "id": "LC",
-          "name": "Legends Claret"
-        },
-        {
-          "id": "LS",
-          "name": "Legends Sky"
-        },
-        {
-          "id": "LM",
-          "name": "MVPs"
-        },
-        {
-          "id": "LW",
-          "name": "Champs"
-        }
-      ]
+      "format": "exhibition",
+      "blurb": "19:00. The legends take on the men's champions, the two fan MVPs and Donis, one game each. 6-minute games with 2 minutes between.",
+      "teams": []
     }
   ],
   "stream": {
@@ -138,12 +121,8 @@
     { "id": "SF1", "division": "mens", "stage": "Semi-final 1", "time": "18:00", "home": "1st Group A", "away": "2nd Group B", "homeScore": 9, "awayScore": 3, "state": "ft" },
     { "id": "SF2", "division": "mens", "stage": "Semi-final 2", "time": "18:10", "home": "1st Group B", "away": "2nd Group A", "homeScore": 1, "awayScore": 3, "state": "ft" },
     { "id": "MF", "division": "mens", "stage": "Final", "time": "18:20", "home": "Winner Semi-final 1", "away": "Winner Semi-final 2", "homeScore": 3, "awayScore": 4, "state": "ft" },
-    { "id": "L1", "division": "legends", "time": "19:00", "home": "LC", "away": "LS", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "L2", "division": "legends", "time": "19:08", "home": "LM", "away": "LW", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "L3", "division": "legends", "time": "19:16", "home": "LC", "away": "LM", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "L4", "division": "legends", "time": "19:24", "home": "LS", "away": "LW", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "L5", "division": "legends", "time": "19:32", "home": "LC", "away": "LW", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "L6", "division": "legends", "time": "19:40", "home": "LS", "away": "LM", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "LF", "division": "legends", "stage": "Final", "time": "19:48", "home": "1st in table", "away": "2nd in table", "homeScore": null, "awayScore": null, "state": "scheduled" }
+    { "id": "L1", "division": "legends", "time": "19:00", "home": "Legends", "away": "Champs", "homeScore": null, "awayScore": null, "state": "scheduled" },
+    { "id": "L2", "division": "legends", "time": "19:08", "home": "Legends", "away": "MVPs", "homeScore": null, "awayScore": null, "state": "scheduled" },
+    { "id": "L3", "division": "legends", "time": "19:16", "home": "Legends", "away": "Donis", "homeScore": null, "awayScore": null, "state": "scheduled" }
   ]
 }
