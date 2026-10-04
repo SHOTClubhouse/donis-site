@@ -1,8 +1,8 @@
 {
   "_note": "Live scores for donis.shotclubhouse.com/london-26/games/. Edit at /london-26/score/ with the scorer passcode, not by hand. Every save is validated before it publishes.",
   "date": "2026-10-03",
-  "updated": "18:42",
-  "rev": 450,
+  "updated": "19:55",
+  "rev": 508,
   "divisions": [
     {
       "id": "mens",
@@ -138,11 +138,10 @@
     { "id": "SF1", "division": "mens", "stage": "Semi-final 1", "time": "18:00", "home": "1st Group A", "away": "2nd Group B", "homeScore": 9, "awayScore": 3, "state": "ft" },
     { "id": "SF2", "division": "mens", "stage": "Semi-final 2", "time": "18:10", "home": "1st Group B", "away": "2nd Group A", "homeScore": 1, "awayScore": 3, "state": "ft" },
     { "id": "MF", "division": "mens", "stage": "Final", "time": "18:20", "home": "Winner Semi-final 1", "away": "Winner Semi-final 2", "homeScore": 3, "awayScore": 4, "state": "ft" },
-    { "id": "L1", "division": "legends", "time": "19:00", "home": "LG", "away": "CH", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "L2", "division": "legends", "time": "19:10", "home": "MV", "away": "DN", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "L3", "division": "legends", "time": "19:20", "home": "LG", "away": "MV", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "L4", "division": "legends", "time": "19:30", "home": "CH", "away": "DN", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "L5", "division": "legends", "time": "19:40", "home": "LG", "away": "DN", "homeScore": null, "awayScore": null, "state": "scheduled" },
-    { "id": "L6", "division": "legends", "time": "19:50", "home": "CH", "away": "MV", "homeScore": null, "awayScore": null, "state": "scheduled" }
+    { "id": "L1", "division": "legends", "time": "19:00", "home": "LG", "away": "CH", "homeScore": 4, "awayScore": 5, "state": "ft" },
+    { "id": "L2", "division": "legends", "time": "19:10", "home": "MV", "away": "DN", "homeScore": 7, "awayScore": 4, "state": "ft" },
+    { "id": "L3", "division": "legends", "time": "19:20", "home": "LG", "away": "MV", "homeScore": 7, "awayScore": 1, "state": "ft" },
+    { "id": "L4", "division": "legends", "time": "19:30", "home": "CH", "away": "DN", "homeScore": 3, "awayScore": 5, "state": "ft" },
+    { "id": "L5", "division": "legends", "time": "19:40", "home": "LG", "away": "DN", "homeScore": 5, "awayScore": 6, "state": "ft" }
   ]
 }
