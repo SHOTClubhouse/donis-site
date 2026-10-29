@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Donis Clubhouse</title>
+<meta name="description" content="Download SHOT Clubhouse and follow the planned Donis member area, events and content.">
+<meta name="theme-color" content="#0a0a0a">
+<meta name="robots" content="noindex"><!-- TODO: VERIFY remove once Donis sign off brand use -->
+<link rel="icon" href="/assets/brand/shot-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600&family=Libre+Caslon+Text&family=Pirata+One&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/donis.css">
+<link rel="stylesheet" href="/assets/css/pages.css">
+<script src="/assets/js/config.js"></script>
+<script src="/assets/js/site.js" defer></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const C = window.DONIS_CONFIG;
+    document.querySelector('[data-app="ios"]').href = C.appStore;
+    document.querySelector('[data-app="android"]').href = C.playStore;
+    document.querySelector('[data-app="web"]').href = C.clubhouseWeb;
+  });
+</script>
+</head>
+<body>
+<div data-nav></div>
+<main id="main">
+  <header class="phead grid-paper">
+    <div class="wrap">
+      <span class="mono muted kicker">Donis &times; SHOT</span>
+      <h1 class="gothic h-xl">The Clubhouse</h1>
+      <p class="lede" style="margin-top:16px">SHOT Clubhouse is available to download. A dedicated Donis member area is being planned for events, squads, music and football content.</p>
+    </div>
+  </header>
+
+  <section class="sec">
+    <div class="wrap g4">
+      <article class="stat rv"><span class="mono acid">Announcements</span><b style="font-size:40px">First word</b><p class="muted">Line-ups, set times and pre-sale land here before anywhere else.</p></article>
+      <article class="stat rv"><span class="mono acid">Fixtures &amp; results</span><b style="font-size:40px">Live scores</b><p class="muted">Every cage game on the day, scored as it happens.</p></article>
+      <article class="stat rv"><span class="mono acid">Your squad</span><b style="font-size:40px">Team page</b><p class="muted">Team captains add their players, kit and results.</p></article>
+      <article class="stat rv"><span class="mono acid">Pulse</span><b style="font-size:40px">News &amp; clips</b><p class="muted">Highlights, stories and drops from the artists and the legends.</p></article>
+    </div>
+  </section>
+
+  <section class="sec--tight">
+    <div class="wrap">
+      <div class="next">
+        <div class="next__step rv"><span class="num">1</span><h3>Explore Donis</h3><p class="muted">See the next event and the proposed annual memberships.</p><a class="btn btn--orange btn--sm" href="/essex-27/">Essex 27</a></div>
+        <div class="next__step rv"><span class="num">2</span><h3>Get SHOT Clubhouse</h3><p class="muted">Download the app, or use it on the web. Sign in, or create a free account.</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn btn--ghost btn--sm" data-app="ios" rel="noopener">App Store</a><a class="btn btn--ghost btn--sm" data-app="android" rel="noopener">Google Play</a><a class="btn btn--ghost btn--sm" data-app="web" rel="noopener">Web</a></div></div>
+        <div class="next__step rv"><span class="num">3</span><h3>Get Donis updates</h3><p class="muted">The Donis member area and paid tiers are being prepared. Join the updates list to hear when they open.</p><a class="btn btn--ghost btn--sm" href="/join/">Join updates</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap g2">
+      <div class="card rv"><div class="card__media" style="aspect-ratio:4/5"><img src="/assets/img/street-cans.webp" alt="The Donis crew raising cans" loading="lazy"></div></div>
+      <div class="rv" style="align-self:center">
+        <span class="mono muted kicker">Why a Clubhouse</span>
+        <h2 class="display h-md">The day ends.<br><span class="acid">The club doesn't.</span></h2>
+        <p class="lede">London was the first edition. The Donis community can carry on between events, with new locations and member content added as they are confirmed.</p>
+      </div>
+    </div>
+  </section>
+</main>
+<div data-footer></div>
+</body>
+</html>

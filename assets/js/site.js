@@ -70,7 +70,7 @@
     ["/london-26/sponsors/", "Partners"],
     ["/london-26/faq/", "FAQs"],
   ];
-  const links = [["/london-26/", "London 26"], ...edition.slice(1), ["/#merch", "Merch"], ["/join/", "Join the waitlist"]];
+  const links = [["/#events", "Events"], ["/#community", "Community"], ["/#shop", "Shop"], ["/#partners", "Partners"], ["/membership/", "Membership"], ["/clubhouse/", "App"]];
 
   // Tab strip across the London 26 pages, so the next page is one tap away on a phone
   // where the main nav sits behind the menu button.
@@ -101,7 +101,7 @@
           </button>
           <nav class="nav__links" id="nav-links" aria-label="Main">
             ${links.map(([h, t]) => `<a href="${h}" ${h === here ? 'aria-current="page"' : ""}>${t}</a>`).join("")}
-            <a class="btn btn--orange btn--sm" href="${C.eventbrite}" target="_blank" rel="noopener">Get tickets</a>
+            <a class="btn btn--orange btn--sm" href="/essex-27/">Essex 27</a>
           </nav>
         </div>
       </header>`;
@@ -132,13 +132,13 @@
             <div>
               <p class="mono">Editions</p>
               <a href="/london-26/">London 26</a>
-              <a href="/#editions">Bristol · Nov 26</a>
-              <a href="/#editions">Essex · Dec 26</a>
-              <a href="/#editions">Sand &amp; Snow · 27</a>
+              <a href="/#events">Bristol · Nov 26</a>
+              <a href="/essex-27/">Essex · Jan 27</a>
+              <a href="/#events">Sand &amp; Snow · 27</a>
             </div>
             <div>
               <p class="mono">Donis</p>
-              <a href="${C.eventbrite}" target="_blank" rel="noopener">Tickets on Eventbrite</a>
+              <a href="/membership/">Membership</a>
               <a href="${C.instagram}" rel="noopener">Instagram</a>
               <a href="${C.donis}" rel="noopener">donis.uk</a>
             </div>
@@ -182,8 +182,9 @@
       cells.d.textContent = pad(d); cells.h.textContent = pad(h); cells.m.textContent = pad(m); cells.s.textContent = pad(s);
       if (target - Date.now() <= 0) { el.dataset.live = "1"; clearInterval(timer); }
     };
+    let timer = null;
     tick();
-    const timer = setInterval(tick, 1000);
+    if (target > Date.now()) timer = setInterval(tick, 1000);
   };
 
   // Pause background video for people who asked for less motion, and off-screen to save battery.
