@@ -373,6 +373,7 @@
 .subhero { padding: clamp(40px, 7vw, 96px) 0 clamp(28px, 4vw, 48px); border-bottom: 1px solid var(--line); }
 .subhero__top { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
 .subhero__title { font-size: clamp(72px, 14vw, 200px); margin: 18px 0 14px; }
+@media (max-width: 560px) { .subhero__title--long { font-size: clamp(42px, 11vw, 62px); } }
 .nextband { border-top: 1px solid var(--line); padding: clamp(40px, 6vw, 72px) 0; }
 .nextband__in { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; }
 .nextband h2 { margin: 10px 0 0; }
