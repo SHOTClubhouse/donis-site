@@ -178,71 +178,38 @@
   },
   "faq": [
     {
-      "q": "When and where is it?",
-      "a": "Saturday 3 October 2026 at Riverside East, 5 Thornton Street, London E20 2AD. Doors open at 11:40."
+      "q": "When and where was London 26?",
+      "a": "Saturday 3 October 2026 at Riverside East, 5 Thornton Street, Stratford, London E20 2AD."
     },
     {
-      "q": "What time does everything happen?",
-      "a": "Doors 11:40. Men's 2v2 from 13:00 to 18:30. The legends game is at 19:00. The afterparty runs from 20:00 to 22:30."
+      "q": "Who won the men's 2v2?",
+      "a": "Durkin FC beat Donis Futbol Club 4–3 in the final. The score is in the published London 26 results."
     },
     {
-      "q": "How do I get tickets or enter a team?",
-      "a": "London 26 has finished. See the Essex 27 preview for the next event."
+      "q": "How many teams and games were recorded?",
+      "a": "The published scoreboard lists 12 men's teams and 38 completed games: 33 men's games and five legends games. Those final scores contain 313 goals."
     },
     {
-      "q": "How old do I need to be?",
-      "a": "13+ for the day. The afterparty from 8pm is 18+, so under-18s leave at 8pm."
-    },
-    {
-      "q": "What's the max squad size?",
-      "a": "Four: two playing, two subs."
-    },
-    {
-      "q": "What do I wear?",
-      "a": "Street football means street shoes. Games are on concrete."
-    },
-    {
-      "q": "Can we bring our own kit?",
-      "a": "Yes. Build your team's kit and bring it. Reach out to Donis if you want help."
-    },
-    {
-      "q": "Where can I follow the scores?",
-      "a": "Live on the Games page: donis.shotclubhouse.com/london-26/games. It updates by itself through the day."
-    },
-    {
-      "q": "What do the winners get?",
-      "a": "The winning men's 2v2 team wins two tickets to Race Across the Desert."
-    },
-    {
-      "q": "What's the giveaway?",
-      "a": "Buy a Donis London 26 Fan Ticket and you're entered into the draw for a signed Paolo Di Canio West Ham shirt. The winner is drawn after the legends game."
-    },
-    {
-      "id": "rules",
-      "q": "What are the rules?",
-      "a": "It's 2v2 on concrete in street shoes, in squads of up to four, and games last 8 minutes. Kick-offs are back to back on the centre spot. Kick-ins and corners can be passed or dribbled in, with defenders 3 yards back. A defender can't stay in the box for more than 5 seconds in a row, or it's a penalty: a 1v1 where the attacker has 10 seconds from their own half. Unsportsmanlike conduct means a one-minute sin bin. The full rules are on the Games page."
+      "q": "What happened in the legends round?",
+      "a": "The published scores show five legends-round games. Donis finished top of the recorded table on six points."
     },
     {
       "id": "mvp-vote",
-      "q": "How does the fan MVP vote work?",
-      "a": "While a game is live, the Games page shows both teams' players under the live stream. Tap the best one to vote. You get one vote per game, and you can change it until the vote for that game closes, a minute after full time. Votes add up across the day, and the two players with the most votes play in the 19:00 legends game."
+      "q": "How did the fan MVP vote finish?",
+      "a": "The public fan vote tally recorded 188 votes across the day. Voting is closed."
     },
     {
-      "id": "vote-email",
-      "q": "Do I need to give my email to vote?",
-      "a": "No. A vote only stores a random code for your phone, so each phone votes once per game. For news about future Donis events and the Donis Clubhouse, join the Clubhouse instead."
+      "q": "Where can I see the results?",
+      "a": "The Games page at donis.shotclubhouse.com/london-26/games holds the final scores, knockout bracket and tables."
     },
     {
-      "q": "Is there parking?",
-      "a": "No free parking. The nearest car park is Westfield Stratford City, Montfichet Road, E20 1EJ."
+      "id": "rules",
+      "q": "What format did they play?",
+      "a": "Men's games were 2v2 on concrete in street shoes, with squads of up to four. The group stage led to two semi-finals and a final."
     },
     {
-      "q": "Can I get a refund?",
-      "a": "Refunds follow the Eventbrite listing's policy."
-    },
-    {
-      "q": "I've got another question.",
-      "a": "Message Donis on Instagram at @donisclub."
+      "q": "What's next for Donis?",
+      "a": "Explore the Essex 27 event preview and join the Donis updates list for confirmed event and Clubhouse news."
     }
   ],
   "sponsors": [
@@ -278,7 +245,7 @@
       "strip": false,
       "blurb": [
         "SHOT Clubhouse brings a whole club into one app: teams, fixtures, announcements and the people in it.",
-        "For Donis it runs this site, the live scores and tables you follow on your phone, and the big screen at the cage."
+        "For London 26 it ran this site, the matchday scores and tables on phones, and the big screen at the cage."
       ],
       "_source": "SHOT"
     }

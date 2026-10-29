@@ -68,7 +68,7 @@
     ["/london-26/the-sound/", "The Sound"],
     ["/london-26/legends/", "Legends"],
     ["/london-26/sponsors/", "Partners"],
-    ["/london-26/faq/", "FAQs"],
+    ["/london-26/faq/", "Event info"],
   ];
   const links = [["/#events", "Events"], ["/#community", "Community"], ["/#shop", "Shop"], ["/#partners", "Partners"], ["/membership/", "Membership"], ["/clubhouse/", "App"]];
 
@@ -132,9 +132,9 @@
             <div>
               <p class="mono">Editions</p>
               <a href="/london-26/">London 26</a>
-              <a href="/#events">Bristol · Nov 26</a>
+              <a href="/#events">Bristol · date TBA</a>
               <a href="/essex-27/">Essex · Jan 27</a>
-              <a href="/#events">Sand &amp; Snow · 27</a>
+              <a href="/#events">Sand &amp; Snow · date TBA</a>
             </div>
             <div>
               <p class="mono">Donis</p>

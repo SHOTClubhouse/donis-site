@@ -52,8 +52,8 @@ document.addEventListener("DOMContentLoaded", () => {
   function render() {
     box.hidden = false;
     if (!t) {
-      box.innerHTML = `<div class="mvpbox__head"><span class="tag">Coming up</span><h2 class="display mvpbox__title">Vote for the MVP</h2></div>
-        <p class="mvpbox__lede">When a game kicks off, its players appear here. Tap the best one to vote. The top two at the end of the day play in the Legends game at 19:00.</p>`;
+      box.innerHTML = `<div class="mvpbox__head"><span class="tag">London 26</span><h2 class="display mvpbox__title">Fan MVP vote</h2></div>
+        <p class="mvpbox__lede">Loading the final vote tally.</p>`;
       return;
     }
     const done = t.over || !t.open;
@@ -63,12 +63,12 @@ document.addEventListener("DOMContentLoaded", () => {
       const star = t.over && lead.star.includes(p.id), tied = t.over && lead.tied.includes(p.id);
       return `<div class="mvpbox__opt ${star ? "is-star" : ""}" role="listitem"><span class="mvpbox__bar" style="width:${max ? Math.round((p.votes / max) * 100) : 0}%"></span>
         <span class="mvpbox__who"><b>${E(p.name)}</b><small>${E(p.team)}</small></span>
-        <span class="mvpbox__pct">${p.votes}${star ? "<small>Plays with the legends</small>" : tied ? "<small>Tied · organisers decide</small>" : ""}</span></div>`;
+        <span class="mvpbox__pct">${p.votes}${star ? "<small>Top fan vote</small>" : tied ? "<small>Tied in the vote</small>" : ""}</span></div>`;
     }).join("");
     box.innerHTML = `
       <div class="mvpbox__head"><span class="tag ${t.over ? "tag--orange" : t.open ? "tag--live" : ""}">${t.over ? "Voting closed" : t.open ? "Fan vote" : "Vote paused"}</span>
         <h2 class="display mvpbox__title">${t.over ? "Your MVPs" : "Vote for the MVP"}</h2></div>
-      <p class="mvpbox__lede">${t.over ? "Every game is done. The two players with the most votes play in the Legends game at 19:00."
+      <p class="mvpbox__lede">${t.over ? "Voting has closed. This is the final fan vote tally from London 26."
         : !t.open ? "The fan vote is paused for now."
         : "Pick the best player in the game you're watching. One vote per game, and votes add up all day. The top two play in the Legends game at 19:00."}</p>
       ${done ? "" : t.games.length ? t.games.map(gameCard).join("") : `<p class="mvpg__idle mono">No game on right now. The vote opens when the next game kicks off.</p>`}
@@ -90,7 +90,10 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!r.ok) throw new Error(r.status);
       take(await r.json());
       if (!sending) render();
-    } catch (e) { /* keep the last good view */ }
+    } catch (e) {
+      if (!t) box.innerHTML = `<div class="mvpbox__head"><span class="tag">London 26</span><h2 class="display mvpbox__title">Fan MVP vote</h2></div>
+        <p class="mvpbox__lede">The final tally is unavailable. Refresh to try again.</p>`;
+    }
   }
 
   async function vote(game, player, name) {

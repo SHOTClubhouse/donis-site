@@ -1,4 +1,4 @@
-// London 26 games page: schedule, live scores and league tables from /data/fixtures.json.
+// London 26 results archive: final scores and league tables from the published board.
 // The scorer page saves that file; this page re-reads it every 10 seconds on matchday.
 document.addEventListener("DOMContentLoaded", () => {
   const E = Donis.esc;
@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
     live.forEach((f) => cards.push(["Live now", f]));
     // Between games, the score that just finished stays on top so there is always one to see.
     const last = live.length ? null : all.filter((f) => f.state === "ft").pop();
-    if (last) cards.push(["Latest result", last]);
+    if (last) cards.push([done ? "Final game" : "Latest result", last]);
     if (next) cards.push(["Up next", next]);
     el.now.hidden = !cards.length;
     el.now.innerHTML = cards.map(([k, f]) => {
@@ -137,7 +137,8 @@ document.addEventListener("DOMContentLoaded", () => {
     el.blurb.textContent = div.blurb || "";
     const rows = data.fixtures.filter((f) => f.division === div.id).sort(byTime);
     const champ = window.DonisStandings && window.DonisStandings.champion(div, rows);
-    const banner = champ ? `<div class="champ"><span class="mono">${E(div.name)} champions · ${E(champ.how)}</span><b class="display">${E(label(div, champ.ref).text)}</b></div>` : "";
+    // The published legends board has five of the six possible pairings, so it has a table leader but no decided champion.
+    const banner = champ && div.id !== "legends" ? `<div class="champ"><span class="mono">${E(div.name)} champions · ${E(champ.how)}</span><b class="display">${E(label(div, champ.ref).text)}</b></div>` : "";
     const group = rows.filter((f) => !f.stage), ko = rows.filter((f) => f.stage);
     el.schedule.innerHTML = banner
       + (group.length ? `<ol class="gms">${group.map((f) => gameRow(f, div)).join("")}</ol>` : ko.length ? "" : `<p class="board__empty">${E(div.message || "Fixtures to follow.")}</p>`)
@@ -213,7 +214,7 @@ document.addEventListener("DOMContentLoaded", () => {
     renderNow();
     renderStream();
     renderDiv();
-    if (el.updated) el.updated.textContent = data.updated ? `Updated ${data.updated} · refreshes by itself` : "Scores go up here on the day.";
+    if (el.updated) el.updated.textContent = data.updated ? `Final scores · last recorded ${data.updated} on 3 October 2026` : "London 26 results archive.";
   }
 
   el.tabs.addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) { chosen = true; select(b.dataset.div, true); } });
@@ -225,9 +226,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   window.addEventListener("hashchange", () => { chosen = true; select(location.hash.slice(1), false); });
 
-  // Pick up new scores without a refresh (every 5s while the page is on screen, any day,
-  // so a rehearsal behaves like matchday), and straight away when a phone wakes.
+  // London 26 is complete. Load the recorded scores once rather than polling the live feed.
   load();
-  setInterval(() => { if (!document.hidden) load(); }, 5000);
-  document.addEventListener("visibilitychange", () => { if (!document.hidden) load(); });
 });
