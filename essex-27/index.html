@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="/assets/css/pages.css">
 <script src="/assets/js/config.js"></script>
 <script src="/assets/js/site.js" defer></script>
+<script src="/assets/js/essex-booking.js" defer></script>
 </head>
 <body>
 <div data-nav></div>
@@ -43,6 +44,32 @@
       <h2 class="gothic h-lg">Booking opens soon</h2>
       <p class="lede">The proposed early bird price is £15 until 30 November 2026, then £20 from 1 December. Sales are not open on this site yet.</p>
       <p class="muted">Final event details, ticket terms and the booking opening date will appear here before sales begin.</p>
+      <div class="g2" style="margin:32px 0">
+        <div class="card"><div class="card__body">
+          <span class="tag tag--orange">Booking mockup</span>
+          <h3 class="display h-md">Choose your tickets</h3>
+          <p>This preview shows the proposed booking journey. It does not reserve tickets or take payment.</p>
+          <p class="muted">Venue, times, capacity, minimum age, ticket inclusions and refund terms: to be confirmed.</p>
+          <label class="mono" for="ticket-quantity">Number of tickets</label>
+          <select id="ticket-quantity" style="display:block;min-height:44px;padding:10px;margin:12px 0 20px;background:var(--ink);color:var(--bone);border:1px solid var(--line-strong);font:inherit">
+            <option value="1">1 ticket</option><option value="2">2 tickets</option><option value="3">3 tickets</option><option value="4">4 tickets</option><option value="5">5 tickets</option><option value="6">6 tickets</option>
+          </select>
+          <p class="muted">Quantity options are illustrative. Booking limits will be confirmed.</p>
+          <button class="btn btn--orange" type="button" data-payment-preview aria-controls="payment-preview" aria-expanded="false">See payment preview <span class="arrow">&rarr;</span></button>
+        </div></div>
+        <div class="card"><div class="card__body">
+          <span class="mono orange">Your preview</span><h3 class="display h-md">Essex 27</h3>
+          <p>29 January 2027 · Essex</p>
+          <p data-ticket-summary aria-live="polite">1 early bird ticket × £15</p>
+          <p class="display h-md" data-ticket-total>£15</p>
+          <p class="muted">Illustrative ticket total. Any applicable booking fees will be confirmed before sales open.</p>
+          <div id="payment-preview" hidden tabindex="-1" style="border-top:1px solid var(--line-strong);padding-top:20px">
+            <h4 class="display h-sm">Payment preview only</h4>
+            <p>Live booking will continue to Stripe for payment once sales open.</p>
+            <p class="muted">No booking has been made. No personal details or card details are collected in this mockup.</p>
+          </div>
+        </div></div>
+      </div>
       <a class="btn btn--ghost" href="/join/">Join the Donis updates list <span class="arrow">&rarr;</span></a>
     </div>
   </section>
