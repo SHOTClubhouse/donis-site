@@ -70,7 +70,7 @@
     ["/london-26/sponsors/", "Partners"],
     ["/london-26/faq/", "Event info"],
   ];
-  const links = [["/#events", "Events"], ["/#community", "Community"], ["/#shop", "Shop"], ["/#partners", "Partners"], ["/membership/", "Membership"], ["/clubhouse/", "App"]];
+  const links = [["/about/", "About"], ["/#events", "Events"], ["/community/", "Community"], ["/news/", "News"], ["/shop/", "Shop"], ["/#partners", "Partners"], ["/membership/", "Membership"], ["/clubhouse/", "App"]];
 
   // Tab strip across the London 26 pages, so the next page is one tap away on a phone
   // where the main nav sits behind the menu button.
@@ -132,12 +132,14 @@
             <div>
               <p class="mono">Editions</p>
               <a href="/london-26/">London 26</a>
-              <a href="/#events">Bristol · date TBA</a>
               <a href="/essex-27/">Essex · Jan 27</a>
-              <a href="/#events">Sand &amp; Snow · date TBA</a>
+              <a href="/#events">Dubai · Nov 27 TBC</a>
             </div>
             <div>
               <p class="mono">Donis</p>
+              <a href="/about/">About us</a>
+              <a href="/community/">Community</a>
+              <a href="/news/">News</a>
               <a href="/membership/">Membership</a>
               <a href="${C.instagram}" rel="noopener">Instagram</a>
               <a href="${C.donis}" rel="noopener">donis.uk</a>
